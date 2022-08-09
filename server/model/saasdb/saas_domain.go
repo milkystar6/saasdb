@@ -10,7 +10,7 @@ import (
 type Domain struct {
       global.GVA_MODEL
       DomainId  *int `json:"domainId" form:"domainId" gorm:"column:domain_id;comment:;"`
-      InsId  *int `json:"insId" form:"insId" gorm:"column:ins_id;comment:;"`
+      //InsId  *int `json:"insId" form:"insId" gorm:"column:ins_id;comment:;"`
       DomainName  string `json:"domainName" form:"domainName" gorm:"column:domain_name;comment:;"`
       ProjId  *int `json:"projId" form:"projId" gorm:"column:proj_id;comment:;"`
 }
