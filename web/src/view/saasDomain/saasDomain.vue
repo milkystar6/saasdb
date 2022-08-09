@@ -9,6 +9,16 @@
         </el-form-item>
       </el-form>
     </div>
+    <div class="todo-item">
+      <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
+        <el-form-item>
+          <el-tag>TODO标签</el-tag>
+          <el-tag type="success">用集群的接口去get api的时候，复用 `/domain/getDomainList`这个api 然后修改实现方式 返回的查询结构体里面 根据集群id跟insid的对应关系
+            return需要的信息
+          </el-tag>
+        </el-form-item>
+      </el-form>
+    </div>
     <div class="gva-table-box">
       <div class="gva-btn-list">
         <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
@@ -89,7 +99,6 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
 export default {
   name: 'Domain',

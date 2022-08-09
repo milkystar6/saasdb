@@ -70,7 +70,20 @@
     border-radius: 2px;
     margin-bottom: 12px;
 }
-
+.todo-item {
+    .el-collapse {
+        border: none;
+        .el-collapse-item__header,
+        .el-collapse-item__wrap {
+            border-bottom: none;
+        }
+    }
+    padding: 24px;
+    padding-bottom: 2px;
+    background-color: #fff;
+    border-radius: 2px;
+    margin-bottom: 12px;
+}
 .el-form--inline{
     .el-form-item{
         margin-right: 24px;

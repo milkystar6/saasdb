@@ -9,48 +9,54 @@
       </el-form>
     </div>
     <div class="gva-table-box">
-        <div class="gva-btn-list">
-            <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
-            <el-popover v-model:visible="deleteVisible" placement="top" width="160">
-            <p>确定要删除吗？</p>
-            <div style="text-align: right; margin-top: 8px;">
-                <el-button size="small" type="primary" link @click="deleteVisible = false">取消</el-button>
-                <el-button size="small" type="primary" @click="onDelete">确定</el-button>
-            </div>
-            <template #reference>
-                <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length" @click="deleteVisible = true">删除</el-button>
-            </template>
-            </el-popover>
-        </div>
-        <el-table
-        ref="multipleTable"
-        style="width: 100%"
-        tooltip-effect="dark"
-        :data="tableData"
-        row-key="ID"
-        @selection-change="handleSelectionChange"
-        >
-        <el-table-column type="selection" width="55" />
-        <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
-        </el-table-column>
-        <el-table-column align="left" label="insId" prop="insId" width="120" />
-        <el-table-column align="left" label="projId" prop="projId" width="120" />
-        <el-table-column align="left" label="ip" prop="ip" width="120" />
-        <el-table-column align="left" label="port" prop="port" width="120" />
-        <el-table-column align="left" label="application" prop="application" width="120" />
-        <el-table-column align="left" label="version" prop="version" width="120" />
-        <el-table-column align="left" label="useType" prop="useType" width="120" />
-        <el-table-column align="left" label="health" prop="health" width="120" />
+      <div class="gva-btn-list">
+        <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
+        <el-popover v-model:visible="deleteVisible" placement="top" width="160">
+          <p>确定要删除吗？</p>
+          <div style="text-align: right; margin-top: 8px;">
+            <el-button size="small" type="primary" link @click="deleteVisible = false">取消</el-button>
+            <el-button size="small" type="primary" @click="onDelete">确定</el-button>
+          </div>
+          <template #reference>
+            <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length"
+                       @click="deleteVisible = true"
+            >删除
+            </el-button>
+          </template>
+        </el-popover>
+      </div>
+      <el-table
+          ref="multipleTable"
+          style="width: 100%"
+          tooltip-effect="dark"
+          :data="tableData"
+          row-key="ID"
+          @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55"/>
+        <!--        <el-table-column align="left" label="日期" width="180">-->
+        <!--          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
+        <!--        </el-table-column>-->
+        <el-table-column align="left" label="实例ID" prop="insId" width="120"/>
+        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>
+        <el-table-column align="left" label="ip" prop="ip" width="120"/>
+        <el-table-column align="left" label="port" prop="port" width="120"/>
+        <el-table-column align="left" label="应用类型" prop="application" width="120"/>
+        <el-table-column align="left" label="数据库版本" prop="version" width="120"/>
+        <el-table-column align="left" label="使用类型" prop="useType" width="120"/>
+        <el-table-column align="left" label="健康状态" prop="health" width="120"/>
         <el-table-column align="left" label="按钮组">
-            <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateInstanceFunc(scope.row)">变更</el-button>
+          <template #default="scope">
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+                       @click="updateInstanceFunc(scope.row)"
+            >变更
+            </el-button>
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
-            </template>
+          </template>
         </el-table-column>
-        </el-table>
-        <div class="gva-pagination">
-            <el-pagination
+      </el-table>
+      <div class="gva-pagination">
+        <el-pagination
             layout="total, sizes, prev, pager, next, jumper"
             :current-page="page"
             :page-size="pageSize"
@@ -58,40 +64,47 @@
             :total="total"
             @current-change="handleCurrentChange"
             @size-change="handleSizeChange"
-            />
-        </div>
+        />
+      </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
-      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="insId:"  prop="insId" >
-          <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入" />
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增实例信息">
+      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="100px">
+        <el-form-item label="实例ID:" prop="insId">
+          <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="projId:"  prop="projId" >
-          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入" />
+        <el-form-item label="项目ID:" prop="projId">
+          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="ip:"  prop="ip" >
-          <el-input v-model="formData.ip" :clearable="true"  placeholder="请输入" />
+        <el-form-item label="ip:" prop="ip">
+          <el-input v-model="formData.ip" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="port:"  prop="port" >
-          <el-input v-model.number="formData.port" :clearable="true" placeholder="请输入" />
+        <el-form-item label="port:" prop="port">
+          <el-input v-model.number="formData.port" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="application:"  prop="application" >
-            <el-select v-model="formData.application" placeholder="请选择" style="width:100%" :clearable="true" >
-               <el-option v-for="item in ['oracle','mysql','redis','mongodb','tidb']" :key="item" :label="item" :value="item" />
-            </el-select>
+        <el-form-item label="数据库类型:" prop="application">
+          <el-select v-model="formData.application" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['oracle','mysql','redis','mongodb','tidb']" :key="item" :label="item"
+                       :value="item"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item label="version:"  prop="version" >
-          <el-input v-model="formData.version" :clearable="true"  placeholder="请输入" />
+        <el-form-item label="version:" prop="version">
+          <el-input v-model="formData.version" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="useType:"  prop="useType" >
-            <el-select v-model="formData.useType" placeholder="请选择" style="width:100%" :clearable="true" >
-               <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item" />
-            </el-select>
+        <el-form-item label="useType:" prop="useType">
+          <el-select v-model="formData.useType" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item"/>
+          </el-select>
         </el-form-item>
-        <el-form-item label="health:"  prop="health" >
-            <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true" >
-               <el-option v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']" :key="item" :label="item" :value="item" />
-            </el-select>
+        <el-form-item label="等级:" prop="level">
+          <el-input v-model="formData.level" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
+        <el-form-item label="health:" prop="health">
+          <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']"
+                       :key="item" :label="item" :value="item"
+            />
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -106,7 +119,7 @@
 
 <script>
 export default {
-  name: 'Instance'
+  name: 'Instance',
 }
 </script>
 
@@ -117,7 +130,7 @@ import {
   deleteInstanceByIds,
   updateInstance,
   findInstance,
-  getInstanceList
+  getInstanceList,
 } from '@/api/saasInstance'
 
 // 全量引入格式化工具 请按需保留
@@ -127,39 +140,39 @@ import { ref, reactive } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
-        insId: 0,
-        projId: 0,
-        ip: '',
-        port: 0,
-        version: '',
-        })
+  insId: 0,
+  projId: 0,
+  ip: '',
+  port: 0,
+  version: '',
+  level: '',
+})
 
 // 验证规则
 const rule = reactive({
-               insId : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
-               ip : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
-               port : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
-               application : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
+  insId: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
+  ip: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
+  port: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
+  application: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
 })
 
 const elFormRef = ref()
-
 
 // =========== 表格控制部分 ===========
 const page = ref(1)
@@ -208,90 +221,87 @@ getTableData()
 // ============== 表格控制部分结束 ===============
 
 // 获取需要的字典 可能为空 按需保留
-const setOptions = async () =>{
+const setOptions = async() => {
 }
 
 // 获取需要的字典 可能为空 按需保留
 setOptions()
 
-
 // 多选数据
 const multipleSelection = ref([])
 // 多选
 const handleSelectionChange = (val) => {
-    multipleSelection.value = val
+  multipleSelection.value = val
 }
 
 // 删除行
 const deleteRow = (row) => {
-    ElMessageBox.confirm('确定要删除吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-    }).then(() => {
-            deleteInstanceFunc(row)
-        })
-    }
-
+  ElMessageBox.confirm('确定要删除吗?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(() => {
+    deleteInstanceFunc(row)
+  })
+}
 
 // 批量删除控制标记
 const deleteVisible = ref(false)
 
 // 多选删除
 const onDelete = async() => {
-      const ids = []
-      if (multipleSelection.value.length === 0) {
-        ElMessage({
-          type: 'warning',
-          message: '请选择要删除的数据'
-        })
-        return
-      }
-      multipleSelection.value &&
-        multipleSelection.value.map(item => {
-          ids.push(item.ID)
-        })
-      const res = await deleteInstanceByIds({ ids })
-      if (res.code === 0) {
-        ElMessage({
-          type: 'success',
-          message: '删除成功'
-        })
-        if (tableData.value.length === ids.length && page.value > 1) {
-          page.value--
-        }
-        deleteVisible.value = false
-        getTableData()
-      }
+  const ids = []
+  if (multipleSelection.value.length === 0) {
+    ElMessage({
+      type: 'warning',
+      message: '请选择要删除的数据',
+    })
+    return
+  }
+  multipleSelection.value &&
+  multipleSelection.value.map(item => {
+    ids.push(item.ID)
+  })
+  const res = await deleteInstanceByIds({ ids })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    if (tableData.value.length === ids.length && page.value > 1) {
+      page.value--
     }
+    deleteVisible.value = false
+    getTableData()
+  }
+}
 
 // 行为控制标记（弹窗内部需要增还是改）
 const type = ref('')
 
 // 更新行
 const updateInstanceFunc = async(row) => {
-    const res = await findInstance({ ID: row.ID })
-    type.value = 'update'
-    if (res.code === 0) {
-        formData.value = res.data.resaas_instance
-        dialogFormVisible.value = true
-    }
+  const res = await findInstance({ ID: row.ID })
+  type.value = 'update'
+  if (res.code === 0) {
+    formData.value = res.data.resaas_instance
+    dialogFormVisible.value = true
+  }
 }
 
-
 // 删除行
-const deleteInstanceFunc = async (row) => {
-    const res = await deleteInstance({ ID: row.ID })
-    if (res.code === 0) {
-        ElMessage({
-                type: 'success',
-                message: '删除成功'
-            })
-            if (tableData.value.length === 1 && page.value > 1) {
-            page.value--
-        }
-        getTableData()
+const deleteInstanceFunc = async(row) => {
+  const res = await deleteInstance({ ID: row.ID })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    if (tableData.value.length === 1 && page.value > 1) {
+      page.value--
     }
+    getTableData()
+  }
 }
 
 // 弹窗控制标记
@@ -299,46 +309,46 @@ const dialogFormVisible = ref(false)
 
 // 打开弹窗
 const openDialog = () => {
-    type.value = 'create'
-    dialogFormVisible.value = true
+  type.value = 'create'
+  dialogFormVisible.value = true
 }
 
 // 关闭弹窗
 const closeDialog = () => {
-    dialogFormVisible.value = false
-    formData.value = {
-        insId: 0,
-        projId: 0,
-        ip: '',
-        port: 0,
-        version: '',
-        }
+  dialogFormVisible.value = false
+  formData.value = {
+    insId: 0,
+    projId: 0,
+    ip: '',
+    port: 0,
+    version: '',
+  }
 }
 // 弹窗确定
-const enterDialog = async () => {
-     elFormRef.value?.validate( async (valid) => {
-             if (!valid) return
-              let res
-              switch (type.value) {
-                case 'create':
-                  res = await createInstance(formData.value)
-                  break
-                case 'update':
-                  res = await updateInstance(formData.value)
-                  break
-                default:
-                  res = await createInstance(formData.value)
-                  break
-              }
-              if (res.code === 0) {
-                ElMessage({
-                  type: 'success',
-                  message: '创建/更改成功'
-                })
-                closeDialog()
-                getTableData()
-              }
+const enterDialog = async() => {
+  elFormRef.value?.validate(async(valid) => {
+    if (!valid) return
+    let res
+    switch (type.value) {
+      case 'create':
+        res = await createInstance(formData.value)
+        break
+      case 'update':
+        res = await updateInstance(formData.value)
+        break
+      default:
+        res = await createInstance(formData.value)
+        break
+    }
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '创建/更改成功',
       })
+      closeDialog()
+      getTableData()
+    }
+  })
 }
 </script>
 
