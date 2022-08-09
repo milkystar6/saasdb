@@ -7,6 +7,7 @@ const routes = [{
 {
   path: '/init',
   name: 'Init',
+  // 路由跳转
   component: () => import('@/view/init/index.vue')
 },
 {

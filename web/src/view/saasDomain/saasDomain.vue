@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="gva-search-box">
+      <!--   Element ui     -->
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
