@@ -14,8 +14,7 @@ func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
 	if err != nil {
 		global.GVA_LOG.Error("从Gin的Context中获取从jwt解析信息失败, 请检查请求头是否存在x-token且claims是否为规定结构")
 		// fix bug of qm lived
-		return &systemReq.CustomClaims{},err
-
+		return &systemReq.CustomClaims{}, err
 	}
 	return claims, err
 }
