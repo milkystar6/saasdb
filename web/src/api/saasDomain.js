@@ -8,11 +8,15 @@ import service from '@/utils/request'
 // @Param data body model.Domain true "创建Domain"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /domain/createDomain [post]
+
+// 函数表达式的方式 箭头函数 const fn =(参数) => {}
+// 参数只有一个的时候可以省略() 规范带()
+// service ==> axios.create()得到的
 export const createDomain = (data) => {
   return service({
     url: '/domain/createDomain',
     method: 'post',
-    data
+    data,
   })
 }
 
@@ -28,7 +32,7 @@ export const deleteDomain = (data) => {
   return service({
     url: '/domain/deleteDomain',
     method: 'delete',
-    data
+    data,
   })
 }
 
@@ -44,7 +48,7 @@ export const deleteDomainByIds = (data) => {
   return service({
     url: '/domain/deleteDomainByIds',
     method: 'delete',
-    data
+    data,
   })
 }
 
@@ -60,7 +64,7 @@ export const updateDomain = (data) => {
   return service({
     url: '/domain/updateDomain',
     method: 'put',
-    data
+    data,
   })
 }
 
@@ -76,7 +80,7 @@ export const findDomain = (params) => {
   return service({
     url: '/domain/findDomain',
     method: 'get',
-    params
+    params,
   })
 }
 
@@ -92,6 +96,6 @@ export const getDomainList = (params) => {
   return service({
     url: '/domain/getDomainList',
     method: 'get',
-    params
+    params,
   })
 }
