@@ -10,7 +10,7 @@ import (
 // Instance 结构体
 type Instance struct {
 	global.GVA_MODEL
-	InsId       *int     `json:"insId" form:"insId" gorm:"column:ins_id;comment:insId;uniqueIndex:ins_id;"`
+	//InsId       *int     `json:"insId" form:"insId" gorm:"column:ins_id;comment:insId;uniqueIndex:ins_id;"`
 	HostId      *int     `json:"hostId" form:"hostId" gorm:"column:host_id;comment:hostId;"`
 	ProjId      *int     `json:"projId" form:"projId" gorm:"column:proj_id;comment:项目id;"`
 	DomainId    *int     `json:"domainId" form:"domainId" gorm:"column:domain_id;comment:;"`

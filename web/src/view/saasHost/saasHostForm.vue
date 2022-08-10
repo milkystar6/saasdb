@@ -3,7 +3,7 @@
     <div class="gva-form-box">
       <el-form :model="formData" ref="elFormRef" label-position="right" :rules="rule" label-width="80px">
         <el-form-item label="hostId:" prop="hostId">
-          <el-input v-model.number="formData.hostId" :clearable="true" placeholder="请输入" />
+          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="hostname:" prop="hostname">
           <el-input v-model="formData.hostname" :clearable="true" placeholder="请输入" />

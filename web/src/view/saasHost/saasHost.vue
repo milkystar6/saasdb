@@ -9,46 +9,52 @@
       </el-form>
     </div>
     <div class="gva-table-box">
-        <div class="gva-btn-list">
-            <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
-            <el-popover v-model:visible="deleteVisible" placement="top" width="160">
-            <p>确定要删除吗？</p>
-            <div style="text-align: right; margin-top: 8px;">
-                <el-button size="small" type="primary" link @click="deleteVisible = false">取消</el-button>
-                <el-button size="small" type="primary" @click="onDelete">确定</el-button>
-            </div>
-            <template #reference>
-                <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length" @click="deleteVisible = true">删除</el-button>
-            </template>
-            </el-popover>
-        </div>
-        <el-table
-        ref="multipleTable"
-        style="width: 100%"
-        tooltip-effect="dark"
-        :data="tableData"
-        row-key="ID"
-        @selection-change="handleSelectionChange"
-        >
-        <el-table-column type="selection" width="55" />
+      <div class="gva-btn-list">
+        <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
+        <el-popover v-model:visible="deleteVisible" placement="top" width="160">
+          <p>确定要删除吗？</p>
+          <div style="text-align: right; margin-top: 8px;">
+            <el-button size="small" type="primary" link @click="deleteVisible = false">取消</el-button>
+            <el-button size="small" type="primary" @click="onDelete">确定</el-button>
+          </div>
+          <template #reference>
+            <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length"
+                       @click="deleteVisible = true"
+            >删除
+            </el-button>
+          </template>
+        </el-popover>
+      </div>
+      <el-table
+          ref="multipleTable"
+          style="width: 100%"
+          tooltip-effect="dark"
+          :data="tableData"
+          row-key="ID"
+          @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55"/>
         <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="hostId" prop="hostId" width="120" />
-        <el-table-column align="left" label="hostname" prop="hostname" width="120" />
-        <el-table-column align="left" label="ip" prop="ip" width="120" />
-        <el-table-column align="left" label="cpu" prop="cpu" width="120" />
-        <el-table-column align="left" label="memory" prop="memory" width="120" />
-        <el-table-column align="left" label="disksize" prop="disksize" width="120" />
+        <el-table-column align="left" label="hostId" prop="hostId" width="120"/>
+        <el-table-column align="left" label="hostname" prop="hostname" width="120"/>
+        <el-table-column align="left" label="ip" prop="ip" width="120"/>
+        <el-table-column align="left" label="cpu" prop="cpu" width="120"/>
+        <el-table-column align="left" label="memory" prop="memory" width="120"/>
+        <el-table-column align="left" label="disksize" prop="disksize" width="120"/>
         <el-table-column align="left" label="按钮组">
-            <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateHostFunc(scope.row)">变更</el-button>
+          <template #default="scope">
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+                       @click="updateHostFunc(scope.row)"
+            >变更
+            </el-button>
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
-            </template>
+          </template>
         </el-table-column>
-        </el-table>
-        <div class="gva-pagination">
-            <el-pagination
+      </el-table>
+      <div class="gva-pagination">
+        <el-pagination
             layout="total, sizes, prev, pager, next, jumper"
             :current-page="page"
             :page-size="pageSize"
@@ -56,28 +62,28 @@
             :total="total"
             @current-change="handleCurrentChange"
             @size-change="handleSizeChange"
-            />
-        </div>
+        />
+      </div>
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="hostId:"  prop="hostId" >
-          <el-input v-model.number="formData.hostId" :clearable="true" placeholder="请输入" />
+        <el-form-item label="hostId:" prop="hostId">
+          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="hostname:"  prop="hostname" >
-          <el-input v-model="formData.hostname" :clearable="true"  placeholder="请输入" />
+        <el-form-item label="hostname:" prop="hostname">
+          <el-input v-model="formData.hostname" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="ip:"  prop="ip" >
-          <el-input v-model="formData.ip" :clearable="true"  placeholder="请输入" />
+        <el-form-item label="ip:" prop="ip">
+          <el-input v-model="formData.ip" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="cpu:"  prop="cpu" >
-          <el-input v-model.number="formData.cpu" :clearable="true" placeholder="请输入" />
+        <el-form-item label="cpu:" prop="cpu">
+          <el-input v-model.number="formData.cpu" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="memory:"  prop="memory" >
-          <el-input v-model.number="formData.memory" :clearable="true" placeholder="请输入" />
+        <el-form-item label="memory:" prop="memory">
+          <el-input v-model.number="formData.memory" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="disksize:"  prop="disksize" >
-          <el-input v-model.number="formData.disksize" :clearable="true" placeholder="请输入" />
+        <el-form-item label="disksize:" prop="disksize">
+          <el-input v-model.number="formData.disksize" :clearable="true" placeholder="请输入"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -92,7 +98,7 @@
 
 <script>
 export default {
-  name: 'Host'
+  name: 'Host',
 }
 </script>
 
@@ -103,7 +109,7 @@ import {
   deleteHostByIds,
   updateHost,
   findHost,
-  getHostList
+  getHostList,
 } from '@/api/saasHost'
 
 // 全量引入格式化工具 请按需保留
@@ -113,30 +119,29 @@ import { ref, reactive } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
-        hostId: 0,
-        hostname: '',
-        ip: '',
-        cpu: 0,
-        memory: 0,
-        disksize: 0,
-        })
+  ID: 0,
+  hostname: '',
+  ip: '',
+  cpu: 0,
+  memory: 0,
+  disksize: 0,
+})
 
 // 验证规则
 const rule = reactive({
-               hostname : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
-               ip : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
+  hostname: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
+  ip: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
 })
 
 const elFormRef = ref()
-
 
 // =========== 表格控制部分 ===========
 const page = ref(1)
@@ -185,90 +190,87 @@ getTableData()
 // ============== 表格控制部分结束 ===============
 
 // 获取需要的字典 可能为空 按需保留
-const setOptions = async () =>{
+const setOptions = async() => {
 }
 
 // 获取需要的字典 可能为空 按需保留
 setOptions()
 
-
 // 多选数据
 const multipleSelection = ref([])
 // 多选
 const handleSelectionChange = (val) => {
-    multipleSelection.value = val
+  multipleSelection.value = val
 }
 
 // 删除行
 const deleteRow = (row) => {
-    ElMessageBox.confirm('确定要删除吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-    }).then(() => {
-            deleteHostFunc(row)
-        })
-    }
-
+  ElMessageBox.confirm('确定要删除吗?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(() => {
+    deleteHostFunc(row)
+  })
+}
 
 // 批量删除控制标记
 const deleteVisible = ref(false)
 
 // 多选删除
 const onDelete = async() => {
-      const ids = []
-      if (multipleSelection.value.length === 0) {
-        ElMessage({
-          type: 'warning',
-          message: '请选择要删除的数据'
-        })
-        return
-      }
-      multipleSelection.value &&
-        multipleSelection.value.map(item => {
-          ids.push(item.ID)
-        })
-      const res = await deleteHostByIds({ ids })
-      if (res.code === 0) {
-        ElMessage({
-          type: 'success',
-          message: '删除成功'
-        })
-        if (tableData.value.length === ids.length && page.value > 1) {
-          page.value--
-        }
-        deleteVisible.value = false
-        getTableData()
-      }
+  const ids = []
+  if (multipleSelection.value.length === 0) {
+    ElMessage({
+      type: 'warning',
+      message: '请选择要删除的数据',
+    })
+    return
+  }
+  multipleSelection.value &&
+  multipleSelection.value.map(item => {
+    ids.push(item.ID)
+  })
+  const res = await deleteHostByIds({ ids })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    if (tableData.value.length === ids.length && page.value > 1) {
+      page.value--
     }
+    deleteVisible.value = false
+    getTableData()
+  }
+}
 
 // 行为控制标记（弹窗内部需要增还是改）
 const type = ref('')
 
 // 更新行
 const updateHostFunc = async(row) => {
-    const res = await findHost({ ID: row.ID })
-    type.value = 'update'
-    if (res.code === 0) {
-        formData.value = res.data.rehost
-        dialogFormVisible.value = true
-    }
+  const res = await findHost({ ID: row.ID })
+  type.value = 'update'
+  if (res.code === 0) {
+    formData.value = res.data.rehost
+    dialogFormVisible.value = true
+  }
 }
 
-
 // 删除行
-const deleteHostFunc = async (row) => {
-    const res = await deleteHost({ ID: row.ID })
-    if (res.code === 0) {
-        ElMessage({
-                type: 'success',
-                message: '删除成功'
-            })
-            if (tableData.value.length === 1 && page.value > 1) {
-            page.value--
-        }
-        getTableData()
+const deleteHostFunc = async(row) => {
+  const res = await deleteHost({ ID: row.ID })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    if (tableData.value.length === 1 && page.value > 1) {
+      page.value--
     }
+    getTableData()
+  }
 }
 
 // 弹窗控制标记
@@ -276,47 +278,47 @@ const dialogFormVisible = ref(false)
 
 // 打开弹窗
 const openDialog = () => {
-    type.value = 'create'
-    dialogFormVisible.value = true
+  type.value = 'create'
+  dialogFormVisible.value = true
 }
 
 // 关闭弹窗
 const closeDialog = () => {
-    dialogFormVisible.value = false
-    formData.value = {
-        hostId: 0,
-        hostname: '',
-        ip: '',
-        cpu: 0,
-        memory: 0,
-        disksize: 0,
-        }
+  dialogFormVisible.value = false
+  formData.value = {
+    hostId: 0,
+    hostname: '',
+    ip: '',
+    cpu: 0,
+    memory: 0,
+    disksize: 0,
+  }
 }
 // 弹窗确定
-const enterDialog = async () => {
-     elFormRef.value?.validate( async (valid) => {
-             if (!valid) return
-              let res
-              switch (type.value) {
-                case 'create':
-                  res = await createHost(formData.value)
-                  break
-                case 'update':
-                  res = await updateHost(formData.value)
-                  break
-                default:
-                  res = await createHost(formData.value)
-                  break
-              }
-              if (res.code === 0) {
-                ElMessage({
-                  type: 'success',
-                  message: '创建/更改成功'
-                })
-                closeDialog()
-                getTableData()
-              }
+const enterDialog = async() => {
+  elFormRef.value?.validate(async(valid) => {
+    if (!valid) return
+    let res
+    switch (type.value) {
+      case 'create':
+        res = await createHost(formData.value)
+        break
+      case 'update':
+        res = await updateHost(formData.value)
+        break
+      default:
+        res = await createHost(formData.value)
+        break
+    }
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '创建/更改成功',
       })
+      closeDialog()
+      getTableData()
+    }
+  })
 }
 </script>
 

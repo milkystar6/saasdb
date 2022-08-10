@@ -37,7 +37,7 @@
         <!--        <el-table-column align="left" label="日期" width="180">-->
         <!--          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
-        <el-table-column align="left" label="实例ID" prop="insId" width="120"/>
+        <el-table-column align="left" label="实例ID" prop="ID" width="120"/>
         <el-table-column align="left" label="项目ID" prop="projId" width="120"/>
         <el-table-column align="left" label="ip" prop="ip" width="120"/>
         <el-table-column align="left" label="port" prop="port" width="120"/>
@@ -46,6 +46,7 @@
         <el-table-column align="left" label="使用类型" prop="useType" width="120"/>
         <el-table-column align="left" label="健康状态" prop="health" width="120"/>
         <el-table-column align="left" label="数据库等级" prop="level" width="120"/>
+        <el-table-column align="left" label="角色" prop="role" width="120"/>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
@@ -70,8 +71,8 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增实例信息">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="120px">
-        <el-form-item label="实例ID:" prop="insId">
-          <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入"/>
+        <el-form-item label="实例ID:" prop="ID">
+          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="项目ID:" prop="projId">
           <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
@@ -109,6 +110,11 @@
             />
           </el-select>
         </el-form-item>
+        <el-form-item label="role:" prop="role">
+          <el-select v-model="formData.role" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item"/>
+          </el-select>
+        </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -143,7 +149,7 @@ import { ref, reactive } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
-  insId: 0,
+  ID: 0,
   projId: 0,
   ip: '',
   port: 0,
@@ -153,7 +159,7 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
-  insId: [{
+  ID: [{
     required: true,
     message: '',
     trigger: ['input', 'blur'],
@@ -320,8 +326,8 @@ const openDialog = () => {
 const closeDialog = () => {
   dialogFormVisible.value = false
   formData.value = {
-    insId: 0,
-    projId: 0,
+
+    ID: 0,
     ip: '',
     port: 0,
     version: '',

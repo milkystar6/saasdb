@@ -63,7 +63,6 @@ func (domainService *DomainService) GetDomainInfoList(info saasdbReq.DomainSearc
 }
 
 // GetDomainInfoList join `saasdb`.`saas_project`表,根据proj_id字段关联,分页获取Domain记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (domainService *DomainService) GetDomainInfoListv2(info saasdbReq.DomainJoinSearch) (list []saasdbReq.DomainJoinSearch, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
@@ -77,8 +76,7 @@ func (domainService *DomainService) GetDomainInfoListv2(info saasdbReq.DomainJoi
 	}
 	//err = db.Limit(limit).Offset(offset).Find(&domains).Error
 	// to fix the problem: => 前端需要用到Primay key ,不用gorm的场景,手动返回 ID 和delete_at字段
-	joinsql := "SELECT A.id, A.domain_id ,A.domain_name, A.proj_id ,B.proj_name  FROM saas_domain A , saas_project B WHERE A.proj_id=B.proj_id AND A.deleted_at IS NULL"
+	joinsql := "SELECT A.id, A.domain_id ,A.domain_name, A.proj_id ,B.proj_name  FROM saas_domain A , saas_project B WHERE A.proj_id=B.id AND A.deleted_at IS NULL"
 	err = db.Limit(limit).Offset(offset).Raw(joinsql).Scan(&domains).Error
 	return domains, total, err
-
 }

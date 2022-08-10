@@ -37,7 +37,7 @@
         <!--        <el-table-column align="left" label="日期" width="180">-->
         <!--            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
-        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>
+        <el-table-column align="left" label="项目ID" prop="ID" width="120"/>
         <el-table-column align="left" label="项目名称" prop="projName" width="120"/>
         <el-table-column align="left" label="通知用户组" prop="notifyUsers" width="120"/>
         <el-table-column align="left" label="通知用户组id" prop="alarmGroupId" width="120"/>
@@ -64,9 +64,9 @@
       </div>
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
-      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="projid:" prop="projId">
-          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
+      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="100px">
+        <el-form-item label="ID:" prop="ID">
+          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="projname:" prop="projName">
           <el-input v-model="formData.projName" :clearable="true" placeholder="请输入"/>
@@ -111,7 +111,7 @@ import { ref, reactive } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
-  projId: 0,
+  ID: 0,
   projName: '',
   notifyUsers: '',
   alarmGroupId: 0,
@@ -119,7 +119,7 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
-  projId: [{
+  ID: [{
     required: true,
     message: '',
     trigger: ['input', 'blur'],
@@ -276,7 +276,7 @@ const openDialog = () => {
 const closeDialog = () => {
   dialogFormVisible.value = false
   formData.value = {
-    projId: 0,
+    ID: 0,
     projName: '',
     notifyUsers: '',
     alarmGroupId: 0,

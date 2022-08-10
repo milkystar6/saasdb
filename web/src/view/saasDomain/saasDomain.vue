@@ -13,9 +13,6 @@
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
         <el-form-item>
           <el-tag>TODO标签</el-tag>
-          <el-tag type="success">用集群的接口去get api的时候，复用 `/domain/getDomainList`这个api 然后修改实现方式 返回的查询结构体里面 根据集群id跟insid的对应关系
-            return需要的信息
-          </el-tag>
           <el-tag type="info"> 完成了
           </el-tag>
         </el-form-item>
@@ -50,6 +47,7 @@
         <!--        <el-table-column align="left" label="日期" width="180">-->
         <!--            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
+        <el-table-column align="left" label="集群ID" prop="ID" width="120"/>
         <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>
         <!--        <el-table-column align="left" label="insId" prop="insId" width="120" />-->
         <el-table-column align="left" label="集群名称" prop="domainName" width="120"/>
@@ -81,6 +79,9 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增domain信息">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="100px">
+        <el-form-item label="ID:" prop="ID">
+          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
         <el-form-item label="domainId:" prop="domainId">
           <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
@@ -126,8 +127,9 @@ import { ref, reactive } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
-  domainId: 0,
+  ID: 0,
   // insId: 0,
+  domainId: 0,
   domainName: '',
   projId: 0,
   projName: '',
@@ -135,14 +137,9 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
-  domainId: [{
+  ID: [{
     required: true,
-    message: 'domainId is required',
-    trigger: ['input', 'blur'],
-  }],
-  insId: [{
-    required: true,
-    message: 'insId is required',
+    message: 'ID is required',
     trigger: ['input', 'blur'],
   }],
   projId: [{
@@ -298,10 +295,9 @@ const openDialog = () => {
 const closeDialog = () => {
   dialogFormVisible.value = false
   formData.value = {
-    domainId: 0,
-    insId: 0,
+    // domainId: 0,
     domainName: '',
-    projId: 0,
+    ID: 0,
   }
 }
 // 弹窗确定
