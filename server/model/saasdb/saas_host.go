@@ -9,7 +9,7 @@ import (
 // Host 结构体
 type Host struct {
       global.GVA_MODEL
-      HostId  *int `json:"hostId" form:"hostId" gorm:"column:host_id;comment:;"`
+      HostId  *int `json:"hostId" form:"hostId" gorm:"column:host_id;comment:;uniqueIndex:host_id;"`
       Hostname  string `json:"hostname" form:"hostname" gorm:"column:hostname;comment:;"`
       Ip  string `json:"ip" form:"ip" gorm:"column:ip;comment:;"`
       Cpu  *int `json:"cpu" form:"cpu" gorm:"column:cpu;comment:;size:10;"`

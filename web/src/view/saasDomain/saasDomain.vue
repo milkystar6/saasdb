@@ -16,6 +16,8 @@
           <el-tag type="success">用集群的接口去get api的时候，复用 `/domain/getDomainList`这个api 然后修改实现方式 返回的查询结构体里面 根据集群id跟insid的对应关系
             return需要的信息
           </el-tag>
+          <el-tag type="info"> 完成了
+          </el-tag>
         </el-form-item>
       </el-form>
     </div>
@@ -51,13 +53,15 @@
         <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>
         <!--        <el-table-column align="left" label="insId" prop="insId" width="120" />-->
         <el-table-column align="left" label="集群名称" prop="domainName" width="120"/>
-        <!--   TODO 结合项目ID转换项目id为项目名称    -->
+
         <el-table-column align="left" label="项目ID" prop="projId" width="120"/>
+        <el-table-column align="left" label="项目名称" prop="projName" width="150"/>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
                        @click="updateDomainFunc(scope.row)"
-            >变更
+            >变更{{ 'debug ROW ID => ' }}{{ scope.row.ID }}
+              <!--            >变更{{scope.row.ID}}-->
             </el-button>
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
           </template>
@@ -80,9 +84,9 @@
         <el-form-item label="domainId:" prop="domainId">
           <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="insId:" prop="insId">
-          <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入"/>
-        </el-form-item>
+        <!--        <el-form-item label="insId:" prop="insId">-->
+        <!--          <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入"/>-->
+        <!--        </el-form-item>-->
         <el-form-item label="domainName:" prop="domainName">
           <el-input v-model="formData.domainName" :clearable="true" placeholder="请输入"/>
         </el-form-item>
@@ -123,9 +127,10 @@ import { ref, reactive } from 'vue'
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
   domainId: 0,
-  insId: 0,
+  // insId: 0,
   domainName: '',
   projId: 0,
+  projName: '',
 })
 
 // 验证规则
@@ -257,6 +262,7 @@ const type = ref('')
 // 更新行
 const updateDomainFunc = async(row) => {
   const res = await findDomain({ ID: row.ID })
+  console.log(row.ID)
   type.value = 'update'
   if (res.code === 0) {
     formData.value = res.data.redomain

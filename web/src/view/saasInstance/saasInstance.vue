@@ -42,9 +42,10 @@
         <el-table-column align="left" label="ip" prop="ip" width="120"/>
         <el-table-column align="left" label="port" prop="port" width="120"/>
         <el-table-column align="left" label="应用类型" prop="application" width="120"/>
-        <el-table-column align="left" label="数据库版本" prop="version" width="120"/>
+        <el-table-column align="left" label="数据库版本" prop="version" width="150"/>
         <el-table-column align="left" label="使用类型" prop="useType" width="120"/>
         <el-table-column align="left" label="健康状态" prop="health" width="120"/>
+        <el-table-column align="left" label="数据库等级" prop="level" width="120"/>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
@@ -68,7 +69,7 @@
       </div>
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增实例信息">
-      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="100px">
+      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="120px">
         <el-form-item label="实例ID:" prop="insId">
           <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
@@ -88,18 +89,20 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="version:" prop="version">
+        <el-form-item label="数据库版本:" prop="version">
           <el-input v-model="formData.version" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="useType:" prop="useType">
+        <el-form-item label="使用类型:" prop="useType">
           <el-select v-model="formData.useType" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="等级:" prop="level">
-          <el-input v-model="formData.level" :clearable="true" placeholder="请输入"/>
+        <el-form-item label="数据库等级:" prop="level">
+          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item"/>
+          </el-select>
         </el-form-item>
-        <el-form-item label="health:" prop="health">
+        <el-form-item label="健康状态:" prop="health">
           <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']"
                        :key="item" :label="item" :value="item"

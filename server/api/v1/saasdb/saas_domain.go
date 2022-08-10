@@ -144,9 +144,9 @@ func (domainApi *DomainApi) FindDomain(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /domain/getDomainList [get]
 func (domainApi *DomainApi) GetDomainList(c *gin.Context) {
-	var pageInfo saasdbReq.DomainSearch
+	var pageInfo saasdbReq.DomainJoinSearch
 	_ = c.ShouldBindQuery(&pageInfo)
-	if list, total, err := domainService.GetDomainInfoList(pageInfo); err != nil {
+	if list, total, err := domainService.GetDomainInfoListv2(pageInfo); err != nil {
 	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
         response.FailWithMessage("获取失败", c)
     } else {
