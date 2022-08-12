@@ -13,6 +13,7 @@ type DomainService struct {
 // CreateDomain 创建Domain记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (domainService *DomainService) CreateDomain(domain saasdb.Domain) (err error) {
+	// TODO 运行之前 先检查projid对应的项目是否已经创建 或者是前端直接展示出来 可以选的有哪些项目
 	err = global.GVA_DB.Create(&domain).Error
 	return err
 }

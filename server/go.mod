@@ -19,6 +19,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang-jwt/jwt/v4 v4.3.0
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gookit/color v1.3.1
 	github.com/huaweicloud/huaweicloud-sdk-go-obs v3.21.8+incompatible
 	github.com/jordan-wright/email v0.0.0-20200824153738-3f5bafa1cd84
@@ -51,6 +52,7 @@ require (
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
 	golang.org/x/tools v0.1.5 // indirect
+	google.golang.org/grpc v1.44.0
 	gopkg.in/ini.v1 v1.55.0 // indirect
 	gorm.io/driver/mysql v1.3.3
 	gorm.io/driver/postgres v1.3.4

@@ -32,5 +32,6 @@ func main() {
 		db, _ := global.GVA_DB.DB()
 		defer db.Close()
 	}
+	//initialize.Workflow() // grpc 服务
 	core.RunWindowsServer()
 }

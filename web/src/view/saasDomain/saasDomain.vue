@@ -48,7 +48,7 @@
         <!--            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
         <el-table-column align="left" label="集群ID" prop="ID" width="120"/>
-        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>
+<!--        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>-->
         <!--        <el-table-column align="left" label="insId" prop="insId" width="120" />-->
         <el-table-column align="left" label="集群名称" prop="domainName" width="120"/>
 
@@ -82,9 +82,9 @@
         <el-form-item label="ID:" prop="ID">
           <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="domainId:" prop="domainId">
-          <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>
-        </el-form-item>
+<!--        <el-form-item label="domainId:" prop="domainId">-->
+<!--          <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>-->
+<!--        </el-form-item>-->
         <!--        <el-form-item label="insId:" prop="insId">-->
         <!--          <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入"/>-->
         <!--        </el-form-item>-->
@@ -129,7 +129,7 @@ import { ref, reactive } from 'vue'
 const formData = ref({
   ID: 0,
   // insId: 0,
-  domainId: 0,
+  // domainId: 0,
   domainName: '',
   projId: 0,
   projName: '',

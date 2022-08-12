@@ -37,32 +37,32 @@ captcha:
 cors:
   mode: whitelist
   whitelist:
-  - allow-origin: example1.com
-    allow-methods: GET, POST
-    allow-headers: content-type
-    expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,
-      Content-Type
-    allow-credentials: true
-  - allow-origin: example2.com
-    allow-methods: GET, POST
-    allow-headers: content-type
-    expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,
-      Content-Type
-    allow-credentials: true
+    - allow-origin: example1.com
+      allow-methods: GET, POST
+      allow-headers: content-type
+      expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,
+        Content-Type
+      allow-credentials: true
+    - allow-origin: example2.com
+      allow-methods: GET, POST
+      allow-headers: content-type
+      expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,
+        Content-Type
+      allow-credentials: true
 db-list:
-- disable: false
-  type: ""
-  alias-name: ""
-  path: ""
-  port: ""
-  config: ""
-  db-name: ""
-  username: ""
-  password: ""
-  max-idle-conns: 10
-  max-open-conns: 100
-  log-mode: ""
-  log-zap: false
+  - disable: false
+    type: ""
+    alias-name: ""
+    path: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
+    max-idle-conns: 10
+    max-open-conns: 100
+    log-mode: ""
+    log-zap: false
 email:
   to: xxx@qq.com
   port: 465
@@ -89,7 +89,7 @@ local:
   store-path: uploads/file
 mysql:
   path: 127.0.0.1
-  port: "3306"
+  port: "3307"
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: saasdb
   username: root
@@ -142,12 +142,12 @@ timer:
   spec: '@daily'
   with_seconds: false
   detail:
-  - tableName: sys_operation_records
-    compareField: created_at
-    interval: 2160h
-  - tableName: jwt_blacklists
-    compareField: created_at
-    interval: 168h
+    - tableName: sys_operation_records
+      compareField: created_at
+      interval: 2160h
+    - tableName: jwt_blacklists
+      compareField: created_at
+      interval: 168h
 zap:
   level: info
   prefix: '[github.com/flipped-aurora/gin-vue-admin/server]'
