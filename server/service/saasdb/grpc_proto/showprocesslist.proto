@@ -1,0 +1,32 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+
+
+/* 定义processlist需要的消息 */
+
+message ShowProcesslistRequest {
+  string ShowMsg = 1; // 默认返回information_schema全部数据，可以选择在前端进行过滤，把过滤的任务交给chrome
+
+}
+
+message ShowProcesslistResponce {
+
+  repeated ProcessListInfo ProcessListInfo = 1;
+}
+
+message ProcessListInfo {
+  uint32 ID = 1;
+  string USER = 2;
+  string HOST = 3;
+  string DB = 4;
+  string COMMAND = 5;
+  uint32 TIME = 6;
+  string STATE = 7;
+  string INFO = 8;
+}
+
+/*      定义processlist返回的消息         */
+service MySQLShowProcessListService{
+  rpc NewShowProcesslist(ShowProcesslistRequest) returns (ShowProcesslistResponce){};
+}

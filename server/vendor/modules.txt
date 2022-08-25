@@ -311,6 +311,7 @@ github.com/shirou/gopsutil/v3/mem
 ## explicit
 github.com/songzhibin97/gkit/cache/local_cache
 github.com/songzhibin97/gkit/options
+github.com/songzhibin97/gkit/tools/pretty
 # github.com/spf13/afero v1.2.2
 ## explicit
 github.com/spf13/afero
@@ -496,6 +497,7 @@ google.golang.org/grpc/stats
 google.golang.org/grpc/status
 google.golang.org/grpc/tap
 # google.golang.org/protobuf v1.27.1
+## explicit
 google.golang.org/protobuf/encoding/prototext
 google.golang.org/protobuf/encoding/protowire
 google.golang.org/protobuf/internal/descfmt

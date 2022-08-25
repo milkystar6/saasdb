@@ -1,0 +1,36 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+
+/* 定义获取参数需要的消息 */
+
+message HandleVariablesRequest {
+  bool Method = 1;                // false: show参数" ,true: "set参数"
+  repeated ShowVariablesUseArray ShowVariablesUseArray = 2; // show参数 用数组
+  map<string, SetVariablesUseMap> SetVariablesUseMap = 3;   // set 参数 用字典
+}
+
+message ShowVariablesUseArray {
+  string Var = 1;
+}
+message SetVariablesUseMap{
+  oneof VariableValue {
+    string VariableValueString = 1;
+    string VariableValueInt32 = 2;
+  }
+}
+
+/*      定义HandleVariables返回的消息         */
+message HandleVariablesResponse {
+  // for show variables
+  map<string, string> variableName = 1;
+  // for set variables
+  map<string, SetVariablesUseMap> SetVariablesUseMap = 2;
+  bool SetOK = 3;
+}
+/* 我们发现对于Vaiables的查询和修改服务 如果使用同一个服务 会让程序逻辑处理非常复杂 */
+/*      定义Variables查询服务      */
+service MySQLVariablesService{
+  rpc VariablesHandler(HandleVariablesRequest) returns (HandleVariablesResponse){};
+}
+

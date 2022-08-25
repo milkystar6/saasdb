@@ -98,6 +98,13 @@ mysql:
   max-open-conns: 100
   log-mode: error
   log-zap: false
+grpcServer:
+  grpcServerListenPort: 21080
+  grpcMySQLMangerUser: "saasmanager"
+  grpcMySQLMangerPassword: "saasmanager"
+  grpcCA: "/Users/anderalex/go/src/gin-vue-admin/server/service/saasdb/cerify/server.crt"
+  grpcKey: "/Users/anderalex/go/src/gin-vue-admin/server/service/saasdb/cerify/server.key"
+  grpcWebUrl: "example.server.com"
 pgsql:
   path: ""
   port: ""
