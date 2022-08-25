@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.30, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: saasdb
+-- Host: localhost    Database: saasdb
 -- ------------------------------------------------------
 -- Server version	8.0.30
 
@@ -45,7 +45,7 @@ CREATE TABLE `casbin_rule`
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_casbin_rule` (`ptype`, `v0`, `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `v7`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1232
+  AUTO_INCREMENT = 1412
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -58,172 +58,186 @@ LOCK TABLES `casbin_rule` WRITE;
 /*!40000 ALTER TABLE `casbin_rule`
     DISABLE KEYS */;
 INSERT INTO `casbin_rule`
-VALUES (1128, 'p', '888', '/api/createApi', 'POST', '', '', '', '', ''),
-       (1129, 'p', '888', '/api/deleteApi', 'POST', '', '', '', '', ''),
-       (1134, 'p', '888', '/api/deleteApisByIds', 'DELETE', '', '', '', '', ''),
-       (1132, 'p', '888', '/api/getAllApis', 'POST', '', '', '', '', ''),
-       (1133, 'p', '888', '/api/getApiById', 'POST', '', '', '', '', ''),
-       (1131, 'p', '888', '/api/getApiList', 'POST', '', '', '', '', ''),
-       (1130, 'p', '888', '/api/updateApi', 'POST', '', '', '', '', ''),
-       (1135, 'p', '888', '/authority/copyAuthority', 'POST', '', '', '', '', ''),
-       (1136, 'p', '888', '/authority/createAuthority', 'POST', '', '', '', '', ''),
-       (1137, 'p', '888', '/authority/deleteAuthority', 'POST', '', '', '', '', ''),
-       (1139, 'p', '888', '/authority/getAuthorityList', 'POST', '', '', '', '', ''),
-       (1140, 'p', '888', '/authority/setDataAuthority', 'POST', '', '', '', '', ''),
-       (1138, 'p', '888', '/authority/updateAuthority', 'PUT', '', '', '', '', ''),
-       (1207, 'p', '888', '/authorityBtn/canRemoveAuthorityBtn', 'POST', '', '', '', '', ''),
-       (1206, 'p', '888', '/authorityBtn/getAuthorityBtn', 'POST', '', '', '', '', ''),
-       (1205, 'p', '888', '/authorityBtn/setAuthorityBtn', 'POST', '', '', '', '', ''),
-       (1175, 'p', '888', '/autoCode/createPackage', 'POST', '', '', '', '', ''),
-       (1173, 'p', '888', '/autoCode/createPlug', 'POST', '', '', '', '', ''),
-       (1170, 'p', '888', '/autoCode/createTemp', 'POST', '', '', '', '', ''),
-       (1177, 'p', '888', '/autoCode/delPackage', 'POST', '', '', '', '', ''),
-       (1181, 'p', '888', '/autoCode/delSysHistory', 'POST', '', '', '', '', ''),
-       (1172, 'p', '888', '/autoCode/getColumn', 'GET', '', '', '', '', ''),
-       (1168, 'p', '888', '/autoCode/getDB', 'GET', '', '', '', '', ''),
-       (1178, 'p', '888', '/autoCode/getMeta', 'POST', '', '', '', '', ''),
-       (1176, 'p', '888', '/autoCode/getPackage', 'POST', '', '', '', '', ''),
-       (1180, 'p', '888', '/autoCode/getSysHistory', 'POST', '', '', '', '', ''),
-       (1169, 'p', '888', '/autoCode/getTables', 'GET', '', '', '', '', ''),
-       (1174, 'p', '888', '/autoCode/installPlugin', 'POST', '', '', '', '', ''),
-       (1171, 'p', '888', '/autoCode/preview', 'POST', '', '', '', '', ''),
-       (1179, 'p', '888', '/autoCode/rollback', 'POST', '', '', '', '', ''),
-       (1116, 'p', '888', '/base/login', 'POST', '', '', '', '', ''),
-       (1142, 'p', '888', '/casbin/getPolicyPathByAuthorityId', 'POST', '', '', '', '', ''),
-       (1141, 'p', '888', '/casbin/updateCasbin', 'POST', '', '', '', '', ''),
-       (1165, 'p', '888', '/customer/customer', 'DELETE', '', '', '', '', ''),
-       (1166, 'p', '888', '/customer/customer', 'GET', '', '', '', '', ''),
-       (1164, 'p', '888', '/customer/customer', 'POST', '', '', '', '', ''),
-       (1163, 'p', '888', '/customer/customer', 'PUT', '', '', '', '', ''),
-       (1167, 'p', '888', '/customer/customerList', 'GET', '', '', '', '', ''),
-       (1220, 'p', '888', '/domain/createDomain', 'POST', '', '', '', '', ''),
-       (1221, 'p', '888', '/domain/deleteDomain', 'DELETE', '', '', '', '', ''),
-       (1222, 'p', '888', '/domain/deleteDomainByIds', 'DELETE', '', '', '', '', ''),
-       (1224, 'p', '888', '/domain/findDomain', 'GET', '', '', '', '', ''),
-       (1225, 'p', '888', '/domain/getDomainList', 'GET', '', '', '', '', ''),
-       (1223, 'p', '888', '/domain/updateDomain', 'PUT', '', '', '', '', ''),
-       (1200, 'p', '888', '/email/emailTest', 'POST', '', '', '', '', ''),
-       (1204, 'p', '888', '/excel/downloadTemplate', 'GET', '', '', '', '', ''),
-       (1203, 'p', '888', '/excel/exportExcel', 'POST', '', '', '', '', ''),
-       (1201, 'p', '888', '/excel/importExcel', 'POST', '', '', '', '', ''),
-       (1202, 'p', '888', '/excel/loadExcel', 'GET', '', '', '', '', ''),
-       (1153, 'p', '888', '/fileUploadAndDownload/breakpointContinue', 'POST', '', '', '', '', ''),
-       (1154, 'p', '888', '/fileUploadAndDownload/breakpointContinueFinish', 'POST', '', '', '', '', ''),
-       (1157, 'p', '888', '/fileUploadAndDownload/deleteFile', 'POST', '', '', '', '', ''),
-       (1158, 'p', '888', '/fileUploadAndDownload/editFileName', 'POST', '', '', '', '', ''),
-       (1152, 'p', '888', '/fileUploadAndDownload/findFile', 'GET', '', '', '', '', ''),
-       (1159, 'p', '888', '/fileUploadAndDownload/getFileList', 'POST', '', '', '', '', ''),
-       (1155, 'p', '888', '/fileUploadAndDownload/removeChunk', 'POST', '', '', '', '', ''),
-       (1156, 'p', '888', '/fileUploadAndDownload/upload', 'POST', '', '', '', '', ''),
-       (1214, 'p', '888', '/host/createHost', 'POST', '', '', '', '', ''),
-       (1215, 'p', '888', '/host/deleteHost', 'DELETE', '', '', '', '', ''),
-       (1216, 'p', '888', '/host/deleteHostByIds', 'DELETE', '', '', '', '', ''),
-       (1218, 'p', '888', '/host/findHost', 'GET', '', '', '', '', ''),
-       (1219, 'p', '888', '/host/getHostList', 'GET', '', '', '', '', ''),
-       (1217, 'p', '888', '/host/updateHost', 'PUT', '', '', '', '', ''),
-       (1117, 'p', '888', '/jwt/jsonInBlacklist', 'POST', '', '', '', '', ''),
-       (1143, 'p', '888', '/menu/addBaseMenu', 'POST', '', '', '', '', ''),
-       (1151, 'p', '888', '/menu/addMenuAuthority', 'POST', '', '', '', '', ''),
-       (1145, 'p', '888', '/menu/deleteBaseMenu', 'POST', '', '', '', '', ''),
-       (1147, 'p', '888', '/menu/getBaseMenuById', 'POST', '', '', '', '', ''),
-       (1149, 'p', '888', '/menu/getBaseMenuTree', 'POST', '', '', '', '', ''),
-       (1144, 'p', '888', '/menu/getMenu', 'POST', '', '', '', '', ''),
-       (1150, 'p', '888', '/menu/getMenuAuthority', 'POST', '', '', '', '', ''),
-       (1148, 'p', '888', '/menu/getMenuList', 'POST', '', '', '', '', ''),
-       (1146, 'p', '888', '/menu/updateBaseMenu', 'POST', '', '', '', '', ''),
-       (1226, 'p', '888', '/priject/createProject', 'POST', '', '', '', '', ''),
-       (1227, 'p', '888', '/priject/deleteProject', 'DELETE', '', '', '', '', ''),
-       (1228, 'p', '888', '/priject/deleteProjectByIds', 'DELETE', '', '', '', '', ''),
-       (1230, 'p', '888', '/priject/findProject', 'GET', '', '', '', '', ''),
-       (1231, 'p', '888', '/priject/getProjectList', 'GET', '', '', '', '', ''),
-       (1229, 'p', '888', '/priject/updateProject', 'PUT', '', '', '', '', ''),
-       (1208, 'p', '888', '/saas_instance/createInstance', 'POST', '', '', '', '', ''),
-       (1209, 'p', '888', '/saas_instance/deleteInstance', 'DELETE', '', '', '', '', ''),
-       (1210, 'p', '888', '/saas_instance/deleteInstanceByIds', 'DELETE', '', '', '', '', ''),
-       (1212, 'p', '888', '/saas_instance/findInstance', 'GET', '', '', '', '', ''),
-       (1213, 'p', '888', '/saas_instance/getInstanceList', 'GET', '', '', '', '', ''),
-       (1211, 'p', '888', '/saas_instance/updateInstance', 'PUT', '', '', '', '', ''),
-       (1198, 'p', '888', '/simpleUploader/checkFileMd5', 'GET', '', '', '', '', ''),
-       (1199, 'p', '888', '/simpleUploader/mergeFileMd5', 'GET', '', '', '', '', ''),
-       (1197, 'p', '888', '/simpleUploader/upload', 'POST', '', '', '', '', ''),
-       (1187, 'p', '888', '/sysDictionary/createSysDictionary', 'POST', '', '', '', '', ''),
-       (1188, 'p', '888', '/sysDictionary/deleteSysDictionary', 'DELETE', '', '', '', '', ''),
-       (1190, 'p', '888', '/sysDictionary/findSysDictionary', 'GET', '', '', '', '', ''),
-       (1191, 'p', '888', '/sysDictionary/getSysDictionaryList', 'GET', '', '', '', '', ''),
-       (1189, 'p', '888', '/sysDictionary/updateSysDictionary', 'PUT', '', '', '', '', ''),
-       (1183, 'p', '888', '/sysDictionaryDetail/createSysDictionaryDetail', 'POST', '', '', '', '', ''),
-       (1184, 'p', '888', '/sysDictionaryDetail/deleteSysDictionaryDetail', 'DELETE', '', '', '', '', ''),
-       (1185, 'p', '888', '/sysDictionaryDetail/findSysDictionaryDetail', 'GET', '', '', '', '', ''),
-       (1186, 'p', '888', '/sysDictionaryDetail/getSysDictionaryDetailList', 'GET', '', '', '', '', ''),
-       (1182, 'p', '888', '/sysDictionaryDetail/updateSysDictionaryDetail', 'PUT', '', '', '', '', ''),
-       (1192, 'p', '888', '/sysOperationRecord/createSysOperationRecord', 'POST', '', '', '', '', ''),
-       (1195, 'p', '888', '/sysOperationRecord/deleteSysOperationRecord', 'DELETE', '', '', '', '', ''),
-       (1196, 'p', '888', '/sysOperationRecord/deleteSysOperationRecordByIds', 'DELETE', '', '', '', '', ''),
-       (1193, 'p', '888', '/sysOperationRecord/findSysOperationRecord', 'GET', '', '', '', '', ''),
-       (1194, 'p', '888', '/sysOperationRecord/getSysOperationRecordList', 'GET', '', '', '', '', ''),
-       (1160, 'p', '888', '/system/getServerInfo', 'POST', '', '', '', '', ''),
-       (1161, 'p', '888', '/system/getSystemConfig', 'POST', '', '', '', '', ''),
-       (1162, 'p', '888', '/system/setSystemConfig', 'POST', '', '', '', '', ''),
-       (1119, 'p', '888', '/user/admin_register', 'POST', '', '', '', '', ''),
-       (1125, 'p', '888', '/user/changePassword', 'POST', '', '', '', '', ''),
-       (1118, 'p', '888', '/user/deleteUser', 'DELETE', '', '', '', '', ''),
-       (1123, 'p', '888', '/user/getUserInfo', 'GET', '', '', '', '', ''),
-       (1120, 'p', '888', '/user/getUserList', 'POST', '', '', '', '', ''),
-       (1127, 'p', '888', '/user/resetPassword', 'POST', '', '', '', '', ''),
-       (1122, 'p', '888', '/user/setSelfInfo', 'PUT', '', '', '', '', ''),
-       (1124, 'p', '888', '/user/setUserAuthorities', 'POST', '', '', '', '', ''),
-       (1126, 'p', '888', '/user/setUserAuthority', 'POST', '', '', '', '', ''),
-       (1121, 'p', '888', '/user/setUserInfo', 'PUT', '', '', '', '', ''),
-       (1066, 'p', '8881', '/base/login', 'POST', '', '', '', '', ''),
-       (1074, 'p', '8881', '/casbin/getPolicyPathByAuthorityId', 'POST', '', '', '', '', ''),
-       (1073, 'p', '8881', '/casbin/updateCasbin', 'POST', '', '', '', '', ''),
-       (1089, 'p', '8881', '/customer/customer', 'DELETE', '', '', '', '', ''),
-       (1090, 'p', '8881', '/customer/customer', 'GET', '', '', '', '', ''),
-       (1088, 'p', '8881', '/customer/customer', 'POST', '', '', '', '', ''),
-       (1087, 'p', '8881', '/customer/customer', 'PUT', '', '', '', '', ''),
-       (1091, 'p', '8881', '/customer/customerList', 'GET', '', '', '', '', ''),
-       (1104, 'p', '8881', '/domain/createDomain', 'POST', '', '', '', '', ''),
-       (1105, 'p', '8881', '/domain/deleteDomain', 'DELETE', '', '', '', '', ''),
-       (1106, 'p', '8881', '/domain/deleteDomainByIds', 'DELETE', '', '', '', '', ''),
-       (1108, 'p', '8881', '/domain/findDomain', 'GET', '', '', '', '', ''),
-       (1109, 'p', '8881', '/domain/getDomainList', 'GET', '', '', '', '', ''),
-       (1107, 'p', '8881', '/domain/updateDomain', 'PUT', '', '', '', '', ''),
-       (1098, 'p', '8881', '/host/createHost', 'POST', '', '', '', '', ''),
-       (1099, 'p', '8881', '/host/deleteHost', 'DELETE', '', '', '', '', ''),
-       (1100, 'p', '8881', '/host/deleteHostByIds', 'DELETE', '', '', '', '', ''),
-       (1102, 'p', '8881', '/host/findHost', 'GET', '', '', '', '', ''),
-       (1103, 'p', '8881', '/host/getHostList', 'GET', '', '', '', '', ''),
-       (1101, 'p', '8881', '/host/updateHost', 'PUT', '', '', '', '', ''),
-       (1067, 'p', '8881', '/jwt/jsonInBlacklist', 'POST', '', '', '', '', ''),
-       (1075, 'p', '8881', '/menu/addBaseMenu', 'POST', '', '', '', '', ''),
-       (1083, 'p', '8881', '/menu/addMenuAuthority', 'POST', '', '', '', '', ''),
-       (1077, 'p', '8881', '/menu/deleteBaseMenu', 'POST', '', '', '', '', ''),
-       (1079, 'p', '8881', '/menu/getBaseMenuById', 'POST', '', '', '', '', ''),
-       (1081, 'p', '8881', '/menu/getBaseMenuTree', 'POST', '', '', '', '', ''),
-       (1076, 'p', '8881', '/menu/getMenu', 'POST', '', '', '', '', ''),
-       (1082, 'p', '8881', '/menu/getMenuAuthority', 'POST', '', '', '', '', ''),
-       (1080, 'p', '8881', '/menu/getMenuList', 'POST', '', '', '', '', ''),
-       (1078, 'p', '8881', '/menu/updateBaseMenu', 'POST', '', '', '', '', ''),
-       (1110, 'p', '8881', '/priject/createProject', 'POST', '', '', '', '', ''),
-       (1111, 'p', '8881', '/priject/deleteProject', 'DELETE', '', '', '', '', ''),
-       (1112, 'p', '8881', '/priject/deleteProjectByIds', 'DELETE', '', '', '', '', ''),
-       (1114, 'p', '8881', '/priject/findProject', 'GET', '', '', '', '', ''),
-       (1115, 'p', '8881', '/priject/getProjectList', 'GET', '', '', '', '', ''),
-       (1113, 'p', '8881', '/priject/updateProject', 'PUT', '', '', '', '', ''),
-       (1092, 'p', '8881', '/saas_instance/createInstance', 'POST', '', '', '', '', ''),
-       (1093, 'p', '8881', '/saas_instance/deleteInstance', 'DELETE', '', '', '', '', ''),
-       (1094, 'p', '8881', '/saas_instance/deleteInstanceByIds', 'DELETE', '', '', '', '', ''),
-       (1096, 'p', '8881', '/saas_instance/findInstance', 'GET', '', '', '', '', ''),
-       (1097, 'p', '8881', '/saas_instance/getInstanceList', 'GET', '', '', '', '', ''),
-       (1095, 'p', '8881', '/saas_instance/updateInstance', 'PUT', '', '', '', '', ''),
-       (1084, 'p', '8881', '/system/getServerInfo', 'POST', '', '', '', '', ''),
-       (1085, 'p', '8881', '/system/getSystemConfig', 'POST', '', '', '', '', ''),
-       (1086, 'p', '8881', '/system/setSystemConfig', 'POST', '', '', '', '', ''),
-       (1068, 'p', '8881', '/user/admin_register', 'POST', '', '', '', '', ''),
-       (1071, 'p', '8881', '/user/changePassword', 'POST', '', '', '', '', ''),
-       (1070, 'p', '8881', '/user/getUserInfo', 'GET', '', '', '', '', ''),
-       (1069, 'p', '8881', '/user/getUserList', 'POST', '', '', '', '', ''),
-       (1072, 'p', '8881', '/user/setUserAuthority', 'POST', '', '', '', '', ''),
+VALUES (1244, 'p', '888', '/api/createApi', 'POST', '', '', '', '', ''),
+       (1245, 'p', '888', '/api/deleteApi', 'POST', '', '', '', '', ''),
+       (1250, 'p', '888', '/api/deleteApisByIds', 'DELETE', '', '', '', '', ''),
+       (1248, 'p', '888', '/api/getAllApis', 'POST', '', '', '', '', ''),
+       (1249, 'p', '888', '/api/getApiById', 'POST', '', '', '', '', ''),
+       (1247, 'p', '888', '/api/getApiList', 'POST', '', '', '', '', ''),
+       (1246, 'p', '888', '/api/updateApi', 'POST', '', '', '', '', ''),
+       (1251, 'p', '888', '/authority/copyAuthority', 'POST', '', '', '', '', ''),
+       (1252, 'p', '888', '/authority/createAuthority', 'POST', '', '', '', '', ''),
+       (1253, 'p', '888', '/authority/deleteAuthority', 'POST', '', '', '', '', ''),
+       (1255, 'p', '888', '/authority/getAuthorityList', 'POST', '', '', '', '', ''),
+       (1256, 'p', '888', '/authority/setDataAuthority', 'POST', '', '', '', '', ''),
+       (1254, 'p', '888', '/authority/updateAuthority', 'PUT', '', '', '', '', ''),
+       (1323, 'p', '888', '/authorityBtn/canRemoveAuthorityBtn', 'POST', '', '', '', '', ''),
+       (1322, 'p', '888', '/authorityBtn/getAuthorityBtn', 'POST', '', '', '', '', ''),
+       (1321, 'p', '888', '/authorityBtn/setAuthorityBtn', 'POST', '', '', '', '', ''),
+       (1291, 'p', '888', '/autoCode/createPackage', 'POST', '', '', '', '', ''),
+       (1289, 'p', '888', '/autoCode/createPlug', 'POST', '', '', '', '', ''),
+       (1286, 'p', '888', '/autoCode/createTemp', 'POST', '', '', '', '', ''),
+       (1293, 'p', '888', '/autoCode/delPackage', 'POST', '', '', '', '', ''),
+       (1297, 'p', '888', '/autoCode/delSysHistory', 'POST', '', '', '', '', ''),
+       (1288, 'p', '888', '/autoCode/getColumn', 'GET', '', '', '', '', ''),
+       (1284, 'p', '888', '/autoCode/getDB', 'GET', '', '', '', '', ''),
+       (1294, 'p', '888', '/autoCode/getMeta', 'POST', '', '', '', '', ''),
+       (1292, 'p', '888', '/autoCode/getPackage', 'POST', '', '', '', '', ''),
+       (1296, 'p', '888', '/autoCode/getSysHistory', 'POST', '', '', '', '', ''),
+       (1285, 'p', '888', '/autoCode/getTables', 'GET', '', '', '', '', ''),
+       (1290, 'p', '888', '/autoCode/installPlugin', 'POST', '', '', '', '', ''),
+       (1287, 'p', '888', '/autoCode/preview', 'POST', '', '', '', '', ''),
+       (1295, 'p', '888', '/autoCode/rollback', 'POST', '', '', '', '', ''),
+       (1348, 'p', '888', '/BackupLog/createBackLog', 'POST', '', '', '', '', ''),
+       (1349, 'p', '888', '/BackupLog/deleteBackLog', 'DELETE', '', '', '', '', ''),
+       (1350, 'p', '888', '/BackupLog/deleteBackLogByIds', 'DELETE', '', '', '', '', ''),
+       (1352, 'p', '888', '/BackupLog/findBackLog', 'GET', '', '', '', '', ''),
+       (1353, 'p', '888', '/BackupLog/getBackLogList', 'GET', '', '', '', '', ''),
+       (1351, 'p', '888', '/BackupLog/updateBackLog', 'PUT', '', '', '', '', ''),
+       (1232, 'p', '888', '/base/login', 'POST', '', '', '', '', ''),
+       (1258, 'p', '888', '/casbin/getPolicyPathByAuthorityId', 'POST', '', '', '', '', ''),
+       (1257, 'p', '888', '/casbin/updateCasbin', 'POST', '', '', '', '', ''),
+       (1281, 'p', '888', '/customer/customer', 'DELETE', '', '', '', '', ''),
+       (1282, 'p', '888', '/customer/customer', 'GET', '', '', '', '', ''),
+       (1280, 'p', '888', '/customer/customer', 'POST', '', '', '', '', ''),
+       (1279, 'p', '888', '/customer/customer', 'PUT', '', '', '', '', ''),
+       (1283, 'p', '888', '/customer/customerList', 'GET', '', '', '', '', ''),
+       (1336, 'p', '888', '/domain/createDomain', 'POST', '', '', '', '', ''),
+       (1337, 'p', '888', '/domain/deleteDomain', 'DELETE', '', '', '', '', ''),
+       (1338, 'p', '888', '/domain/deleteDomainByIds', 'DELETE', '', '', '', '', ''),
+       (1340, 'p', '888', '/domain/findDomain', 'GET', '', '', '', '', ''),
+       (1341, 'p', '888', '/domain/getDomainList', 'GET', '', '', '', '', ''),
+       (1339, 'p', '888', '/domain/updateDomain', 'PUT', '', '', '', '', ''),
+       (1316, 'p', '888', '/email/emailTest', 'POST', '', '', '', '', ''),
+       (1320, 'p', '888', '/excel/downloadTemplate', 'GET', '', '', '', '', ''),
+       (1319, 'p', '888', '/excel/exportExcel', 'POST', '', '', '', '', ''),
+       (1317, 'p', '888', '/excel/importExcel', 'POST', '', '', '', '', ''),
+       (1318, 'p', '888', '/excel/loadExcel', 'GET', '', '', '', '', ''),
+       (1269, 'p', '888', '/fileUploadAndDownload/breakpointContinue', 'POST', '', '', '', '', ''),
+       (1270, 'p', '888', '/fileUploadAndDownload/breakpointContinueFinish', 'POST', '', '', '', '', ''),
+       (1273, 'p', '888', '/fileUploadAndDownload/deleteFile', 'POST', '', '', '', '', ''),
+       (1274, 'p', '888', '/fileUploadAndDownload/editFileName', 'POST', '', '', '', '', ''),
+       (1268, 'p', '888', '/fileUploadAndDownload/findFile', 'GET', '', '', '', '', ''),
+       (1275, 'p', '888', '/fileUploadAndDownload/getFileList', 'POST', '', '', '', '', ''),
+       (1271, 'p', '888', '/fileUploadAndDownload/removeChunk', 'POST', '', '', '', '', ''),
+       (1272, 'p', '888', '/fileUploadAndDownload/upload', 'POST', '', '', '', '', ''),
+       (1330, 'p', '888', '/host/createHost', 'POST', '', '', '', '', ''),
+       (1331, 'p', '888', '/host/deleteHost', 'DELETE', '', '', '', '', ''),
+       (1332, 'p', '888', '/host/deleteHostByIds', 'DELETE', '', '', '', '', ''),
+       (1334, 'p', '888', '/host/findHost', 'GET', '', '', '', '', ''),
+       (1335, 'p', '888', '/host/getHostList', 'GET', '', '', '', '', ''),
+       (1333, 'p', '888', '/host/updateHost', 'PUT', '', '', '', '', ''),
+       (1354, 'p', '888', '/insprocesslist/showinsprocesslist', 'POST', '', '', '', '', ''),
+       (1233, 'p', '888', '/jwt/jsonInBlacklist', 'POST', '', '', '', '', ''),
+       (1259, 'p', '888', '/menu/addBaseMenu', 'POST', '', '', '', '', ''),
+       (1267, 'p', '888', '/menu/addMenuAuthority', 'POST', '', '', '', '', ''),
+       (1261, 'p', '888', '/menu/deleteBaseMenu', 'POST', '', '', '', '', ''),
+       (1263, 'p', '888', '/menu/getBaseMenuById', 'POST', '', '', '', '', ''),
+       (1265, 'p', '888', '/menu/getBaseMenuTree', 'POST', '', '', '', '', ''),
+       (1260, 'p', '888', '/menu/getMenu', 'POST', '', '', '', '', ''),
+       (1266, 'p', '888', '/menu/getMenuAuthority', 'POST', '', '', '', '', ''),
+       (1264, 'p', '888', '/menu/getMenuList', 'POST', '', '', '', '', ''),
+       (1262, 'p', '888', '/menu/updateBaseMenu', 'POST', '', '', '', '', ''),
+       (1342, 'p', '888', '/priject/createProject', 'POST', '', '', '', '', ''),
+       (1343, 'p', '888', '/priject/deleteProject', 'DELETE', '', '', '', '', ''),
+       (1344, 'p', '888', '/priject/deleteProjectByIds', 'DELETE', '', '', '', '', ''),
+       (1346, 'p', '888', '/priject/findProject', 'GET', '', '', '', '', ''),
+       (1347, 'p', '888', '/priject/getProjectList', 'GET', '', '', '', '', ''),
+       (1345, 'p', '888', '/priject/updateProject', 'PUT', '', '', '', '', ''),
+       (1324, 'p', '888', '/saas_instance/createInstance', 'POST', '', '', '', '', ''),
+       (1325, 'p', '888', '/saas_instance/deleteInstance', 'DELETE', '', '', '', '', ''),
+       (1326, 'p', '888', '/saas_instance/deleteInstanceByIds', 'DELETE', '', '', '', '', ''),
+       (1328, 'p', '888', '/saas_instance/findInstance', 'GET', '', '', '', '', ''),
+       (1329, 'p', '888', '/saas_instance/getInstanceList', 'GET', '', '', '', '', ''),
+       (1327, 'p', '888', '/saas_instance/updateInstance', 'PUT', '', '', '', '', ''),
+       (1314, 'p', '888', '/simpleUploader/checkFileMd5', 'GET', '', '', '', '', ''),
+       (1315, 'p', '888', '/simpleUploader/mergeFileMd5', 'GET', '', '', '', '', ''),
+       (1313, 'p', '888', '/simpleUploader/upload', 'POST', '', '', '', '', ''),
+       (1303, 'p', '888', '/sysDictionary/createSysDictionary', 'POST', '', '', '', '', ''),
+       (1304, 'p', '888', '/sysDictionary/deleteSysDictionary', 'DELETE', '', '', '', '', ''),
+       (1306, 'p', '888', '/sysDictionary/findSysDictionary', 'GET', '', '', '', '', ''),
+       (1307, 'p', '888', '/sysDictionary/getSysDictionaryList', 'GET', '', '', '', '', ''),
+       (1305, 'p', '888', '/sysDictionary/updateSysDictionary', 'PUT', '', '', '', '', ''),
+       (1299, 'p', '888', '/sysDictionaryDetail/createSysDictionaryDetail', 'POST', '', '', '', '', ''),
+       (1300, 'p', '888', '/sysDictionaryDetail/deleteSysDictionaryDetail', 'DELETE', '', '', '', '', ''),
+       (1301, 'p', '888', '/sysDictionaryDetail/findSysDictionaryDetail', 'GET', '', '', '', '', ''),
+       (1302, 'p', '888', '/sysDictionaryDetail/getSysDictionaryDetailList', 'GET', '', '', '', '', ''),
+       (1298, 'p', '888', '/sysDictionaryDetail/updateSysDictionaryDetail', 'PUT', '', '', '', '', ''),
+       (1308, 'p', '888', '/sysOperationRecord/createSysOperationRecord', 'POST', '', '', '', '', ''),
+       (1311, 'p', '888', '/sysOperationRecord/deleteSysOperationRecord', 'DELETE', '', '', '', '', ''),
+       (1312, 'p', '888', '/sysOperationRecord/deleteSysOperationRecordByIds', 'DELETE', '', '', '', '', ''),
+       (1309, 'p', '888', '/sysOperationRecord/findSysOperationRecord', 'GET', '', '', '', '', ''),
+       (1310, 'p', '888', '/sysOperationRecord/getSysOperationRecordList', 'GET', '', '', '', '', ''),
+       (1276, 'p', '888', '/system/getServerInfo', 'POST', '', '', '', '', ''),
+       (1277, 'p', '888', '/system/getSystemConfig', 'POST', '', '', '', '', ''),
+       (1278, 'p', '888', '/system/setSystemConfig', 'POST', '', '', '', '', ''),
+       (1235, 'p', '888', '/user/admin_register', 'POST', '', '', '', '', ''),
+       (1241, 'p', '888', '/user/changePassword', 'POST', '', '', '', '', ''),
+       (1234, 'p', '888', '/user/deleteUser', 'DELETE', '', '', '', '', ''),
+       (1239, 'p', '888', '/user/getUserInfo', 'GET', '', '', '', '', ''),
+       (1236, 'p', '888', '/user/getUserList', 'POST', '', '', '', '', ''),
+       (1243, 'p', '888', '/user/resetPassword', 'POST', '', '', '', '', ''),
+       (1238, 'p', '888', '/user/setSelfInfo', 'PUT', '', '', '', '', ''),
+       (1240, 'p', '888', '/user/setUserAuthorities', 'POST', '', '', '', '', ''),
+       (1242, 'p', '888', '/user/setUserAuthority', 'POST', '', '', '', '', ''),
+       (1237, 'p', '888', '/user/setUserInfo', 'PUT', '', '', '', '', ''),
+       (1405, 'p', '8881', '/BackupLog/createBackLog', 'POST', '', '', '', '', ''),
+       (1406, 'p', '8881', '/BackupLog/deleteBackLog', 'DELETE', '', '', '', '', ''),
+       (1407, 'p', '8881', '/BackupLog/deleteBackLogByIds', 'DELETE', '', '', '', '', ''),
+       (1409, 'p', '8881', '/BackupLog/findBackLog', 'GET', '', '', '', '', ''),
+       (1410, 'p', '8881', '/BackupLog/getBackLogList', 'GET', '', '', '', '', ''),
+       (1408, 'p', '8881', '/BackupLog/updateBackLog', 'PUT', '', '', '', '', ''),
+       (1355, 'p', '8881', '/base/login', 'POST', '', '', '', '', ''),
+       (1363, 'p', '8881', '/casbin/getPolicyPathByAuthorityId', 'POST', '', '', '', '', ''),
+       (1362, 'p', '8881', '/casbin/updateCasbin', 'POST', '', '', '', '', ''),
+       (1378, 'p', '8881', '/customer/customer', 'DELETE', '', '', '', '', ''),
+       (1379, 'p', '8881', '/customer/customer', 'GET', '', '', '', '', ''),
+       (1377, 'p', '8881', '/customer/customer', 'POST', '', '', '', '', ''),
+       (1376, 'p', '8881', '/customer/customer', 'PUT', '', '', '', '', ''),
+       (1380, 'p', '8881', '/customer/customerList', 'GET', '', '', '', '', ''),
+       (1393, 'p', '8881', '/domain/createDomain', 'POST', '', '', '', '', ''),
+       (1394, 'p', '8881', '/domain/deleteDomain', 'DELETE', '', '', '', '', ''),
+       (1395, 'p', '8881', '/domain/deleteDomainByIds', 'DELETE', '', '', '', '', ''),
+       (1397, 'p', '8881', '/domain/findDomain', 'GET', '', '', '', '', ''),
+       (1398, 'p', '8881', '/domain/getDomainList', 'GET', '', '', '', '', ''),
+       (1396, 'p', '8881', '/domain/updateDomain', 'PUT', '', '', '', '', ''),
+       (1387, 'p', '8881', '/host/createHost', 'POST', '', '', '', '', ''),
+       (1388, 'p', '8881', '/host/deleteHost', 'DELETE', '', '', '', '', ''),
+       (1389, 'p', '8881', '/host/deleteHostByIds', 'DELETE', '', '', '', '', ''),
+       (1391, 'p', '8881', '/host/findHost', 'GET', '', '', '', '', ''),
+       (1392, 'p', '8881', '/host/getHostList', 'GET', '', '', '', '', ''),
+       (1390, 'p', '8881', '/host/updateHost', 'PUT', '', '', '', '', ''),
+       (1411, 'p', '8881', '/insprocesslist/showinsprocesslist', 'POST', '', '', '', '', ''),
+       (1356, 'p', '8881', '/jwt/jsonInBlacklist', 'POST', '', '', '', '', ''),
+       (1364, 'p', '8881', '/menu/addBaseMenu', 'POST', '', '', '', '', ''),
+       (1372, 'p', '8881', '/menu/addMenuAuthority', 'POST', '', '', '', '', ''),
+       (1366, 'p', '8881', '/menu/deleteBaseMenu', 'POST', '', '', '', '', ''),
+       (1368, 'p', '8881', '/menu/getBaseMenuById', 'POST', '', '', '', '', ''),
+       (1370, 'p', '8881', '/menu/getBaseMenuTree', 'POST', '', '', '', '', ''),
+       (1365, 'p', '8881', '/menu/getMenu', 'POST', '', '', '', '', ''),
+       (1371, 'p', '8881', '/menu/getMenuAuthority', 'POST', '', '', '', '', ''),
+       (1369, 'p', '8881', '/menu/getMenuList', 'POST', '', '', '', '', ''),
+       (1367, 'p', '8881', '/menu/updateBaseMenu', 'POST', '', '', '', '', ''),
+       (1399, 'p', '8881', '/priject/createProject', 'POST', '', '', '', '', ''),
+       (1400, 'p', '8881', '/priject/deleteProject', 'DELETE', '', '', '', '', ''),
+       (1401, 'p', '8881', '/priject/deleteProjectByIds', 'DELETE', '', '', '', '', ''),
+       (1403, 'p', '8881', '/priject/findProject', 'GET', '', '', '', '', ''),
+       (1404, 'p', '8881', '/priject/getProjectList', 'GET', '', '', '', '', ''),
+       (1402, 'p', '8881', '/priject/updateProject', 'PUT', '', '', '', '', ''),
+       (1381, 'p', '8881', '/saas_instance/createInstance', 'POST', '', '', '', '', ''),
+       (1382, 'p', '8881', '/saas_instance/deleteInstance', 'DELETE', '', '', '', '', ''),
+       (1383, 'p', '8881', '/saas_instance/deleteInstanceByIds', 'DELETE', '', '', '', '', ''),
+       (1385, 'p', '8881', '/saas_instance/findInstance', 'GET', '', '', '', '', ''),
+       (1386, 'p', '8881', '/saas_instance/getInstanceList', 'GET', '', '', '', '', ''),
+       (1384, 'p', '8881', '/saas_instance/updateInstance', 'PUT', '', '', '', '', ''),
+       (1373, 'p', '8881', '/system/getServerInfo', 'POST', '', '', '', '', ''),
+       (1374, 'p', '8881', '/system/getSystemConfig', 'POST', '', '', '', '', ''),
+       (1375, 'p', '8881', '/system/setSystemConfig', 'POST', '', '', '', '', ''),
+       (1357, 'p', '8881', '/user/admin_register', 'POST', '', '', '', '', ''),
+       (1360, 'p', '8881', '/user/changePassword', 'POST', '', '', '', '', ''),
+       (1359, 'p', '8881', '/user/getUserInfo', 'GET', '', '', '', '', ''),
+       (1358, 'p', '8881', '/user/getUserList', 'POST', '', '', '', '', ''),
+       (1361, 'p', '8881', '/user/setUserAuthority', 'POST', '', '', '', '', ''),
        (135, 'p', '9528', '/api/createApi', 'POST', '', '', '', '', ''),
        (138, 'p', '9528', '/api/deleteApi', 'POST', '', '', '', '', ''),
        (140, 'p', '9528', '/api/getAllApis', 'POST', '', '', '', '', ''),
@@ -472,7 +486,7 @@ CREATE TABLE `saas_back_log`
     KEY `idx_saas_back_log_deleted_at` (`deleted_at`),
     KEY `idx_saas_back_log_domain_id` (`domain_id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 17
+  AUTO_INCREMENT = 35
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -542,9 +556,67 @@ VALUES (1, '2022-08-19 13:30:45.804', '2022-08-19 13:30:45.813', NULL, NULL, 100
         4270922, 'success', '{
          \"back_file_name\": \"\"
        }', '80189765-af65-47d4-9c8f-e0f65991bd61'),
-       (16, '2022-08-19 07:20:40.222', '2022-08-19 07:20:40.222', NULL, NULL, 100, 'mysqldump', 0, 'backup', '{
+       (16, '2022-08-19 07:20:40.222', '2022-08-19 07:20:40.222', NULL, '2022-08-19 07:20:40', 100, 'mysqldump', 345798,
+        'success', '{
+         \"back_file_name\": \"2022-08-19-72040_full.sql\"
+       }', '0badd7d9-a92f-4c21-8637-62fc4c63ccbe'),
+       (17, '2022-08-19 07:25:03.334', '2022-08-19 07:25:03.334', NULL, '2022-08-19 07:25:03', 100, 'mysqldump', 346008,
+        'success', '{
+         \"back_file_name\": \"2022-08-19-7253_full.sql\"
+       }', 'ceb5e637-87ac-4e33-beef-80ba82c4f9bd'),
+       (18, '2022-08-19 07:27:47.354', '2022-08-19 07:27:47.354', NULL, NULL, 100, 'mysqldump', 0, 'backup', '{
          \"back_file_name\": \"\"
-       }', '0badd7d9-a92f-4c21-8637-62fc4c63ccbe');
+       }', 'fa112c61-4e14-4528-b40c-b9b0cbaee465'),
+       (19, '2022-08-19 07:29:55.005', '2022-08-19 07:29:55.005', NULL, '2022-08-19 07:29:55', 100, 'mysqldump', 346379,
+        'success', '{
+         \"backup_cmd\": \"mysqldump -h 127.0.0.1 -u root -pletsg0 -P 3306 --set-gtid-purged=off --databases saasdb > 2022-08-19-72955_full.sql\",
+         \"back_file_name\": \"2022-08-19-72955_full.sql\"
+       }', '533bdff7-fb88-4b70-a216-f76bdd84096c'),
+       (20, '2022-08-19 15:57:56.688', '2022-08-19 15:57:56.698', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', 'eedd0bc7-b4bc-47d7-bcaf-0cfe53700674'),
+       (21, '2022-08-19 15:58:04.194', '2022-08-19 15:58:04.203', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', '58171d46-655f-4d1b-98b2-3e372175332e'),
+       (22, '2022-08-19 16:05:29.221', '2022-08-19 16:05:29.229', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', '6e3e58ff-50fe-48e5-b14e-62c3a4506369'),
+       (23, '2022-08-19 16:10:30.418', '2022-08-19 16:10:30.427', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', 'a2f39fdb-b1f7-4bb5-8c8d-60f0cf7be873'),
+       (24, '2022-08-19 16:10:33.419', '2022-08-19 16:10:33.427', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', '4378e43e-c354-4e61-b40d-a2b866d29994'),
+       (25, '2022-08-19 16:10:40.866', '2022-08-19 16:10:40.876', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', 'a21ed4bd-648d-4283-bb0d-283f65770107'),
+       (26, '2022-08-19 16:10:44.186', '2022-08-19 16:10:44.194', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', 'a9244714-e1b9-41c5-9c3c-e66e621ef05e'),
+       (27, '2022-08-19 16:10:46.322', '2022-08-19 16:10:46.331', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', '9d92a580-ea87-499f-be19-f38ea1274ede'),
+       (28, '2022-08-19 16:10:48.140', '2022-08-19 16:10:48.154', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', '053e1e79-2f68-4dda-b972-bd4e11d4c7dd'),
+       (29, '2022-08-19 16:15:22.578', '2022-08-19 16:15:22.588', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"back_file_name\": \"\"
+       }', '4de67ad8-65f1-4808-83d0-384ff8df0e18'),
+       (30, '2022-08-19 16:18:41.243', '2022-08-19 16:18:41.253', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"extra\": \"\"
+       }', '3be518e6-1084-47ed-8f4b-939b6a1f6173'),
+       (31, '2022-08-23 19:44:31.588', '2022-08-23 19:44:31.603', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"extra\": \"\"
+       }', 'cb324bd0-ca97-4a1e-b4a4-66f1fc417648'),
+       (32, '2022-08-23 21:00:39.467', '2022-08-23 21:00:39.476', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"extra\": \"\"
+       }', '93c6c69e-be91-40fb-b891-f512f321daa8'),
+       (33, '2022-08-24 11:10:30.128', '2022-08-24 11:10:30.137', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"extra\": \"\"
+       }', '956bdad0-0712-4217-8106-5afb8ee76c28'),
+       (34, '2022-08-24 11:17:06.226', '2022-08-24 11:17:06.237', NULL, NULL, 100, 'mysqldump', 0, 'failed', '{
+         \"extra\": \"\"
+       }', '0648431d-0efa-4354-8e58-fdc2f47d0243');
 /*!40000 ALTER TABLE `saas_back_log`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -658,6 +730,7 @@ CREATE TABLE `saas_instance`
     UNIQUE KEY `ins_id` (`ins_id`),
     KEY `idx_saas_instance_deleted_at` (`deleted_at`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -669,6 +742,9 @@ CREATE TABLE `saas_instance`
 LOCK TABLES `saas_instance` WRITE;
 /*!40000 ALTER TABLE `saas_instance`
     DISABLE KEYS */;
+INSERT INTO `saas_instance`
+VALUES (1, '2022-08-25 19:59:20.823', '2022-08-25 19:59:20.823', NULL, NULL, NULL, 1000, NULL, '127.0.0.1', 3307,
+        'mysql', '8.0.30', '正式', 'available', '1', NULL, NULL, 'master');
 /*!40000 ALTER TABLE `saas_instance`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -734,7 +810,7 @@ CREATE TABLE `sys_apis`
     PRIMARY KEY (`id`),
     KEY `idx_sys_apis_deleted_at` (`deleted_at`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 124
+  AUTO_INCREMENT = 125
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -966,7 +1042,9 @@ VALUES (1, '2022-08-08 21:02:21.929', '2022-08-08 21:02:21.929', NULL, '/base/lo
        (122, '2022-08-18 10:26:12.047', '2022-08-18 10:26:12.047', NULL, '/BackupLog/findBackLog', '根据ID获取备份日志表',
         'BackupLog', 'GET'),
        (123, '2022-08-18 10:26:12.052', '2022-08-18 10:26:12.052', NULL, '/BackupLog/getBackLogList', '获取备份日志表列表',
-        'BackupLog', 'GET');
+        'BackupLog', 'GET'),
+       (124, '2022-08-25 19:22:40.326', '2022-08-25 19:54:38.761', NULL, '/insprocesslist/showinsprocesslist',
+        '对mysql实例进行show processlist操作', 'insprocesslist', 'POST');
 /*!40000 ALTER TABLE `sys_apis`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1003,8 +1081,8 @@ LOCK TABLES `sys_authorities` WRITE;
 /*!40000 ALTER TABLE `sys_authorities`
     DISABLE KEYS */;
 INSERT INTO `sys_authorities`
-VALUES ('2022-08-08 21:02:21.957', '2022-08-10 12:03:29.765', NULL, 888, '普通用户', 0, 'dashboard'),
-       ('2022-08-08 21:02:21.957', '2022-08-10 12:03:11.382', NULL, 8881, '普通用户子角色', 888, 'dashboard'),
+VALUES ('2022-08-08 21:02:21.957', '2022-08-25 19:48:53.904', NULL, 888, '普通用户', 0, 'dashboard'),
+       ('2022-08-08 21:02:21.957', '2022-08-25 19:48:58.787', NULL, 8881, '普通用户子角色', 888, 'dashboard'),
        ('2022-08-08 21:02:21.957', '2022-08-08 21:02:22.256', NULL, 9528, '测试角色', 0, 'dashboard');
 /*!40000 ALTER TABLE `sys_authorities`
     ENABLE KEYS */;
@@ -1107,7 +1185,9 @@ VALUES (1, 888),
        (36, 888),
        (36, 8881),
        (37, 888),
-       (37, 8881);
+       (37, 8881),
+       (38, 888),
+       (38, 8881);
 /*!40000 ALTER TABLE `sys_authority_menus`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1270,6 +1350,7 @@ CREATE TABLE `sys_base_menu_parameters`
     PRIMARY KEY (`id`),
     KEY `idx_sys_base_menu_parameters_deleted_at` (`deleted_at`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1313,7 +1394,7 @@ CREATE TABLE `sys_base_menus`
     PRIMARY KEY (`id`),
     KEY `idx_sys_base_menus_deleted_at` (`deleted_at`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 38
+  AUTO_INCREMENT = 39
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1399,7 +1480,10 @@ VALUES (1, '2022-08-08 21:02:22.221', '2022-08-08 21:02:22.221', NULL, 0, '0', '
        (36, '2022-08-09 18:17:26.248', '2022-08-09 18:20:15.841', NULL, 0, '32', 'instanceinfo', 'instanceinfo', 0,
         'view/saasInstance/saasInstance.vue', 1, 0, 0, '数据库实例', 'coin', 0),
        (37, '2022-08-10 12:03:00.785', '2022-08-10 12:03:00.785', NULL, 0, '0', 'project', 'project', 0,
-        'view/saasProject/saasProject.vue', 3, 0, 0, '项目管理', 'chat-line-round', 0);
+        'view/saasProject/saasProject.vue', 3, 0, 0, '项目管理', 'chat-line-round', 0),
+       (38, '2022-08-25 19:48:30.921', '2022-08-25 19:50:32.917', NULL, 0, '0', 'showinsprocesslist',
+        'showinsprocesslist', 0, 'view/saasInsShowProcesslist/saasInsShowProcesslist.vue', 0, 0, 0, 'showprocesslist',
+        'aim', 0);
 /*!40000 ALTER TABLE `sys_base_menus`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1570,7 +1654,7 @@ CREATE TABLE `sys_operation_records`
     PRIMARY KEY (`id`),
     KEY `idx_sys_operation_records_deleted_at` (`deleted_at`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 113
+  AUTO_INCREMENT = 126
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2224,7 +2308,85 @@ VALUES (1, '2022-08-08 21:23:09.483', '2022-08-08 21:23:09.483', NULL, '127.0.0.
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
         '', '',
         '{\"code\":0,\"data\":{\"server\":{\"os\":{\"goos\":\"darwin\",\"numCpu\":8,\"compiler\":\"gc\",\"goVersion\":\"go1.17.2\",\"numGoroutine\":11},\"cpu\":{\"cpus\":[10.526315791489186,0,5.263157895744593,0,5.000000001091394,0,5.000000000181899,0],\"cores\":4},\"ram\":{\"usedMb\":11026,\"totalMb\":16384,\"usedPercent\":67},\"disk\":{\"usedMb\":115114,\"usedGb\":112,\"totalMb\":239072,\"totalGb\":233,\"usedPercent\":48}}},\"msg\":\"获取成功\"}',
-        1);
+        1),
+       (113, '2022-08-25 19:22:40.333', '2022-08-25 19:22:40.333', NULL, '127.0.0.1', 'POST', '/api/createApi', 200,
+        11976405,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"path\":\"/insprocesslist/showinsprocesslist\",\"apiGroup\":\"/insprocesslist\",\"method\":\"GET\",\"description\":\"对mysql实例进行show processlist操作\"}',
+        '{\"code\":0,\"data\":{},\"msg\":\"创建成功\"}', 1),
+       (114, '2022-08-25 19:23:03.173', '2022-08-25 19:23:03.173', NULL, '127.0.0.1', 'POST', '/casbin/updateCasbin',
+        200, 38196666,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"authorityId\":888,\"casbinInfos\":[{\"path\":\"/base/login\",\"method\":\"POST\"},{\"path\":\"/jwt/jsonInBlacklist\",\"method\":\"POST\"},{\"path\":\"/user/deleteUser\",\"method\":\"DELETE\"},{\"path\":\"/user/admin_register\",\"method\":\"POST\"},{\"path\":\"/user/getUserList\",\"method\":\"POST\"},{\"path\":\"/user/setUserInfo\",\"method\":\"PUT\"},{\"path\":\"/user/setSelfInfo\",\"method\":\"PUT\"},{\"path\":\"/user/getUserInfo\",\"method\":\"GET\"},{\"path\":\"/user/setUserAuthorities\",\"method\":\"POST\"},{\"path\":\"/user/changePassword\",\"method\":\"POST\"},{\"path\":\"/user/setUserAuthority\",\"method\":\"POST\"},{\"path\":\"/user/resetPassword\",\"method\":\"POST\"},{\"path\":\"/api/createApi\",\"method\":\"POST\"},{\"path\":\"/api/deleteApi\",\"method\":\"POST\"},{\"path\":\"/api/updateApi\",\"method\":\"POST\"},{\"path\":\"/api/getApiList\",\"method\":\"POST\"},{\"path\":\"/api/getAllApis\",\"method\":\"POST\"},{\"path\":\"/api/getApiById\",\"method\":\"POST\"},{\"path\":\"/api/deleteApisByIds\",\"method\":\"DELETE\"},{\"path\":\"/authority/copyAuthority\",\"method\":\"POST\"},{\"path\":\"/authority/createAuthority\",\"method\":\"POST\"},{\"path\":\"/authority/deleteAuthority\",\"method\":\"POST\"},{\"path\":\"/authority/updateAuthority\",\"method\":\"PUT\"},{\"path\":\"/authority/getAuthorityList\",\"method\":\"POST\"},{\"path\":\"/authority/setDataAuthority\",\"method\":\"POST\"},{\"path\":\"/casbin/updateCasbin\",\"method\":\"POST\"},{\"path\":\"/casbin/getPolicyPathByAuthorityId\",\"method\":\"POST\"},{\"path\":\"/menu/addBaseMenu\",\"method\":\"POST\"},{\"path\":\"/menu/getMenu\",\"method\":\"POST\"},{\"path\":\"/menu/deleteBaseMenu\",\"method\":\"POST\"},{\"path\":\"/menu/updateBaseMenu\",\"method\":\"POST\"},{\"path\":\"/menu/getBaseMenuById\",\"method\":\"POST\"},{\"path\":\"/menu/getMenuList\",\"method\":\"POST\"},{\"path\":\"/menu/getBaseMenuTree\",\"method\":\"POST\"},{\"path\":\"/menu/getMenuAuthority\",\"method\":\"POST\"},{\"path\":\"/menu/addMenuAuthority\",\"method\":\"POST\"},{\"path\":\"/fileUploadAndDownload/findFile\",\"method\":\"GET\"},{\"path\":\"/fileUploadAndDownload/breakpointContinue\",\"method\":\"POST\"},{\"path\":\"/fileUploadAndDownload/breakpointContinueFinish\",\"method\":\"POST\"},{\"path\":\"/fileUploadAndDownload/removeChunk\",\"method\":\"POST\"},{\"path\":\"/fileUploadAndDownload/upload\",\"method\":\"POST\"},{\"path\":\"/fileUploadAndDownload/deleteFile\",\"method\":\"POST\"},{\"path\":\"/fileUploadAndDownload/editFileName\",\"method\":\"POST\"},{\"path\":\"/fileUploadAndDownload/getFileList\",\"method\":\"POST\"},{\"path\":\"/system/getServerInfo\",\"method\":\"POST\"},{\"path\":\"/system/getSystemConfig\",\"method\":\"POST\"},{\"path\":\"/system/setSystemConfig\",\"method\":\"POST\"},{\"path\":\"/customer/customer\",\"method\":\"PUT\"},{\"path\":\"/customer/customer\",\"method\":\"POST\"},{\"path\":\"/customer/customer\",\"method\":\"DELETE\"},{\"path\":\"/customer/customer\",\"method\":\"GET\"},{\"path\":\"/customer/customerList\",\"method\":\"GET\"},{\"path\":\"/autoCode/getDB\",\"method\":\"GET\"},{\"path\":\"/autoCode/getTables\",\"method\":\"GET\"},{\"path\":\"/autoCode/createTemp\",\"method\":\"POST\"},{\"path\":\"/autoCode/preview\",\"method\":\"POST\"},{\"path\":\"/autoCode/getColumn\",\"method\":\"GET\"},{\"path\":\"/autoCode/createPlug\",\"method\":\"POST\"},{\"path\":\"/autoCode/installPlugin\",\"method\":\"POST\"},{\"path\":\"/autoCode/createPackage\",\"method\":\"POST\"},{\"path\":\"/autoCode/getPackage\",\"method\":\"POST\"},{\"path\":\"/autoCode/delPackage\",\"method\":\"POST\"},{\"path\":\"/autoCode/getMeta\",\"method\":\"POST\"},{\"path\":\"/autoCode/rollback\",\"method\":\"POST\"},{\"path\":\"/autoCode/getSysHistory\",\"method\":\"POST\"},{\"path\":\"/autoCode/delSysHistory\",\"method\":\"POST\"},{\"path\":\"/sysDictionaryDetail/updateSysDictionaryDetail\",\"method\":\"PUT\"},{\"path\":\"/sysDictionaryDetail/createSysDictionaryDetail\",\"method\":\"POST\"},{\"path\":\"/sysDictionaryDetail/deleteSysDictionaryDetail\",\"method\":\"DELETE\"},{\"path\":\"/sysDictionaryDetail/findSysDictionaryDetail\",\"method\":\"GET\"},{\"path\":\"/sysDictionaryDetail/getSysDictionaryDetailList\",\"method\":\"GET\"},{\"path\":\"/sysDictionary/createSysDictionary\",\"method\":\"POST\"},{\"path\":\"/sysDictionary/deleteSysDictionary\",\"method\":\"DELETE\"},{\"path\":\"/sysDictionary/updateSysDictionary\",\"method\":\"PUT\"},{\"path\":\"/sysDictionary/findSysDictionary\",\"method\":\"GET\"},{\"path\":\"/sysDictionary/getSysDictionaryList\",\"method\":\"GET\"},{\"path\":\"/sysOperationRecord/createSysOperationRecord\",\"method\":\"POST\"},{\"path\":\"/sysOperationRecord/findSysOperationRecord\",\"method\":\"GET\"},{\"path\":\"/sysOperationRecord/getSysOperationRecordList\",\"method\":\"GET\"},{\"path\":\"/sysOperationRecord/deleteSysOperationRecord\",\"method\":\"DELETE\"},{\"path\":\"/sysOperationRecord/deleteSysOperationRecordByIds\",\"method\":\"DELETE\"},{\"path\":\"/simpleUploader/upload\",\"method\":\"POST\"},{\"path\":\"/simpleUploader/checkFileMd5\",\"method\":\"GET\"},{\"path\":\"/simpleUploader/mergeFileMd5\",\"method\":\"GET\"},{\"path\":\"/email/emailTest\",\"method\":\"POST\"},{\"path\":\"/excel/importExcel\",\"method\":\"POST\"},{\"path\":\"/excel/loadExcel\",\"method\":\"GET\"},{\"path\":\"/excel/exportExcel\",\"method\":\"POST\"},{\"path\":\"/excel/downloadTemplate\",\"method\":\"GET\"},{\"path\":\"/authorityBtn/setAuthorityBtn\",\"method\":\"POST\"},{\"path\":\"/authorityBtn/getAuthorityBtn\",\"method\":\"POST\"},{\"path\":\"/authorityBtn/canRemoveAuthorityBtn\",\"method\":\"POST\"},{\"path\":\"/saas_instance/createInstance\",\"method\":\"POST\"},{\"path\":\"/saas_instance/deleteInstance\",\"method\":\"DELETE\"},{\"path\":\"/saas_instance/deleteInstanceByIds\",\"method\":\"DELETE\"},{\"path\":\"/saas_instance/updateInstance\",\"method\":\"PUT\"},{\"path\":\"/saas_instance/findInstance\",\"method\":\"GET\"},{\"path\":\"/saas_instance/getInstanceList\",\"method\":\"GET\"},{\"path\":\"/host/createHost\",\"method\":\"POST\"},{\"path\":\"/host/deleteHost\",\"method\":\"DELETE\"},{\"path\":\"/host/deleteHostByIds\",\"method\":\"DELETE\"},{\"path\":\"/host/updateHost\",\"method\":\"PUT\"},{\"path\":\"/host/findHost\",\"method\":\"GET\"},{\"path\":\"/host/getHostList\",\"method\":\"GET\"},{\"path\":\"/domain/createDomain\",\"method\":\"POST\"},{\"path\":\"/domain/deleteDomain\",\"method\":\"DELETE\"},{\"path\":\"/domain/deleteDomainByIds\",\"method\":\"DELETE\"},{\"path\":\"/domain/updateDomain\",\"method\":\"PUT\"},{\"path\":\"/domain/findDomain\",\"method\":\"GET\"},{\"path\":\"/domain/getDomainList\",\"method\":\"GET\"},{\"path\":\"/priject/createProject\",\"method\":\"POST\"},{\"path\":\"/priject/deleteProject\",\"method\":\"DELETE\"},{\"path\":\"/priject/deleteProjectByIds\",\"method\":\"DELETE\"},{\"path\":\"/priject/updateProject\",\"method\":\"PUT\"},{\"path\":\"/priject/findProject\",\"method\":\"GET\"},{\"path\":\"/priject/getProjectList\",\"method\":\"GET\"},{\"path\":\"/BackupLog/createBackLog\",\"method\":\"POST\"},{\"path\":\"/BackupLog/deleteBackLog\",\"method\":\"DELETE\"},{\"path\":\"/BackupLog/deleteBackLogByIds\",\"method\":\"DELETE\"},{\"path\":\"/BackupLog/updateBackLog\",\"method\":\"PUT\"},{\"path\":\"/BackupLog/findBackLog\",\"method\":\"GET\"},{\"path\":\"/BackupLog/getBackLogList\",\"method\":\"GET\"},{\"path\":\"/insprocesslist/showinsprocesslist\",\"method\":\"GET\"}]}',
+        '{\"code\":0,\"data\":{},\"msg\":\"更新成功\"}', 1),
+       (115, '2022-08-25 19:23:22.828', '2022-08-25 19:23:22.828', NULL, '127.0.0.1', 'POST', '/casbin/updateCasbin',
+        200, 23893293,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"authorityId\":8881,\"casbinInfos\":[{\"path\":\"/base/login\",\"method\":\"POST\"},{\"path\":\"/jwt/jsonInBlacklist\",\"method\":\"POST\"},{\"path\":\"/user/admin_register\",\"method\":\"POST\"},{\"path\":\"/user/getUserList\",\"method\":\"POST\"},{\"path\":\"/user/getUserInfo\",\"method\":\"GET\"},{\"path\":\"/user/changePassword\",\"method\":\"POST\"},{\"path\":\"/user/setUserAuthority\",\"method\":\"POST\"},{\"path\":\"/casbin/updateCasbin\",\"method\":\"POST\"},{\"path\":\"/casbin/getPolicyPathByAuthorityId\",\"method\":\"POST\"},{\"path\":\"/menu/addBaseMenu\",\"method\":\"POST\"},{\"path\":\"/menu/getMenu\",\"method\":\"POST\"},{\"path\":\"/menu/deleteBaseMenu\",\"method\":\"POST\"},{\"path\":\"/menu/updateBaseMenu\",\"method\":\"POST\"},{\"path\":\"/menu/getBaseMenuById\",\"method\":\"POST\"},{\"path\":\"/menu/getMenuList\",\"method\":\"POST\"},{\"path\":\"/menu/getBaseMenuTree\",\"method\":\"POST\"},{\"path\":\"/menu/getMenuAuthority\",\"method\":\"POST\"},{\"path\":\"/menu/addMenuAuthority\",\"method\":\"POST\"},{\"path\":\"/system/getServerInfo\",\"method\":\"POST\"},{\"path\":\"/system/getSystemConfig\",\"method\":\"POST\"},{\"path\":\"/system/setSystemConfig\",\"method\":\"POST\"},{\"path\":\"/customer/customer\",\"method\":\"PUT\"},{\"path\":\"/customer/customer\",\"method\":\"POST\"},{\"path\":\"/customer/customer\",\"method\":\"DELETE\"},{\"path\":\"/customer/customer\",\"method\":\"GET\"},{\"path\":\"/customer/customerList\",\"method\":\"GET\"},{\"path\":\"/saas_instance/createInstance\",\"method\":\"POST\"},{\"path\":\"/saas_instance/deleteInstance\",\"method\":\"DELETE\"},{\"path\":\"/saas_instance/deleteInstanceByIds\",\"method\":\"DELETE\"},{\"path\":\"/saas_instance/updateInstance\",\"method\":\"PUT\"},{\"path\":\"/saas_instance/findInstance\",\"method\":\"GET\"},{\"path\":\"/saas_instance/getInstanceList\",\"method\":\"GET\"},{\"path\":\"/host/createHost\",\"method\":\"POST\"},{\"path\":\"/host/deleteHost\",\"method\":\"DELETE\"},{\"path\":\"/host/deleteHostByIds\",\"method\":\"DELETE\"},{\"path\":\"/host/updateHost\",\"method\":\"PUT\"},{\"path\":\"/host/findHost\",\"method\":\"GET\"},{\"path\":\"/host/getHostList\",\"method\":\"GET\"},{\"path\":\"/domain/createDomain\",\"method\":\"POST\"},{\"path\":\"/domain/deleteDomain\",\"method\":\"DELETE\"},{\"path\":\"/domain/deleteDomainByIds\",\"method\":\"DELETE\"},{\"path\":\"/domain/updateDomain\",\"method\":\"PUT\"},{\"path\":\"/domain/findDomain\",\"method\":\"GET\"},{\"path\":\"/domain/getDomainList\",\"method\":\"GET\"},{\"path\":\"/priject/createProject\",\"method\":\"POST\"},{\"path\":\"/priject/deleteProject\",\"method\":\"DELETE\"},{\"path\":\"/priject/deleteProjectByIds\",\"method\":\"DELETE\"},{\"path\":\"/priject/updateProject\",\"method\":\"PUT\"},{\"path\":\"/priject/findProject\",\"method\":\"GET\"},{\"path\":\"/priject/getProjectList\",\"method\":\"GET\"},{\"path\":\"/BackupLog/createBackLog\",\"method\":\"POST\"},{\"path\":\"/BackupLog/deleteBackLog\",\"method\":\"DELETE\"},{\"path\":\"/BackupLog/deleteBackLogByIds\",\"method\":\"DELETE\"},{\"path\":\"/BackupLog/updateBackLog\",\"method\":\"PUT\"},{\"path\":\"/BackupLog/findBackLog\",\"method\":\"GET\"},{\"path\":\"/BackupLog/getBackLogList\",\"method\":\"GET\"},{\"path\":\"/insprocesslist/showinsprocesslist\",\"method\":\"GET\"}]}',
+        '{\"code\":0,\"data\":{},\"msg\":\"更新成功\"}', 1),
+       (116, '2022-08-25 19:23:31.102', '2022-08-25 19:23:31.102', NULL, '127.0.0.1', 'POST', '/api/getApiById', 200,
+        1974288,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '', '{\"id\":124}',
+        '{\"code\":0,\"data\":{\"api\":{\"ID\":124,\"CreatedAt\":\"2022-08-25T19:22:40.326+08:00\",\"UpdatedAt\":\"2022-08-25T19:22:40.326+08:00\",\"path\":\"/insprocesslist/showinsprocesslist\",\"description\":\"对mysql实例进行show processlist操作\",\"apiGroup\":\"/insprocesslist\",\"method\":\"GET\"}},\"msg\":\"获取成功\"}',
+        1),
+       (117, '2022-08-25 19:23:38.630', '2022-08-25 19:23:38.630', NULL, '127.0.0.1', 'POST', '/api/updateApi', 200,
+        14648111,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"ID\":124,\"CreatedAt\":\"2022-08-25T19:22:40.326+08:00\",\"UpdatedAt\":\"2022-08-25T19:22:40.326+08:00\",\"path\":\"/insprocesslist/showinsprocesslist\",\"description\":\"对mysql实例进行show processlist操作\",\"apiGroup\":\"insprocesslist\",\"method\":\"GET\"}',
+        '{\"code\":0,\"data\":{},\"msg\":\"修改成功\"}', 1),
+       (118, '2022-08-25 19:45:16.047', '2022-08-25 19:45:16.047', NULL, '127.0.0.1', 'POST', '/system/getSystemConfig',
+        200, 4487551,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '', '',
+        '{\"code\":0,\"data\":{\"config\":{\"jwt\":{\"signing-key\":\"06156bc0-22cf-4ebc-90a1-e4fec27029fb\",\"expires-time\":604800,\"buffer-time\":86400,\"issuer\":\"qmPlus\"},\"zap\":{\"level\":\"info\",\"prefix\":\"[github.com/flipped-aurora/gin-vue-admin/server]\",\"format\":\"console\",\"director\":\"log\",\"encode-level\":\"LowercaseColorLevelEncoder\",\"stacktrace-key\":\"stacktrace\",\"max-age\":30,\"show-line\":true,\"log-in-console\":true},\"redis\":{\"db\":0,\"addr\":\"127.0.0.1:6379\",\"password\":\"\"},\"email\":{\"to\":\"xxx@qq.com\",\"port\":465,\"from\":\"xxx@163.com\",\"host\":\"smtp.163.com\",\"is-ssl\":true,\"secret\":\"xxx\",\"nickname\":\"test\"},\"system\":{\"env\":\"public\",\"addr\":8888,\"db-type\":\"mysql\",\"oss-type\":\"local\",\"use-multipoint\":false,\"use-redis\":false,\"iplimit-count\":15000,\"iplimit-time\":3600},\"captcha\":{\"key-long\":6,\"img-width\":240,\"img-height\":80},\"autocode\":{\"transfer-restart\":true,\"root\":\"/Users/anderalex/go/src/gin-vue-admin\",\"server\":\"/server\",\"server-api\":\"/api/v1/%s\",\"server-plug\":\"/plugin/%s\",\"server-initialize\":\"/initialize\",\"server-model\":\"/model/%s\",\"server-request\":\"/model/%s/request/\",\"server-router\":\"/router/%s\",\"server-service\":\"/service/%s\",\"web\":\"/web/src\",\"web-api\":\"/api\",\"web-form\":\"/view\",\"web-table\":\"/view\"},\"mysql\":{\"path\":\"127.0.0.1\",\"port\":\"3307\",\"config\":\"charset=utf8mb4\\u0026parseTime=True\\u0026loc=Local\",\"db-name\":\"saasdb\",\"username\":\"root\",\"password\":\"letsg0\",\"max-idle-conns\":10,\"max-open-conns\":100,\"log-mode\":\"error\",\"log-zap\":false},\"pgsql\":{\"path\":\"\",\"port\":\"\",\"config\":\"\",\"db-name\":\"\",\"username\":\"\",\"password\":\"\",\"max-idle-conns\":10,\"max-open-conns\":100,\"log-mode\":\"\",\"log-zap\":false},\"db-list\":[{\"disable\":false,\"type\":\"\",\"alias-name\":\"\",\"path\":\"\",\"port\":\"\",\"config\":\"\",\"db-name\":\"\",\"username\":\"\",\"password\":\"\",\"max-idle-conns\":10,\"max-open-conns\":100,\"log-mode\":\"\",\"log-zap\":false}],\"local\":{\"path\":\"uploads/file\",\"store-path\":\"uploads/file\"},\"qiniu\":{\"zone\":\"ZoneHuaDong\",\"bucket\":\"\",\"img-path\":\"\",\"use-https\":false,\"access-key\":\"\",\"secret-key\":\"\",\"use-cdn-domains\":false},\"aliyun-oss\":{\"endpoint\":\"yourEndpoint\",\"access-key-id\":\"yourAccessKeyId\",\"access-key-secret\":\"yourAccessKeySecret\",\"bucket-name\":\"yourBucketName\",\"bucket-url\":\"yourBucketUrl\",\"base-path\":\"yourBasePath\"},\"hua-wei-obs\":{\"path\":\"you-path\",\"bucket\":\"you-bucket\",\"endpoint\":\"you-endpoint\",\"access-key\":\"you-access-key\",\"secret-key\":\"you-secret-key\"},\"tencent-cos\":{\"bucket\":\"xxxxx-10005608\",\"region\":\"ap-shanghai\",\"secret-id\":\"xxxxxxxx\",\"secret-key\":\"xxxxxxxx\",\"base-url\":\"https://gin.vue.admin\",\"path-prefix\":\"github.com/flipped-aurora/gin-vue-admin/server\"},\"aws-s3\":{\"bucket\":\"xxxxx-10005608\",\"region\":\"ap-shanghai\",\"endpoint\":\"\",\"s3-force-path-style\":false,\"disable-ssl\":false,\"secret-id\":\"xxxxxxxx\",\"secret-key\":\"xxxxxxxx\",\"base-url\":\"https://gin.vue.admin\",\"path-prefix\":\"github.com/flipped-aurora/gin-vue-admin/server\"},\"excel\":{\"dir\":\"./resource/excel/\"},\"timer\":{\"start\":true,\"spec\":\"@daily\",\"with_seconds\":false,\"detail\":[{\"tableName\":\"sys_operation_records\",\"compareField\":\"created_at\",\"interval\":\"2160h\"},{\"tableName\":\"jwt_blacklists\",\"compareField\":\"created_at\",\"interval\":\"168h\"}]},\"cors\":{\"mode\":\"whitelist\",\"whitelist\":[{\"allow-origin\":\"example1.com\",\"allow-methods\":\"GET, POST\",\"allow-headers\":\"content-type\",\"expose-headers\":\"Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type\",\"allow-credentials\":true},{\"allow-origin\":\"example2.com\",\"allow-methods\":\"GET, POST\",\"allow-headers\":\"content-type\",\"expose-headers\":\"Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type\",\"allow-credentials\":true}]},\"grpcServer\":{\"grpcServerListenPort\":21080,\"grpcMySQLMangerUser\":\"saasmanager\",\"grpcMySQLMangerPassword\":\"saasmanager\",\"grpcCA\":\"/Users/anderalex/go/src/gin-vue-admin/server/service/saasdb/cerify/server.crt\",\"grpcKey\":\"/Users/anderalex/go/src/gin-vue-admin/server/service/saasdb/cerify/server.key\",\"grpcWebUrl\":\"example.server.com\"}}},\"msg\":\"获取成功\"}',
+        1),
+       (119, '2022-08-25 19:48:30.934', '2022-08-25 19:48:30.934', NULL, '127.0.0.1', 'POST', '/menu/addBaseMenu', 200,
+        16936266,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"ID\":0,\"path\":\"showinsprocesslist\",\"name\":\"showinsprocesslist\",\"hidden\":\"\",\"parentId\":\"0\",\"component\":\"view/saasInsShowProcesslist/saasInsShowProcesslist.vue\",\"meta\":{\"title\":\"showprocesslist\",\"icon\":\"aim\",\"defaultMenu\":false,\"keepAlive\":\"\"},\"parameters\":[{\"type\":\"query\",\"key\":\"vm\",\"value\":\"127.0.0.1\"},{\"type\":\"query\",\"key\":\"vm_mysql_host\",\"value\":\"127.0.0.1\"},{\"type\":\"query\",\"key\":\"vm_mysql_port\",\"value\":\"3307\"}]}',
+        '{\"code\":0,\"data\":{},\"msg\":\"添加成功\"}', 1),
+       (120, '2022-08-25 19:48:53.926', '2022-08-25 19:48:53.926', NULL, '127.0.0.1', 'POST', '/menu/addMenuAuthority',
+        200, 31666906,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"menus\":[{\"ID\":38,\"CreatedAt\":\"2022-08-25T19:48:30.921+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.921+08:00\",\"parentId\":\"0\",\"path\":\"showinsprocesslist\",\"name\":\"showinsprocesslist\",\"hidden\":false,\"component\":\"view/saasInsShowProcesslist/saasInsShowProcesslist.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"showprocesslist\",\"icon\":\"aim\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[{\"ID\":1,\"CreatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"SysBaseMenuID\":38,\"type\":\"query\",\"key\":\"vm\",\"value\":\"127.0.0.1\"},{\"ID\":2,\"CreatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"SysBaseMenuID\":38,\"type\":\"query\",\"key\":\"vm_mysql_host\",\"value\":\"127.0.0.1\"},{\"ID\":3,\"CreatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"SysBaseMenuID\":38,\"type\":\"query\",\"key\":\"vm_mysql_port\",\"value\":\"3307\"}],\"menuBtn\":[]},{\"ID\":32,\"CreatedAt\":\"2022-08-08T21:23:09.476+08:00\",\"UpdatedAt\":\"2022-08-09T18:19:32.852+08:00\",\"parentId\":\"0\",\"path\":\"db-plartform\",\"name\":\"db-plartform\",\"hidden\":false,\"component\":\"view/routerHolder.vue\",\"sort\":1,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"数据库管理\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":[{\"ID\":33,\"CreatedAt\":\"2022-08-08T21:25:02.987+08:00\",\"UpdatedAt\":\"2022-08-09T18:19:47.191+08:00\",\"parentId\":\"32\",\"path\":\"DBDomain\",\"name\":\"DBDomain\",\"hidden\":false,\"component\":\"view/saasDomain/saasDomain.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库集群\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":36,\"CreatedAt\":\"2022-08-09T18:17:26.248+08:00\",\"UpdatedAt\":\"2022-08-09T18:20:15.841+08:00\",\"parentId\":\"32\",\"path\":\"instanceinfo\",\"name\":\"instanceinfo\",\"hidden\":false,\"component\":\"view/saasInstance/saasInstance.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库实例\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"parameters\":[],\"menuBtn\":[]},{\"ID\":33,\"CreatedAt\":\"2022-08-08T21:25:02.987+08:00\",\"UpdatedAt\":\"2022-08-09T18:19:47.191+08:00\",\"parentId\":\"32\",\"path\":\"DBDomain\",\"name\":\"DBDomain\",\"hidden\":false,\"component\":\"view/saasDomain/saasDomain.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库集群\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":36,\"CreatedAt\":\"2022-08-09T18:17:26.248+08:00\",\"UpdatedAt\":\"2022-08-09T18:20:15.841+08:00\",\"parentId\":\"32\",\"path\":\"instanceinfo\",\"name\":\"instanceinfo\",\"hidden\":false,\"component\":\"view/saasInstance/saasInstance.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库实例\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":1,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"dashboard\",\"name\":\"dashboard\",\"hidden\":false,\"component\":\"view/dashboard/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"仪表盘\",\"icon\":\"odometer\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":34,\"CreatedAt\":\"2022-08-09T13:48:43.458+08:00\",\"UpdatedAt\":\"2022-08-09T13:50:20.14+08:00\",\"parentId\":\"0\",\"path\":\"hostplatform\",\"name\":\"hostplatform\",\"hidden\":false,\"component\":\"view/saasHost/saasHost.vue\",\"sort\":2,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"宿主机管理\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":37,\"CreatedAt\":\"2022-08-10T12:03:00.785+08:00\",\"UpdatedAt\":\"2022-08-10T12:03:00.785+08:00\",\"parentId\":\"0\",\"path\":\"project\",\"name\":\"project\",\"hidden\":false,\"component\":\"view/saasProject/saasProject.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"项目管理\",\"icon\":\"chat-line-round\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":3,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"admin\",\"name\":\"superAdmin\",\"hidden\":false,\"component\":\"view/superAdmin/index.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"超级管理员\",\"icon\":\"user\",\"closeTab\":false},\"authoritys\":null,\"children\":[{\"ID\":19,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"dictionaryDetail/:id\",\"name\":\"dictionaryDetail\",\"hidden\":true,\"component\":\"view/superAdmin/dictionary/sysDictionaryDetail.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"字典详情-${id}\",\"icon\":\"order\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":4,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"authority\",\"name\":\"authority\",\"hidden\":false,\"component\":\"view/superAdmin/authority/authority.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"角色管理\",\"icon\":\"avatar\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":5,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"menu\",\"name\":\"menu\",\"hidden\":false,\"component\":\"view/superAdmin/menu/menu.vue\",\"sort\":2,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"菜单管理\",\"icon\":\"tickets\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":6,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"api\",\"name\":\"api\",\"hidden\":false,\"component\":\"view/superAdmin/api/api.vue\",\"sort\":3,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"api管理\",\"icon\":\"platform\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":7,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"user\",\"name\":\"user\",\"hidden\":false,\"component\":\"view/superAdmin/user/user.vue\",\"sort\":4,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"用户管理\",\"icon\":\"coordinate\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":18,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"dictionary\",\"name\":\"dictionary\",\"hidden\":false,\"component\":\"view/superAdmin/dictionary/sysDictionary.vue\",\"sort\":5,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"字典管理\",\"icon\":\"notebook\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":20,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"operation\",\"name\":\"operation\",\"hidden\":false,\"component\":\"view/superAdmin/operation/sysOperationRecord.vue\",\"sort\":6,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"操作历史\",\"icon\":\"pie-chart\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"parameters\":[],\"menuBtn\":[]},{\"ID\":19,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"dictionaryDetail/:id\",\"name\":\"dictionaryDetail\",\"hidden\":true,\"component\":\"view/superAdmin/dictionary/sysDictionaryDetail.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"字典详情-${id}\",\"icon\":\"order\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":4,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"authority\",\"name\":\"authority\",\"hidden\":false,\"component\":\"view/superAdmin/authority/authority.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"角色管理\",\"icon\":\"avatar\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":5,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"menu\",\"name\":\"menu\",\"hidden\":false,\"component\":\"view/superAdmin/menu/menu.vue\",\"sort\":2,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"菜单管理\",\"icon\":\"tickets\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":6,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"api\",\"name\":\"api\",\"hidden\":false,\"component\":\"view/superAdmin/api/api.vue\",\"sort\":3,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"api管理\",\"icon\":\"platform\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":7,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"user\",\"name\":\"user\",\"hidden\":false,\"component\":\"view/superAdmin/user/user.vue\",\"sort\":4,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"用户管理\",\"icon\":\"coordinate\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":18,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"dictionary\",\"name\":\"dictionary\",\"hidden\":false,\"component\":\"view/superAdmin/dictionary/sysDictionary.vue\",\"sort\":5,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"字典管理\",\"icon\":\"notebook\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":20,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"3\",\"path\":\"operation\",\"name\":\"operation\",\"hidden\":false,\"component\":\"view/superAdmin/operation/sysOperationRecord.vue\",\"sort\":6,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"操作历史\",\"icon\":\"pie-chart\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":35,\"CreatedAt\":\"2022-08-09T16:01:07.597+08:00\",\"UpdatedAt\":\"2022-08-09T16:16:23.619+08:00\",\"parentId\":\"0\",\"path\":\"taskPlatform\",\"name\":\"taskPlatform\",\"hidden\":false,\"component\":\"view/saasTaskPlatform/index.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"计划任务管理\",\"icon\":\"calendar\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":8,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"person\",\"name\":\"person\",\"hidden\":true,\"component\":\"view/person/person.vue\",\"sort\":4,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"个人信息\",\"icon\":\"message\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":14,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"systemTools\",\"name\":\"systemTools\",\"hidden\":false,\"component\":\"view/systemTools/index.vue\",\"sort\":5,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"系统工具\",\"icon\":\"tools\",\"closeTab\":false},\"authoritys\":null,\"children\":[{\"ID\":26,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoPkg\",\"name\":\"autoPkg\",\"hidden\":false,\"component\":\"view/systemTools/autoPkg/autoPkg.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"自动化package\",\"icon\":\"folder\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":25,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoCodeEdit/:id\",\"name\":\"autoCodeEdit\",\"hidden\":true,\"component\":\"view/systemTools/autoCode/index.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"自动化代码-${id}\",\"icon\":\"magic-stick\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":24,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoCodeAdmin\",\"name\":\"autoCodeAdmin\",\"hidden\":false,\"component\":\"view/systemTools/autoCodeAdmin/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"自动化代码管理\",\"icon\":\"magic-stick\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":15,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoCode\",\"name\":\"autoCode\",\"hidden\":false,\"component\":\"view/systemTools/autoCode/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"代码生成器\",\"icon\":\"cpu\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":16,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"formCreate\",\"name\":\"formCreate\",\"hidden\":false,\"component\":\"view/systemTools/formCreate/index.vue\",\"sort\":2,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"表单生成器\",\"icon\":\"magic-stick\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":17,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"system\",\"name\":\"system\",\"hidden\":false,\"component\":\"view/systemTools/system/system.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"系统配置\",\"icon\":\"operation\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"parameters\":[],\"menuBtn\":[]},{\"ID\":26,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoPkg\",\"name\":\"autoPkg\",\"hidden\":false,\"component\":\"view/systemTools/autoPkg/autoPkg.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"自动化package\",\"icon\":\"folder\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":25,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoCodeEdit/:id\",\"name\":\"autoCodeEdit\",\"hidden\":true,\"component\":\"view/systemTools/autoCode/index.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"自动化代码-${id}\",\"icon\":\"magic-stick\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":24,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoCodeAdmin\",\"name\":\"autoCodeAdmin\",\"hidden\":false,\"component\":\"view/systemTools/autoCodeAdmin/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"自动化代码管理\",\"icon\":\"magic-stick\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":15,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"autoCode\",\"name\":\"autoCode\",\"hidden\":false,\"component\":\"view/systemTools/autoCode/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"代码生成器\",\"icon\":\"cpu\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":16,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"formCreate\",\"name\":\"formCreate\",\"hidden\":false,\"component\":\"view/systemTools/formCreate/index.vue\",\"sort\":2,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"表单生成器\",\"icon\":\"magic-stick\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":17,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"14\",\"path\":\"system\",\"name\":\"system\",\"hidden\":false,\"component\":\"view/systemTools/system/system.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"系统配置\",\"icon\":\"operation\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":27,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"plugin\",\"name\":\"plugin\",\"hidden\":false,\"component\":\"view/routerHolder.vue\",\"sort\":6,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"插件系统\",\"icon\":\"cherry\",\"closeTab\":false},\"authoritys\":null,\"children\":[{\"ID\":28,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"https://plugin.gin-vue-admin.com/\",\"name\":\"https://plugin.gin-vue-admin.com/\",\"hidden\":false,\"component\":\"https://plugin.gin-vue-admin.com/\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"插件市场\",\"icon\":\"shop\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":29,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"installPlugin\",\"name\":\"installPlugin\",\"hidden\":false,\"component\":\"view/systemTools/installPlugin/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"插件安装\",\"icon\":\"box\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":30,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"autoPlug\",\"name\":\"autoPlug\",\"hidden\":false,\"component\":\"view/systemTools/autoPlug/autoPlug.vue\",\"sort\":2,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"插件模板\",\"icon\":\"folder\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":31,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"plugin-email\",\"name\":\"plugin-email\",\"hidden\":false,\"component\":\"plugin/email/view/index.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"邮件插件\",\"icon\":\"message\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"parameters\":[],\"menuBtn\":[]},{\"ID\":28,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"https://plugin.gin-vue-admin.com/\",\"name\":\"https://plugin.gin-vue-admin.com/\",\"hidden\":false,\"component\":\"https://plugin.gin-vue-admin.com/\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"插件市场\",\"icon\":\"shop\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":29,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"installPlugin\",\"name\":\"installPlugin\",\"hidden\":false,\"component\":\"view/systemTools/installPlugin/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"插件安装\",\"icon\":\"box\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":30,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"autoPlug\",\"name\":\"autoPlug\",\"hidden\":false,\"component\":\"view/systemTools/autoPlug/autoPlug.vue\",\"sort\":2,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"插件模板\",\"icon\":\"folder\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":31,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"27\",\"path\":\"plugin-email\",\"name\":\"plugin-email\",\"hidden\":false,\"component\":\"plugin/email/view/index.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"邮件插件\",\"icon\":\"message\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":9,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"example\",\"name\":\"example\",\"hidden\":false,\"component\":\"view/example/index.vue\",\"sort\":7,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"示例文件\",\"icon\":\"management\",\"closeTab\":false},\"authoritys\":null,\"children\":[{\"ID\":10,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"excel\",\"name\":\"excel\",\"hidden\":false,\"component\":\"view/example/excel/excel.vue\",\"sort\":4,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"excel导入导出\",\"icon\":\"takeaway-box\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":11,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"upload\",\"name\":\"upload\",\"hidden\":false,\"component\":\"view/example/upload/upload.vue\",\"sort\":5,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"媒体库（上传下载）\",\"icon\":\"upload\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":21,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"simpleUploader\",\"name\":\"simpleUploader\",\"hidden\":false,\"component\":\"view/example/simpleUploader/simpleUploader\",\"sort\":6,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"断点续传（插件版）\",\"icon\":\"upload\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":12,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"breakpoint\",\"name\":\"breakpoint\",\"hidden\":false,\"component\":\"view/example/breakpoint/breakpoint.vue\",\"sort\":6,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"断点续传\",\"icon\":\"upload-filled\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":13,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"customer\",\"name\":\"customer\",\"hidden\":false,\"component\":\"view/example/customer/customer.vue\",\"sort\":7,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"客户列表（资源示例）\",\"icon\":\"avatar\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"parameters\":[],\"menuBtn\":[]},{\"ID\":10,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"excel\",\"name\":\"excel\",\"hidden\":false,\"component\":\"view/example/excel/excel.vue\",\"sort\":4,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"excel导入导出\",\"icon\":\"takeaway-box\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":11,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"upload\",\"name\":\"upload\",\"hidden\":false,\"component\":\"view/example/upload/upload.vue\",\"sort\":5,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"媒体库（上传下载）\",\"icon\":\"upload\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":12,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"breakpoint\",\"name\":\"breakpoint\",\"hidden\":false,\"component\":\"view/example/breakpoint/breakpoint.vue\",\"sort\":6,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"断点续传\",\"icon\":\"upload-filled\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":13,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"9\",\"path\":\"customer\",\"name\":\"customer\",\"hidden\":false,\"component\":\"view/example/customer/customer.vue\",\"sort\":7,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"客户列表（资源示例）\",\"icon\":\"avatar\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":23,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"state\",\"name\":\"state\",\"hidden\":false,\"component\":\"view/system/state.vue\",\"sort\":8,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"服务器状态\",\"icon\":\"cloudy\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":2,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"about\",\"name\":\"about\",\"hidden\":false,\"component\":\"view/about/index.vue\",\"sort\":9,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"关于我们\",\"icon\":\"info-filled\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"authorityId\":888}',
+        '{\"code\":0,\"data\":{},\"msg\":\"添加成功\"}', 1),
+       (121, '2022-08-25 19:48:58.801', '2022-08-25 19:48:58.801', NULL, '127.0.0.1', 'POST', '/menu/addMenuAuthority',
+        200, 21395914,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"menus\":[{\"ID\":38,\"CreatedAt\":\"2022-08-25T19:48:30.921+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.921+08:00\",\"parentId\":\"0\",\"path\":\"showinsprocesslist\",\"name\":\"showinsprocesslist\",\"hidden\":false,\"component\":\"view/saasInsShowProcesslist/saasInsShowProcesslist.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"showprocesslist\",\"icon\":\"aim\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[{\"ID\":1,\"CreatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"SysBaseMenuID\":38,\"type\":\"query\",\"key\":\"vm\",\"value\":\"127.0.0.1\"},{\"ID\":2,\"CreatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"SysBaseMenuID\":38,\"type\":\"query\",\"key\":\"vm_mysql_host\",\"value\":\"127.0.0.1\"},{\"ID\":3,\"CreatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.926+08:00\",\"SysBaseMenuID\":38,\"type\":\"query\",\"key\":\"vm_mysql_port\",\"value\":\"3307\"}],\"menuBtn\":[]},{\"ID\":32,\"CreatedAt\":\"2022-08-08T21:23:09.476+08:00\",\"UpdatedAt\":\"2022-08-09T18:19:32.852+08:00\",\"parentId\":\"0\",\"path\":\"db-plartform\",\"name\":\"db-plartform\",\"hidden\":false,\"component\":\"view/routerHolder.vue\",\"sort\":1,\"meta\":{\"keepAlive\":true,\"defaultMenu\":false,\"title\":\"数据库管理\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":[{\"ID\":33,\"CreatedAt\":\"2022-08-08T21:25:02.987+08:00\",\"UpdatedAt\":\"2022-08-09T18:19:47.191+08:00\",\"parentId\":\"32\",\"path\":\"DBDomain\",\"name\":\"DBDomain\",\"hidden\":false,\"component\":\"view/saasDomain/saasDomain.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库集群\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":36,\"CreatedAt\":\"2022-08-09T18:17:26.248+08:00\",\"UpdatedAt\":\"2022-08-09T18:20:15.841+08:00\",\"parentId\":\"32\",\"path\":\"instanceinfo\",\"name\":\"instanceinfo\",\"hidden\":false,\"component\":\"view/saasInstance/saasInstance.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库实例\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"parameters\":[],\"menuBtn\":[]},{\"ID\":33,\"CreatedAt\":\"2022-08-08T21:25:02.987+08:00\",\"UpdatedAt\":\"2022-08-09T18:19:47.191+08:00\",\"parentId\":\"32\",\"path\":\"DBDomain\",\"name\":\"DBDomain\",\"hidden\":false,\"component\":\"view/saasDomain/saasDomain.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库集群\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":36,\"CreatedAt\":\"2022-08-09T18:17:26.248+08:00\",\"UpdatedAt\":\"2022-08-09T18:20:15.841+08:00\",\"parentId\":\"32\",\"path\":\"instanceinfo\",\"name\":\"instanceinfo\",\"hidden\":false,\"component\":\"view/saasInstance/saasInstance.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"数据库实例\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":1,\"CreatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"UpdatedAt\":\"2022-08-08T21:02:22.221+08:00\",\"parentId\":\"0\",\"path\":\"dashboard\",\"name\":\"dashboard\",\"hidden\":false,\"component\":\"view/dashboard/index.vue\",\"sort\":1,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"仪表盘\",\"icon\":\"odometer\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":34,\"CreatedAt\":\"2022-08-09T13:48:43.458+08:00\",\"UpdatedAt\":\"2022-08-09T13:50:20.14+08:00\",\"parentId\":\"0\",\"path\":\"hostplatform\",\"name\":\"hostplatform\",\"hidden\":false,\"component\":\"view/saasHost/saasHost.vue\",\"sort\":2,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"宿主机管理\",\"icon\":\"coin\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":37,\"CreatedAt\":\"2022-08-10T12:03:00.785+08:00\",\"UpdatedAt\":\"2022-08-10T12:03:00.785+08:00\",\"parentId\":\"0\",\"path\":\"project\",\"name\":\"project\",\"hidden\":false,\"component\":\"view/saasProject/saasProject.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"项目管理\",\"icon\":\"chat-line-round\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]},{\"ID\":35,\"CreatedAt\":\"2022-08-09T16:01:07.597+08:00\",\"UpdatedAt\":\"2022-08-09T16:16:23.619+08:00\",\"parentId\":\"0\",\"path\":\"taskPlatform\",\"name\":\"taskPlatform\",\"hidden\":false,\"component\":\"view/saasTaskPlatform/index.vue\",\"sort\":3,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"计划任务管理\",\"icon\":\"calendar\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}],\"authorityId\":8881}',
+        '{\"code\":0,\"data\":{},\"msg\":\"添加成功\"}', 1),
+       (122, '2022-08-25 19:50:32.923', '2022-08-25 19:50:32.923', NULL, '127.0.0.1', 'POST', '/menu/updateBaseMenu',
+        200, 14683907,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"ID\":38,\"CreatedAt\":\"2022-08-25T19:48:30.921+08:00\",\"UpdatedAt\":\"2022-08-25T19:48:30.921+08:00\",\"parentId\":\"0\",\"path\":\"showinsprocesslist\",\"name\":\"showinsprocesslist\",\"hidden\":false,\"component\":\"view/saasInsShowProcesslist/saasInsShowProcesslist.vue\",\"sort\":0,\"meta\":{\"keepAlive\":false,\"defaultMenu\":false,\"title\":\"showprocesslist\",\"icon\":\"aim\",\"closeTab\":false},\"authoritys\":null,\"children\":null,\"parameters\":[],\"menuBtn\":[]}',
+        '{\"code\":0,\"data\":{},\"msg\":\"更新成功\"}', 1),
+       (123, '2022-08-25 19:54:35.679', '2022-08-25 19:54:35.679', NULL, '127.0.0.1', 'POST', '/api/getApiById', 200,
+        1862974,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '', '{\"id\":124}',
+        '{\"code\":0,\"data\":{\"api\":{\"ID\":124,\"CreatedAt\":\"2022-08-25T19:22:40.326+08:00\",\"UpdatedAt\":\"2022-08-25T19:23:38.623+08:00\",\"path\":\"/insprocesslist/showinsprocesslist\",\"description\":\"对mysql实例进行show processlist操作\",\"apiGroup\":\"insprocesslist\",\"method\":\"GET\"}},\"msg\":\"获取成功\"}',
+        1),
+       (124, '2022-08-25 19:54:38.768', '2022-08-25 19:54:38.768', NULL, '127.0.0.1', 'POST', '/api/updateApi', 200,
+        18134325,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        '',
+        '{\"ID\":124,\"CreatedAt\":\"2022-08-25T19:22:40.326+08:00\",\"UpdatedAt\":\"2022-08-25T19:23:38.623+08:00\",\"path\":\"/insprocesslist/showinsprocesslist\",\"description\":\"对mysql实例进行show processlist操作\",\"apiGroup\":\"insprocesslist\",\"method\":\"POST\"}',
+        '{\"code\":0,\"data\":{},\"msg\":\"修改成功\"}', 1),
+       (125, '2022-08-25 19:59:20.831', '2022-08-25 19:59:20.831', NULL, '127.0.0.1', 'POST',
+        '/saas_instance/createInstance', 200, 8138958,
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Safari/605.1.15',
+        '',
+        '{\"ID\":1,\"projId\":1000,\"ip\":\"127.0.0.1\",\"port\":3307,\"version\":\"8.0.30\",\"level\":\"1\",\"application\":\"mysql\",\"useType\":\"正式\",\"health\":\"available\",\"role\":\"master\"}',
+        '{\"code\":0,\"data\":{},\"msg\":\"创建成功\"}', 3);
 /*!40000 ALTER TABLE `sys_operation_records`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2327,4 +2489,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-19  7:20:40
+-- Dump completed on 2022-08-25 12:49:59

@@ -17,10 +17,12 @@ type ShowProcessListTaskClientService struct {
 
 // 创建一个gRPC的client
 func (c *ShowProcessListTaskClientService) NewClient(msg global.GrpcMsg) (grpc_pb.MySQLShowProcessListServiceClient, error) {
-	// pem ca
-	creditsServePem := global.GVA_CONFIG.GrpcServer.GrpcCA
-	// web url
-	commandName := global.GVA_CONFIG.GrpcServer.GrpcWebUrl
+	//// pem ca
+	//creditsServePem := global.GVA_CONFIG.GrpcServer.GrpcCA
+	//// web url
+	//commandName := global.GVA_CONFIG.GrpcServer.GrpcWebUrl
+	creditsServePem := "/Users/anderalex/go/src/workgrpc/certify/server.crt"
+	commandName := "example.server.com"
 	creds, _ := credentials.NewClientTLSFromFile(creditsServePem, commandName)
 	// 组成 grpc server端端连接地址
 	grpcserverconn := fmt.Sprintf("%v:%v", msg.WorkNode, global.GVA_CONFIG.GrpcServer.GrpcServerListenPort)
@@ -70,6 +72,7 @@ func (c *ShowProcessListTaskClientService) ShowProcessList(vm string, mysqlhost 
 		},
 	}
 	client, err := c.NewClient(msg)
-	if err!=nil{}
+	if err != nil {
+	}
 	c.NewShowProcessListTask(client)
 }

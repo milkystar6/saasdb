@@ -56,6 +56,14 @@
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
           </template>
         </el-table-column>
+        <el-table-column align="left" label="按钮组">
+          <template #default="scope">
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+                       @click="getProcesslistByRows(scope.row)"
+            >show processlist
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="gva-pagination">
         <el-pagination
@@ -146,6 +154,7 @@ import {
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, reactive } from 'vue'
+import { showinsprocesslist } from '@/api/saas_insShowProcesslist'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
@@ -287,7 +296,10 @@ const onDelete = async() => {
 
 // 行为控制标记（弹窗内部需要增还是改）
 const type = ref('')
-
+// 获取processlist
+const getProcesslistByRows =async(row) => {
+  const res = await showinsprocesslist({ ID: row.ID,vm:row.ip,vm_mysql_host:row.ip,vm_mysql_port:row.port })
+}
 // 更新行
 const updateInstanceFunc = async(row) => {
   const res = await findInstance({ ID: row.ID })

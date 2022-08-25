@@ -15,6 +15,6 @@ func (s *ShowProcessListRouter) InitShowProcessListRouter(Router *gin.RouterGrou
 	// TODO 这里可以集成session管理的功能
 	var showprocesslistApi = v1.ApiGroupApp.SaasdbApiGroup.ShowProcessListTaskApi
 	{
-		splRouterWithoutRecord.GET("showinsprocesslist", showprocesslistApi.ShowProcesslist)
+		splRouterWithoutRecord.POST("showinsprocesslist", showprocesslistApi.ShowProcesslist)
 	}
 }

@@ -99,11 +99,11 @@ mysql:
   log-mode: error
   log-zap: false
 grpcServer:
-  grpcServerListenPort: 21080
+  grpcServerListenPort: 3000
   grpcMySQLMangerUser: "saasmanager"
   grpcMySQLMangerPassword: "saasmanager"
-  grpcCA: "/Users/anderalex/go/src/gin-vue-admin/server/service/saasdb/cerify/server.crt"
-  grpcKey: "/Users/anderalex/go/src/gin-vue-admin/server/service/saasdb/cerify/server.key"
+  grpcCA: "/Users/anderalex/go/src/workgrpc/certify/server.crt"
+  grpcKey: "/Users/anderalex/go/src/workgrpc/certify/server.key"
   grpcWebUrl: "example.server.com"
 pgsql:
   path: ""
