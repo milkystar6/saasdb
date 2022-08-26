@@ -100,8 +100,8 @@ mysql:
   log-zap: false
 grpcServer:
   grpcServerListenPort: 3000
-  grpcMySQLMangerUser: "saasmanager"
-  grpcMySQLMangerPassword: "saasmanager"
+  grpcMySQLMangerUser: "saasmanager"                                  #用不到
+  grpcMySQLMangerPassword: "saasmanager"                              #用不到
   grpcCA: "/Users/anderalex/go/src/workgrpc/certify/server.crt"
   grpcKey: "/Users/anderalex/go/src/workgrpc/certify/server.key"
   grpcWebUrl: "example.server.com"

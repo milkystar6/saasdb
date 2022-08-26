@@ -56,7 +56,7 @@
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="left" label="按钮组">
+        <el-table-column align="left" label="查询连接">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
                        @click="getProcesslistByRows(scope.row)"
@@ -137,6 +137,20 @@
 <script>
 export default {
   name: 'Instance',
+  methods:{
+    getProcesslistByRows (row) {
+      // const res = await showinsprocesslist({ ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port })
+      const data = {
+        ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+      }
+      this.$router.push(
+          {
+            name: 'showinsprocesslist',
+            query: data,
+          },
+      )
+    }
+  }
 }
 </script>
 
@@ -297,9 +311,18 @@ const onDelete = async() => {
 // 行为控制标记（弹窗内部需要增还是改）
 const type = ref('')
 // 获取processlist
-const getProcesslistByRows =async(row) => {
-  const res = await showinsprocesslist({ ID: row.ID,vm:row.ip,vm_mysql_host:row.ip,vm_mysql_port:row.port })
-}
+// const getProcesslistByRows = async(row) => {
+//   // const res = await showinsprocesslist({ ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port })
+//   const data = {
+//     ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+//   }
+//   this.$router.push(
+//       {
+//         name: 'showinsprocesslist',
+//         query: data,
+//       },
+//   )
+// }
 // 更新行
 const updateInstanceFunc = async(row) => {
   const res = await findInstance({ ID: row.ID })

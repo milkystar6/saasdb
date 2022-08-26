@@ -43,12 +43,12 @@ func (c *ShowProcessListTaskClientService) NewShowProcessListTaskRequest() *grpc
 }
 
 // 核心方法 完成showprocesslist的返回
-func (c *ShowProcessListTaskClientService) NewShowProcessListTask(client grpc_pb.MySQLShowProcessListServiceClient) {
+func (c *ShowProcessListTaskClientService) NewShowProcessListTask(client grpc_pb.MySQLShowProcessListServiceClient) ([]byte, error) {
 	ctx, cancle := context.WithTimeout(context.Background(), time.Second)
 	defer cancle()
 	res, err := client.NewShowProcesslist(ctx, c.NewShowProcessListTaskRequest())
 	if err != nil {
-		fmt.Println(err)
+		return nil, fmt.Errorf("grpc通信后端失败, 请查看后端日志确认, err: %v", err.Error())
 	}
 	if res != nil {
 		strbyte, e := json.Marshal(res)
@@ -57,11 +57,13 @@ func (c *ShowProcessListTaskClientService) NewShowProcessListTask(client grpc_pb
 		}
 		// strbyte 是 []byte 类型，可以直接通过接口 func()gin.H{} 返回给前端json数组
 		fmt.Printf("%s\n", pretty.Pretty(strbyte))
+		return strbyte, nil
 	}
+	return nil, fmt.Errorf("can't get any processlist , please cheak the log")
 }
 
 // 入口func
-func (c *ShowProcessListTaskClientService) ShowProcessList(vm string, mysqlhost string, port int) {
+func (c *ShowProcessListTaskClientService) ShowProcessList(vm string, mysqlhost string, port int) ([]byte, error) {
 	var msg = global.GrpcMsg{
 		WorkNode: vm,
 		MySQLConn: global.MySQLConn{
@@ -74,5 +76,5 @@ func (c *ShowProcessListTaskClientService) ShowProcessList(vm string, mysqlhost 
 	client, err := c.NewClient(msg)
 	if err != nil {
 	}
-	c.NewShowProcessListTask(client)
+	return c.NewShowProcessListTask(client)
 }

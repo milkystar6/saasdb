@@ -16,6 +16,7 @@ func (server *ShowProcessListServer) NewShowProcesslist(ctx context.Context, req
 
 	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, config.LoadConfig.MySQLManager.MySQLManagerHost, "information_schema", config.LoadConfig.MySQLManager.MySQLManagerPort)
 	if err != nil {
+		return nil, err
 	}
 	defer func() {
 		if sqlDB, err := db.DB(); err == nil {

@@ -6,3 +6,16 @@ type SearchProcessList struct {
 	VmMySQLHost string `json:"vm_mysql_host"`
 	VmMySQLPort int    `json:"vm_mysql_port"`
 }
+type DecodeProcessListJSON struct {
+	ProcessListInfo []InformationSchemaProcesslist `json:"ProcessListInfo"`
+}
+type InformationSchemaProcesslist struct {
+	Id      int    `json:"ID" form:"id" ,gorm:"column:ID;TYPE:bigint"`
+	User    string `json:"USER" ,from:"user" ,gorm:"column:USER;TYPE:varchar(32)"`
+	Host    string `json:"host" ,form:"host" ,gorm:"column:HOST;TYPE:varchar(261)"`
+	Db      string `json:"HOST" ,form:"db" ,gorm:"column:DB;TYPE:varchar(64)"`
+	Command string `json:"COMMAND" ,form:"command" ,gorm:"column:COMMAND;TYPE:varchar(16)"`
+	Time    int    `json:"TIME" ,form:"time" ,gorm:"column:TIME;TYPE:int"`
+	State   string `json:"STATE" ,form:"state" ,gorm:"column:STATE;TYPE:varchar(64)"`
+	Info    string `json:"INFO" ,form:"info" ,gorm:"column:INFO;TYPE:varchar(65535)"`
+}
