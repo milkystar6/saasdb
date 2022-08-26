@@ -73,21 +73,18 @@ const route = useRoute()
 const router = useRouter()
 
 const type = ref('')
+
 const formData = ref({
   ID: 0,
-  projId: 0,
-  ip: '',
-  port: 0,
-  version: '',
-  role:'',
+  USER: '',
+  HOST: '',
+  DB: '',
+  COMMAND: '',
+  STATE: '',
+  INFO: '',
 })
 // 验证规则
 const rule = reactive({
-  ID: [{
-    required: true,
-    message: '',
-    trigger: ['input', 'blur'],
-  }],
   ip: [{
     required: true,
     message: '',

@@ -13,9 +13,12 @@ type ShowProcessListServer struct {
 }
 
 func (server *ShowProcessListServer) NewShowProcesslist(ctx context.Context, req *grpc_pb.ShowProcesslistRequest) (*grpc_pb.ShowProcesslistResponce, error) {
+	mysqlip := req.GetMySQLIP()
+	mysqlport := int(req.GetMySQLPort())
 
-	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, config.LoadConfig.MySQLManager.MySQLManagerHost, "information_schema", config.LoadConfig.MySQLManager.MySQLManagerPort)
+	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, mysqlip, "information_schema", mysqlport)
 	if err != nil {
+		return nil, err
 	}
 	defer func() {
 		if sqlDB, err := db.DB(); err == nil {

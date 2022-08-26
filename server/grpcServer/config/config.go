@@ -15,8 +15,6 @@ type ServerConfig struct {
 type MySQLManager struct {
 	MysqlManagerUser     string `yaml:"mysqlmanager_user" json:"mysqlmanager_user" toml:"mysqlmanager_user"`
 	MysqlManagerPassword string `yaml:"mysqlmanager_password" json:"mysqlmanager_password" toml:"mysqlmanager_password"`
-	MySQLManagerHost     string `yaml:"mysqlmanager_host" json:"mysqlmanager_host" toml:"mysqlmanager_host"`
-	MySQLManagerPort     int    `yaml:"mysqlmanager_port" json:"mysqlmanager_port" toml:"mysqlmanager_port"`
 }
 
 type GrpcServer struct {

@@ -101,10 +101,9 @@ func (saas_instanceApi *InstanceApi) UpdateInstance(c *gin.Context) {
 	var saas_instance saasdb.Instance
 	_ = c.ShouldBindJSON(&saas_instance)
 	verify := utils.Rules{
-		"InsId":       {utils.NotEmpty()},
-		"Ip":          {utils.NotEmpty()},
-		"Port":        {utils.NotEmpty()},
-		"Application": {utils.NotEmpty()},
+		"ip":          {utils.NotEmpty()},
+		"port":        {utils.NotEmpty()},
+		"application": {utils.NotEmpty()},
 	}
 	if err := utils.Verify(saas_instance, verify); err != nil {
 		response.FailWithMessage(err.Error(), c)

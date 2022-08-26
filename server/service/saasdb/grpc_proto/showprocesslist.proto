@@ -6,8 +6,8 @@ package saasdb;
 /* 定义processlist需要的消息 */
 
 message ShowProcesslistRequest {
-  string ShowMsg = 1; // 默认返回information_schema全部数据，可以选择在前端进行过滤，把过滤的任务交给chrome
-
+  string MySQLIP = 1;
+  int32 MySQLPort = 2;
 }
 
 message ShowProcesslistResponce {

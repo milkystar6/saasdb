@@ -1,8 +1,6 @@
 [MySQLManager]
 mysqlmanager_user = "root"
 mysqlmanager_password = "letsg0"
-mysqlmanager_host = "127.0.0.1"
-mysqlmanager_port = 3307
 
 [GrpcServer]
 creditsServeKey = "/Users/anderalex/go/src/workgrpc/certify/server.key"

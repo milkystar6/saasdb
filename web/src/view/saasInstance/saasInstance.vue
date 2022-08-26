@@ -56,7 +56,7 @@
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="left" label="按钮组">
+        <el-table-column align="left" label="查询连接">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
                        @click="getProcesslistByRows(scope.row)"
@@ -79,9 +79,10 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增实例信息">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="120px">
-        <el-form-item label="实例ID:" prop="ID">
-          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
-        </el-form-item>
+        <!--        实例ID应该不支持修改，ID由系统自动生成，如果要更改应该从数据库里改       -->
+        <!--        <el-form-item label="实例ID:" prop="ID">-->
+        <!--          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>-->
+        <!--        </el-form-item>-->
         <el-form-item label="项目ID:" prop="projId">
           <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
@@ -137,6 +138,20 @@
 <script>
 export default {
   name: 'Instance',
+  methods: {
+    getProcesslistByRows(row) {
+      // const res = await showinsprocesslist({ ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port })
+      const data = {
+        ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+      }
+      this.$router.push(
+          {
+            name: 'showinsprocesslist',
+            query: data,
+          },
+      )
+    },
+  },
 }
 </script>
 
@@ -159,11 +174,12 @@ import { showinsprocesslist } from '@/api/saas_insShowProcesslist'
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
   ID: 0,
-  projId: 0,
-  ip: '',
-  port: 0,
-  version: '',
-  level: '',
+  USER: '',
+  HOST: '',
+  DB: '',
+  COMMAND: '',
+  STATE: '',
+  INFO: '',
 })
 
 // 验证规则
@@ -173,21 +189,7 @@ const rule = reactive({
     message: '',
     trigger: ['input', 'blur'],
   }],
-  ip: [{
-    required: true,
-    message: '',
-    trigger: ['input', 'blur'],
-  }],
-  port: [{
-    required: true,
-    message: '',
-    trigger: ['input', 'blur'],
-  }],
-  application: [{
-    required: true,
-    message: '',
-    trigger: ['input', 'blur'],
-  }],
+
 })
 
 const elFormRef = ref()
@@ -297,9 +299,18 @@ const onDelete = async() => {
 // 行为控制标记（弹窗内部需要增还是改）
 const type = ref('')
 // 获取processlist
-const getProcesslistByRows =async(row) => {
-  const res = await showinsprocesslist({ ID: row.ID,vm:row.ip,vm_mysql_host:row.ip,vm_mysql_port:row.port })
-}
+// const getProcesslistByRows = async(row) => {
+//   // const res = await showinsprocesslist({ ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port })
+//   const data = {
+//     ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+//   }
+//   this.$router.push(
+//       {
+//         name: 'showinsprocesslist',
+//         query: data,
+//       },
+//   )
+// }
 // 更新行
 const updateInstanceFunc = async(row) => {
   const res = await findInstance({ ID: row.ID })

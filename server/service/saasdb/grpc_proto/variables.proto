@@ -8,6 +8,8 @@ message HandleVariablesRequest {
   bool Method = 1;                // false: show参数" ,true: "set参数"
   repeated ShowVariablesUseArray ShowVariablesUseArray = 2; // show参数 用数组
   map<string, SetVariablesUseMap> SetVariablesUseMap = 3;   // set 参数 用字典
+  string MySQLIP = 4;
+  int32 MySQLPort = 5;
 }
 
 message ShowVariablesUseArray {
