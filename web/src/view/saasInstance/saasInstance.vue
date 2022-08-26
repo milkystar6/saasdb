@@ -39,6 +39,7 @@
         <!--        </el-table-column>-->
         <el-table-column align="left" label="实例ID" prop="ID" width="120"/>
         <el-table-column align="left" label="项目ID" prop="projId" width="120"/>
+        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>
         <el-table-column align="left" label="ip" prop="ip" width="120"/>
         <el-table-column align="left" label="port" prop="port" width="120"/>
         <el-table-column align="left" label="应用类型" prop="application" width="120"/>
@@ -85,6 +86,9 @@
         <!--        </el-form-item>-->
         <el-form-item label="项目ID:" prop="projId">
           <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
+        <el-form-item label="集群ID:" prop="domainId">
+          <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="ip:" prop="ip">
           <el-input v-model="formData.ip" :clearable="true" placeholder="请输入"/>
@@ -174,12 +178,12 @@ import { showinsprocesslist } from '@/api/saas_insShowProcesslist'
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
   ID: 0,
-  USER: '',
-  HOST: '',
-  DB: '',
-  COMMAND: '',
-  STATE: '',
-  INFO: '',
+  projId: 0,
+  ip: '',
+  port: 0,
+  version: '',
+  level: '',
+  domainId: 0,
 })
 
 // 验证规则
