@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/grpcServer"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
 	"google.golang.org/grpc"
@@ -9,16 +10,17 @@ import (
 	"log"
 	"net"
 )
+
 func main() {
 	// openssl生成SAN证书
 	//https://www.cnblogs.com/outsrkem/p/16056756.html
-	//creditsServeKey := global.GVA_CONFIG.GrpcServer.GrpcKey
-	//creditsServeCrt := global.GVA_CONFIG.GrpcServer.GrpcCA
-	creditsServeKey := "/Users/anderalex/go/src/workgrpc/certify/server.key"
-	creditsServeCrt := "/Users/anderalex/go/src/workgrpc/certify/server.crt"
+
+	config.InitConfig()
+	creditsServeKey := config.LoadConfig.GrpcServer.CreditsServeKey
+	creditsServeCrt := config.LoadConfig.GrpcServer.CreditsServeCrt
 	creds, _ := credentials.NewServerTLSFromFile(creditsServeCrt, creditsServeKey)
 	s := grpc.NewServer(grpc.Creds(creds))
-	listen, err := net.Listen("tcp", ":3000")
+	listen, err := net.Listen(config.LoadConfig.GrpcServer.Protocol, fmt.Sprintf(":%v", config.LoadConfig.GrpcServer.ListenPort))
 	if err != nil {
 		log.Panic(err.Error())
 	}

@@ -3,6 +3,7 @@ package grpcServer
 import (
 	"context"
 	"encoding/json"
+	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/model"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
 )
@@ -13,7 +14,7 @@ type ShowProcessListServer struct {
 
 func (server *ShowProcessListServer) NewShowProcesslist(ctx context.Context, req *grpc_pb.ShowProcesslistRequest) (*grpc_pb.ShowProcesslistResponce, error) {
 
-	db, err := model.GormMysql("root", "letsg0", "127.0.0.1", "information_schema", 3307)
+	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, config.LoadConfig.MySQLManager.MySQLManagerHost, "information_schema", config.LoadConfig.MySQLManager.MySQLManagerPort)
 	if err != nil {
 	}
 	defer func() {

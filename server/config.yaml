@@ -89,7 +89,7 @@ local:
   store-path: uploads/file
 mysql:
   path: 127.0.0.1
-  port: "3307"
+  port: 3307
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: saasdb
   username: root

@@ -1,3 +1,7 @@
+# github.com/BurntSushi/toml v1.2.0
+## explicit
+github.com/BurntSushi/toml
+github.com/BurntSushi/toml/internal
 # github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible
 github.com/Knetic/govaluate
 # github.com/KyleBanks/depth v1.2.1
