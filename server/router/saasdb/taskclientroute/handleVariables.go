@@ -22,6 +22,6 @@ func (router *HandleVariablesRouter) InitHandleVariablesRouter(Router *gin.Route
 		setVariables.PUT("set_variables", HandleVariablesApi.SetVariable)
 	}
 	{ // primary func
-		showVariablesWithoutRecord.GET("get_variable_running_value_fuzzy_matching", HandleVariablesApi.ShowVariablesFuzzyMatching)
+		showVariablesWithoutRecord.POST("get_variable_running_value_fuzzy_matching", HandleVariablesApi.ShowVariablesFuzzyMatching)
 	}
 }

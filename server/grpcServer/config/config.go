@@ -37,7 +37,7 @@ var LoadConfig ServerConfig
 
 func InitConfig() {
 	configfile := ""
-	flag.StringVar(&configfile, "config", "/Users/anderalex/go/src/gin-vue-admin/server/grpcServer/config/config.toml", "configfile")
+	flag.StringVar(&configfile, "config", "/Users/anderalex/go/src/saasdb/server/grpcServer/config/config.toml", "configfile")
 	flag.Parse()
 
 	LoadConfig.LoadConfig(configfile)

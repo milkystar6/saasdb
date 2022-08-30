@@ -12,6 +12,8 @@ type Domain struct {
 	//InsId  *int `json:"insId" form:"insId" gorm:"column:ins_id;comment:;"`
 	DomainName string `json:"domainName" form:"domainName" gorm:"column:domain_name;comment:;"`
 	ProjId     *int   `json:"projId" form:"projId" gorm:"column:proj_id;comment:;"`
+	Vip        string `json:"vip" form:"vip" gorm:"column:vip;comment:数据库连接vip;"`
+	Dns        string `json:"dns" form:"dns" gorm:"column:dns;comment:数据库连接dns;"`
 }
 
 // TableName Domain 表名

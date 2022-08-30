@@ -9,7 +9,6 @@ import (
 	"github.com/songzhibin97/gkit/tools/pretty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	"time"
 )
 
 type ShowProcessListTaskClientService struct {
@@ -45,7 +44,7 @@ func (c *ShowProcessListTaskClientService) NewShowProcessListTaskRequest(ip stri
 
 // 核心方法 完成showprocesslist的返回
 func (c *ShowProcessListTaskClientService) NewShowProcessListTask(client grpc_pb.MySQLShowProcessListServiceClient, ip string, port int) ([]byte, error) {
-	ctx, cancle := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancle := context.WithTimeout(context.Background(), global.GrpcCreateTimeout)
 	defer cancle()
 	res, err := client.NewShowProcesslist(ctx, c.NewShowProcessListTaskRequest(ip, port))
 	if err != nil {
@@ -79,3 +78,4 @@ func (c *ShowProcessListTaskClientService) ShowProcessList(vm string, mysqlhost 
 	}
 	return c.NewShowProcessListTask(client, mysqlhost, port)
 }
+

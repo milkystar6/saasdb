@@ -24,3 +24,5 @@ type MySQLConn struct {
 	MysqlHost   string
 	MysqlPort   int
 }
+
+var DefaultVariablesList = []string{"innodb_buffer_pool_size", "sql_mode", "version", "transaction_isolation", "innodb_adaptive_flushing", "innodb_adaptive_hash_index", "innodb_doublewrite", "innodb_io_capacity", "innodb_lock_wait_timeout", "innodb_log_file_size", "innodb_log_files_in_group", "innodb_read_only", "innodb_flush_log_at_trx_commit", "sync_binlog"}

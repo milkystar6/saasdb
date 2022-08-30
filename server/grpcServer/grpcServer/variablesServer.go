@@ -11,11 +11,11 @@ import (
 	"google.golang.org/protobuf/types/known/anypb"
 )
 
-type VariablesTaskClientService struct {
+type VariablesServer struct {
 	grpc_pb.UnimplementedMySQLVariablesServiceServer
 }
 
-func (server *VariablesTaskClientService) VariablesHandler(ctx context.Context, req *grpc_pb.HandleVariablesRequest) (*grpc_pb.HandleVariablesResponse, error) {
+func (server *VariablesServer) VariablesHandler(ctx context.Context, req *grpc_pb.HandleVariablesRequest) (*grpc_pb.HandleVariablesResponse, error) {
 	// mysqlconn info
 	mysqlip := req.GetMySQLIP()
 	mysqlport := int(req.GetMySQLPort())
@@ -36,7 +36,7 @@ func (server *VariablesTaskClientService) VariablesHandler(ctx context.Context, 
 		}
 	}
 }
-func (server *VariablesTaskClientService) ShowVariables(arr []*grpc_pb.ShowVariablesUseArray, ip string, port int) (res *grpc_pb.HandleVariablesResponse, err error) {
+func (server *VariablesServer) ShowVariables(arr []*grpc_pb.ShowVariablesUseArray, ip string, port int) (res *grpc_pb.HandleVariablesResponse, err error) {
 	variablesValue := make(map[string]string)
 	for _, v := range arr {
 		variablesValue[v.Var], err = server.GetVariableRunningValue(v.Var, ip, port)
@@ -51,7 +51,7 @@ func (server *VariablesTaskClientService) ShowVariables(arr []*grpc_pb.ShowVaria
 }
 
 // 精确匹配参数
-func (server *VariablesTaskClientService) GetVariableRunningValue(variable string, ip string, port int) (string, error) {
+func (server *VariablesServer) GetVariableRunningValue(variable string, ip string, port int) (string, error) {
 
 	// use gorm to get value and defer close session
 	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, ip, "information_schema", port)
@@ -78,7 +78,7 @@ func (server *VariablesTaskClientService) GetVariableRunningValue(variable strin
 }
 
 // 模糊匹配参数
-func (server *VariablesTaskClientService) GetVariableRunningValueFuzzyMatching(variable string, ip string, port int) (string, error) {
+func (server *VariablesServer) GetVariableRunningValueFuzzyMatching(variable string, ip string, port int) (string, error) {
 
 	// use gorm to get value and defer close session
 	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, ip, "information_schema", port)
@@ -105,7 +105,7 @@ func (server *VariablesTaskClientService) GetVariableRunningValueFuzzyMatching(v
 }
 
 // 修改参数 每次只支持单个参数修改
-func (server *VariablesTaskClientService) SetVariables(setvariablemap map[string]*grpc_pb.SetVariablesUseMap, ip string, port int) (bool, error) {
+func (server *VariablesServer) SetVariables(setvariablemap map[string]*grpc_pb.SetVariablesUseMap, ip string, port int) (bool, error) {
 
 	// use gorm to get value and defer close session
 	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, ip, "information_schema", port)

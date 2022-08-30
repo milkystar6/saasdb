@@ -48,6 +48,22 @@
         <el-table-column align="left" label="健康状态" prop="health" width="120"/>
         <el-table-column align="left" label="数据库等级" prop="level" width="120"/>
         <el-table-column align="left" label="角色" prop="role" width="120"/>
+        <el-table-column align="left" label="查询连接" prop="查询连接" width="120">
+          <template #default="scope">
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+                       @click="getProcesslistByRows(scope.row)"
+            >查看会话列表
+            </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column align="left" label="参数查询" prop="参数查询" width="120">
+          <template #default="scope">
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+                       @click="getRunningVariablesByRows(scope.row)"
+            >查看运行参数
+            </el-button>
+          </template>
+        </el-table-column>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
@@ -55,14 +71,6 @@
             >变更
             </el-button>
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column align="left" label="查询连接">
-          <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button"
-                       @click="getProcesslistByRows(scope.row)"
-            >show processlist
-            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -140,6 +148,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Instance',
   methods: {
@@ -155,10 +164,22 @@ export default {
           },
       )
     },
+
+    getRunningVariablesByRows(row) {
+      console.log(this.$router)
+      const data = {
+        ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+      }
+      console.log(data)
+      this.$router.push({
+            name: 'showVariables',
+            query: data,
+          },
+      )
+    },
   },
 }
 </script>
-
 <script setup>
 import {
   createInstance,
@@ -315,6 +336,7 @@ const type = ref('')
 //       },
 //   )
 // }
+
 // 更新行
 const updateInstanceFunc = async(row) => {
   const res = await findInstance({ ID: row.ID })
