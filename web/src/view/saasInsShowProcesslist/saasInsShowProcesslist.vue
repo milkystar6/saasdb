@@ -56,8 +56,6 @@
     </div>
   </div>
 </template>
-
-
 <script>
 import { showinsprocesslist } from '@/api/saas_insShowProcesslist'
 

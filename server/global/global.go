@@ -2,6 +2,7 @@ package global
 
 import (
 	"sync"
+	"time"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/timer"
 	"github.com/songzhibin97/gkit/cache/local_cache"
@@ -30,6 +31,10 @@ var (
 
 	BlackCache local_cache.Cache
 	lock       sync.RWMutex
+)
+
+const (
+	GrpcCreateTimeout = 10 * time.Second
 )
 
 // GetGlobalDBByDBName 通过名称获取db list中的db

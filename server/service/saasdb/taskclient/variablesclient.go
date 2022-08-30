@@ -16,11 +16,14 @@ type VariablesTaskClientService struct {
 }
 
 /*      show vars         */
-func ShowVariablesTask(s []string) *grpc_pb.HandleVariablesRequest {
+func ShowVariablesTask(s []string, ip string, port int32) *grpc_pb.HandleVariablesRequest {
 	return &grpc_pb.HandleVariablesRequest{
 		Method:                false, // show
 		ShowVariablesUseArray: NewVariables(s),
+		MySQLIP:               ip,
+		MySQLPort:             port,
 	}
+
 }
 
 func NewVariables(s []string) (vv []*grpc_pb.ShowVariablesUseArray) {
@@ -64,11 +67,11 @@ func SetVariablesUseMap_VariableValueInt32(v string) *grpc_pb.SetVariablesUseMap
 }
 
 // show variables like "" ; 精确匹配参数运行值  TODO 这个方法用处不大 ，直接查询全部的参数然后在前端过滤即可
-func (s *VariablesTaskClientService) ShowVariables(variables []string, client grpc_pb.MySQLVariablesServiceClient) {
+func (s *VariablesTaskClientService) ShowVariables(variables []string, ip string, port int32, client grpc_pb.MySQLVariablesServiceClient) {
 	ctx, cancle := context.WithTimeout(context.Background(), time.Second)
 	defer cancle()
 
-	res, err := client.VariablesHandler(ctx, ShowVariablesTask(variables))
+	res, err := client.VariablesHandler(ctx, ShowVariablesTask(variables, ip, port))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -86,13 +89,14 @@ func (s *VariablesTaskClientService) ShowVariables(variables []string, client gr
 }
 
 // show variables like "%%" 用于模糊匹配参数,不写条件的话, 等同于 show variables
-func (s *VariablesTaskClientService) ShowVariables_fuzzy_matching(variables []string, client grpc_pb.MySQLVariablesServiceClient) {
-	ctx, cancle := context.WithTimeout(context.Background(), time.Second)
+// TODO Variables 参数 用结构体传递 不要用参数了 太繁琐。。。。
+func (s *VariablesTaskClientService) ShowVariables_fuzzy_matching(variables []string, ip string, port int32, client grpc_pb.MySQLVariablesServiceClient) ([]byte, error) {
+	ctx, cancle := context.WithTimeout(context.Background(), global.GrpcCreateTimeout)
 	defer cancle()
 
-	res, err := client.VariablesHandler(ctx, ShowVariablesTask(variables))
+	res, err := client.VariablesHandler(ctx, ShowVariablesTask(variables, ip, port))
 	if err != nil {
-		fmt.Println(err)
+		return nil, fmt.Errorf("grpc通信后端失败, 请查看后端日志确认, err: %v", err.Error())
 	}
 	for k, v := range res.VariableName {
 		fmt.Printf("variable %v  value : %v\n", k, v)
@@ -104,7 +108,9 @@ func (s *VariablesTaskClientService) ShowVariables_fuzzy_matching(variables []st
 		}
 		// strbyte 是 []byte 类型，可以直接通过接口 func()gin.H{} 返回给前端json数组
 		fmt.Printf("%s\n", pretty.Pretty(strbyte))
+		return strbyte, err
 	}
+	return nil, err
 }
 
 // 修改参数的运行值 (数据库配置文件参数设置的值，修改数据库配置文件 方法不够安全，最好是人工修改 ，第一版本不支持自动修改，这种可以加一个数据库运行值和配置文件参数设置值的监控告警)
@@ -118,28 +124,35 @@ func (s *VariablesTaskClientService) NewClient(msg global.GrpcMsg) (grpc_pb.MySQ
 	// web url
 	commandName := global.GVA_CONFIG.GrpcServer.GrpcWebUrl
 	creds, _ := credentials.NewClientTLSFromFile(creditsServePem, commandName)
+	// 组成 grpc server端端连接地址
 	grpcserverconn := fmt.Sprintf("%v:%v", msg.WorkNode, global.GVA_CONFIG.GrpcServer.GrpcServerListenPort)
 	conn, err := grpc.Dial(grpcserverconn, grpc.WithTransportCredentials(creds))
 	if err != nil {
 		return nil, fmt.Errorf("初始化grpc client 到%v 失败, err: %v", grpcserverconn, err.Error())
 	}
+
 	client := grpc_pb.NewMySQLVariablesServiceClient(conn)
+
 	return client, err
+
 }
 
 // 入口函数
-func (s *VariablesTaskClientService) Variables(vm string, mysqlhost string, port int) ([]byte, error) {
-	//var msg = global.GrpcMsg{
-	//	WorkNode: vm,
-	//	MySQLConn: global.MySQLConn{
-	//		MysqlUser:   global.GVA_CONFIG.GrpcServer.GrpcMySQLMangerUser,
-	//		MysqlPasswd: global.GVA_CONFIG.GrpcServer.GrpcMySQLMangerPassword,
-	//		MysqlHost:   mysqlhost,
-	//		MysqlPort:   port,
-	//	},
-	//}
-	//client, err := s.NewClient(msg)
-	//if err != nil {
-	//}
-	return nil,nil
+func (s *VariablesTaskClientService) ShowVariablesEntry(variables []string, vm string, mysqlhost string, port int) ([]byte, error) {
+	var msg = global.GrpcMsg{
+		WorkNode: vm,
+		MySQLConn: global.MySQLConn{
+			MysqlUser:   global.GVA_CONFIG.GrpcServer.GrpcMySQLMangerUser,
+			MysqlPasswd: global.GVA_CONFIG.GrpcServer.GrpcMySQLMangerPassword,
+			MysqlHost:   mysqlhost,
+			MysqlPort:   port,
+		},
+	}
+
+	client, err := s.NewClient(msg)
+	if err != nil {
+		return nil, err
+	}
+	var testvariable = []string{"innodb_buffer_pool_size", "sql_mode", "version", "transaction_isolation"}
+	return s.ShowVariables_fuzzy_matching(testvariable, mysqlhost, int32(port), client)
 }
