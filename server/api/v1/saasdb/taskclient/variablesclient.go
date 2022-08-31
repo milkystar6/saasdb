@@ -48,7 +48,7 @@ func (api *VariablesTaskApi) ShowVariablesFuzzyMatching(c *gin.Context) {
 			response.FailWithMessage(fmt.Sprintf("unmarshal data to json failed ,err: %v", err), c)
 		}
 		response.OkWithData(gin.H{
-			"variables_value": varshow.VariableName,
+			"variables_value": varshow.VariableName, 
 		}, c)
 	}
 }
