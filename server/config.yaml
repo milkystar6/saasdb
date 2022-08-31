@@ -7,7 +7,7 @@ aliyun-oss:
   base-path: yourBasePath
 autocode:
   transfer-restart: true
-  root: /Users/anderalex/go/src/gin-vue-admin
+  root: /Users/anderalex/go/src/saasdb
   server: /server
   server-api: /api/v1/%s
   server-plug: /plugin/%s
@@ -87,7 +87,7 @@ hua-wei-obs:
   access-key: you-access-key
   secret-key: you-secret-key
 jwt:
-  signing-key: e49ea084-5037-44cd-be4c-7e8a3b6a84aa
+  signing-key: df9ffdc5-b1cb-4861-b027-24d7fe60ae17
   expires-time: 604800
   buffer-time: 86400
   issuer: qmPlus
@@ -130,7 +130,7 @@ redis:
   password: ""
 system:
   env: public
-  addr: 8888
+  addr: 31080
   db-type: mysql
   oss-type: local
   use-multipoint: false

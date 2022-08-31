@@ -37,18 +37,13 @@
         <!--        <el-table-column align="left" label="日期" width="180">-->
         <!--          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
-        <el-table-column align="left" label="ID" prop="ID" width="100"/>
-        <el-table-column align="left" label="USER" prop="USER" width="150"/>
-        <el-table-column align="left" label="HOST" prop="HOST" width="150"/>
-        <el-table-column align="left" label="DB" prop="DB" width="200"/>
-        <el-table-column align="left" label="COMMAND" prop="COMMAND" width="120"/>
-        <el-table-column align="left" label="STATE" prop="STATE" width="250"/>
-        <el-table-column align="left" label="INFO" prop="INFO" width="300"/>
-        <el-table-column align="left" label="查询连接">
+        <el-table-column align="left" label="参数名称" prop="tableData" width="100"/>
+        <el-table-column align="left" label="参数值" prop="tableData" width="150"/>
+        <el-table-column align="left" label=" ">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
                        @click="getProcesslistByRows(scope.row)"
-            > 停止会话
+            > 修改参数
             </el-button>
           </template>
         </el-table-column>
@@ -66,7 +61,7 @@ export default {
   name: 'showVariables',
   data() {
     return {
-      tableData: [],
+      tableData: "",
     }
   },
   created() {
@@ -77,9 +72,10 @@ export default {
       console.log('>>>>>',data)
       showVariables(data).then(res => {
         console.log(res.data)
-        this.tableData = res.data || []
+        this.tableData = res.data.variables_value
       }).catch(res => {
         console.log('cuowu',res)
+        this.tableData = res.data.variables_value
       })
     }
   },

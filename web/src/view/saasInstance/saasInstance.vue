@@ -37,18 +37,19 @@
         <!--        <el-table-column align="left" label="日期" width="180">-->
         <!--          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
-        <el-table-column align="left" label="实例ID" prop="ID" width="120"/>
-        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>
-        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>
+<!--        <el-table-column align="left" label="实例ID" prop="ID" width="80"/>-->
+        <el-table-column align="left" label="实例名称" prop="instance_name" width="150"/>
+<!--        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>-->
+<!--        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>-->
         <el-table-column align="left" label="ip" prop="ip" width="120"/>
-        <el-table-column align="left" label="port" prop="port" width="120"/>
-        <el-table-column align="left" label="应用类型" prop="application" width="120"/>
+        <el-table-column align="left" label="port" prop="port" width="80"/>
+        <el-table-column align="left" label="应用类型" prop="application" width="100"/>
         <el-table-column align="left" label="数据库版本" prop="version" width="150"/>
-        <el-table-column align="left" label="使用类型" prop="useType" width="120"/>
-        <el-table-column align="left" label="健康状态" prop="health" width="120"/>
-        <el-table-column align="left" label="数据库等级" prop="level" width="120"/>
+        <el-table-column align="left" label="使用类型" prop="useType" width="100"/>
+        <el-table-column align="left" label="健康状态" prop="health" width="100"/>
+        <el-table-column align="left" label="数据库等级" prop="level" width="100"/>
         <el-table-column align="left" label="角色" prop="role" width="120"/>
-        <el-table-column align="left" label="查询连接" prop="查询连接" width="120">
+        <el-table-column align="left" label="数据库会话管理" prop="数据库会话管理" width="150">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
                        @click="getProcesslistByRows(scope.row)"
@@ -64,6 +65,8 @@
             </el-button>
           </template>
         </el-table-column>
+
+
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
@@ -92,6 +95,9 @@
         <!--        <el-form-item label="实例ID:" prop="ID">-->
         <!--          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>-->
         <!--        </el-form-item>-->
+        <el-form-item label="实例名称:" prop="instance_name">
+          <el-input v-model.number="formData.instance_name" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
         <el-form-item label="项目ID:" prop="projId">
           <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
@@ -205,6 +211,7 @@ const formData = ref({
   version: '',
   level: '',
   domainId: 0,
+  instance_name:'',
 })
 
 // 验证规则
