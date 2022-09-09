@@ -33,7 +33,7 @@
           row-key="ID"
           @selection-change="handleSelectionChange"
       >
-<!--        <el-table-column type="selection" width="55"/>-->
+        <!--        <el-table-column type="selection" width="55"/>-->
         <!--        <el-table-column align="left" label="日期" width="180">-->
         <!--          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
@@ -47,7 +47,7 @@
         <el-table-column align="left" label="查询连接" >
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
-                       @click="getProcesslistByRows(scope.row)"
+                       @click="StopProcesslistById(scope.row)"
             > 停止会话
             </el-button>
           </template>
@@ -79,3 +79,32 @@ export default {
   },
 }
 </script>
+<script setup>
+import { stopprocesslist } from  '@/api/saas_insShowProcesslist'
+import {ElMessage, ElMessageBox} from "element-plus";
+const StopProcesslistById = (row) => {
+  ElMessageBox.confirm('确定要stop该会话吗?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(() => {
+    stopProcessFunc(row)
+  })
+}
+const stopProcessFunc = async(row) => {
+  const res =await stopprocesslist({ ID: row.ID })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: 'stop会话成功',
+    })
+    if (tableData.value.length === 1 && page.value > 1) {
+      page.value--
+    }
+    // getTableData()
+  }
+
+}
+
+</script>
+

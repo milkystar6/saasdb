@@ -104,3 +104,90 @@ var MySQLShowProcessListService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "showprocesslist.proto",
 }
+
+// MySQLStopProcessServiceClient is the client API for MySQLStopProcessService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type MySQLStopProcessServiceClient interface {
+	NewStopProcess(ctx context.Context, in *StopProcessRequset, opts ...grpc.CallOption) (*StopProcessResponse, error)
+}
+
+type mySQLStopProcessServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewMySQLStopProcessServiceClient(cc grpc.ClientConnInterface) MySQLStopProcessServiceClient {
+	return &mySQLStopProcessServiceClient{cc}
+}
+
+func (c *mySQLStopProcessServiceClient) NewStopProcess(ctx context.Context, in *StopProcessRequset, opts ...grpc.CallOption) (*StopProcessResponse, error) {
+	out := new(StopProcessResponse)
+	err := c.cc.Invoke(ctx, "/saasdb.MySQLStopProcessService/NewStopProcess", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// MySQLStopProcessServiceServer is the server API for MySQLStopProcessService service.
+// All implementations must embed UnimplementedMySQLStopProcessServiceServer
+// for forward compatibility
+type MySQLStopProcessServiceServer interface {
+	NewStopProcess(context.Context, *StopProcessRequset) (*StopProcessResponse, error)
+	mustEmbedUnimplementedMySQLStopProcessServiceServer()
+}
+
+// UnimplementedMySQLStopProcessServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedMySQLStopProcessServiceServer struct {
+}
+
+func (UnimplementedMySQLStopProcessServiceServer) NewStopProcess(context.Context, *StopProcessRequset) (*StopProcessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewStopProcess not implemented")
+}
+func (UnimplementedMySQLStopProcessServiceServer) mustEmbedUnimplementedMySQLStopProcessServiceServer() {
+}
+
+// UnsafeMySQLStopProcessServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to MySQLStopProcessServiceServer will
+// result in compilation errors.
+type UnsafeMySQLStopProcessServiceServer interface {
+	mustEmbedUnimplementedMySQLStopProcessServiceServer()
+}
+
+func RegisterMySQLStopProcessServiceServer(s grpc.ServiceRegistrar, srv MySQLStopProcessServiceServer) {
+	s.RegisterService(&MySQLStopProcessService_ServiceDesc, srv)
+}
+
+func _MySQLStopProcessService_NewStopProcess_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StopProcessRequset)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MySQLStopProcessServiceServer).NewStopProcess(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/saasdb.MySQLStopProcessService/NewStopProcess",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MySQLStopProcessServiceServer).NewStopProcess(ctx, req.(*StopProcessRequset))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// MySQLStopProcessService_ServiceDesc is the grpc.ServiceDesc for MySQLStopProcessService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var MySQLStopProcessService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "saasdb.MySQLStopProcessService",
+	HandlerType: (*MySQLStopProcessServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "NewStopProcess",
+			Handler:    _MySQLStopProcessService_NewStopProcess_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "showprocesslist.proto",
+}

@@ -11,13 +11,13 @@ import (
 	"strconv"
 )
 
-type ShowProcessListTaskApi struct {
+type ProcessTaskApi struct {
 }
 
-var ShowPorcessListService = service.ServiceGroupApp.SaasdbServiceGroup.ShowProcessListTaskClientService
+var ShowPorcessListService = service.ServiceGroupApp.SaasdbServiceGroup.ProcessTaskClientService
 
 // 查询MySQL的会话列表
-func (server *ShowProcessListTaskApi) ShowProcesslist(c *gin.Context) {
+func (server *ProcessTaskApi) ShowProcesslist(c *gin.Context) {
 	// search info Model里声明一个查询结构体
 	var search request.SearchProcessList
 	_ = c.ShouldBindJSON(&search)
@@ -47,4 +47,27 @@ func (server *ShowProcessListTaskApi) ShowProcesslist(c *gin.Context) {
 }
 
 // session 管理
-func (server *ShowProcessListTaskApi) ManageProcesslist(c *gin.Context) {}
+func (server *ProcessTaskApi) ManageProcesslist(c *gin.Context) {
+	var theworker request.StopProcessById
+	_ = c.ShouldBind(&theworker)
+	verify := utils.Rules{
+		"vm":            {utils.NotEmpty()},
+		"vm_mysql_host": {utils.NotEmpty()},
+		"vm_mysql_port": {utils.NotEmpty()},
+		"ID":            {utils.NotEmpty()},
+	}
+	if err := utils.Verify(theworker, verify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//port, _ := strconv.Atoi(theworker.VmMySQLPort)
+	//err := ProcessManagerService.StopProcessById(theworker.Vm, theworker.VmMySQLHost, port, theworker.ID)
+	err := ShowPorcessListService.StopProcessById("127.0.0.1", "127.0.0.1", 3307, theworker.ID)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else {
+		response.OkWithMessage("STOP SESSION SCUCCESS", c)
+	}
+
+}

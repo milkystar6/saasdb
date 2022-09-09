@@ -15,3 +15,11 @@ export const showinsprocesslist = (data) => {
     data,
   })
 }
+export const stopprocesslist = (data) => {
+  return service({
+    url: '/insprocesslist/StopInsProcesslistById',
+    method: 'put',
+    data
+  })
+}
+

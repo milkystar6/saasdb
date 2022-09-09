@@ -2,6 +2,6 @@ package taskclient
 
 type ClientApiGroup struct {
 	BackUpTaskApi
-	ShowProcessListTaskApi
+	ProcessTaskApi
 	VariablesTaskApi
 }
