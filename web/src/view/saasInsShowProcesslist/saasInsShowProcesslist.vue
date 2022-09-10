@@ -80,8 +80,8 @@ export default {
 }
 </script>
 <script setup>
-import { stopprocesslist } from  '@/api/saas_insShowProcesslist'
-import {ElMessage, ElMessageBox} from "element-plus";
+import { stopprocesslist } from '@/api/saas_insShowProcesslist'
+import {ElMessage, ElMessageBox } from 'element-plus';
 const StopProcesslistById = (row) => {
   ElMessageBox.confirm('确定要stop该会话吗?', '提示', {
     confirmButtonText: '确定',

@@ -76,8 +76,7 @@ func (domainService *DomainService) GetDomainInfoListv2(info saasdbReq.DomainJoi
 		return
 	}
 	//err = db.Limit(limit).Offset(offset).Find(&domains).Error
-	// to fix the problem: => 前端需要用到Primay key ,不用gorm的场景,手动返回 ID 和delete_at字段
-	joinsql := "SELECT A.id, A.domain_id ,A.domain_name, A.proj_id ,B.proj_name  FROM saas_domain A , saas_project B WHERE A.proj_id=B.id AND A.deleted_at IS NULL"
+	joinsql := "SELECT A.id, A.domain_id ,A.domain_name, A.proj_id ,B.proj_name ,A.vip ,A.dns FROM saas_domain A , saas_project B WHERE A.proj_id=B.id AND A.deleted_at IS NULL"
 	err = db.Limit(limit).Offset(offset).Raw(joinsql).Scan(&domains).Error
 	return domains, total, err
 }

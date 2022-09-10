@@ -28,8 +28,12 @@
             <el-button size="small" type="primary" @click="onDelete">确定</el-button>
           </div>
           <template #reference>
-            <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length"
-                       @click="deleteVisible = true"
+            <el-button
+                icon="delete"
+                size="small"
+                style="margin-left: 10px;"
+                :disabled="!multipleSelection.length"
+                @click="deleteVisible = true"
             >删除
             </el-button>
           </template>
@@ -44,24 +48,47 @@
           @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"/>
-        <!--        <el-table-column align="left" label="日期" width="180">-->
-        <!--            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
-        <!--        </el-table-column>-->
-        <el-table-column align="left" label="集群ID" prop="ID" width="120"/>
-<!--        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>-->
-        <!--        <el-table-column align="left" label="insId" prop="insId" width="120" />-->
-        <el-table-column align="left" label="集群名称" prop="domainName" width="120"/>
-
-        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>
+        <el-table-column align="left" label="数据库实例集群ID" prop="ID" width="150"/>
         <el-table-column align="left" label="项目名称" prop="projName" width="150"/>
+<!--        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>-->
+        <el-table-column align="left" label="集群名称" prop="domainName" width="300"/>
+        <el-table-column align="left" label="高可用VIP" prop="vip" width="150"/>
+        <el-table-column align="left" label="域名" prop="dns" width="150"/>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button"
-                       @click="updateDomainFunc(scope.row)"
-            >变更{{ 'debug ROW ID => ' }}{{ scope.row.ID }}
-              <!--            >变更{{scope.row.ID}}-->
-            </el-button>
-            <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
+            <el-row>
+              <el-button
+                  type="primary"
+                  link
+                  icon="Search"
+                  size="large"
+                  class="table-button"
+                  plain
+                  @click="new GetInstanceInfoFunc(scope.row)"
+              >{{ '实例信息' }}
+              </el-button>
+
+              <el-button
+                  type="success"
+                  link
+                  icon="edit"
+                  size="large"
+                  class="table-button"
+                  plain
+                  @click="updateDomainFunc(scope.row)"
+              >变更{{ 'debug ROW ID => ' }}{{ scope.row.ID }}
+
+              </el-button>
+              <el-button
+                  type="danger"
+                  link
+                  icon="delete"
+                  size="big"
+                  plain
+                  @click="deleteRow(scope.row)"
+              >删除
+              </el-button>
+            </el-row>
           </template>
         </el-table-column>
       </el-table>
@@ -78,21 +105,21 @@
       </div>
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增domain信息">
-      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="100px">
-        <el-form-item label="ID:" prop="ID">
+      <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="100px">
+        <el-form-item label="DomainID:" prop="ID">
           <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-<!--        <el-form-item label="domainId:" prop="domainId">-->
-<!--          <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>-->
-<!--        </el-form-item>-->
-        <!--        <el-form-item label="insId:" prop="insId">-->
-        <!--          <el-input v-model.number="formData.insId" :clearable="true" placeholder="请输入"/>-->
-        <!--        </el-form-item>-->
-        <el-form-item label="domainName:" prop="domainName">
+        <el-form-item label="DomainName:" prop="domainName">
           <el-input v-model="formData.domainName" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="projId:" prop="projId">
           <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
+        <el-form-item label="vip:" prop="vip">
+          <el-input v-model.number="formData.vip" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
+        <el-form-item label="dns:" prop="dns">
+          <el-input v-model.number="formData.dns" :clearable="true" placeholder="请输入"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -105,8 +132,24 @@
   </div>
 </template>
 <script>
+import {findInstanceOfOneDomain} from "@/api/saasInstance";
+
 export default {
   name: 'Domain',
+// 获取对应实例的详细信息
+  methods: {
+    GetInstanceInfoFunc(row) {
+      const data = {
+        ID: row.ID,
+      }
+      this.$router.push(
+          {
+            name: 'findInstanceOfOneDomain',
+            query: data,
+          }
+      )
+    }
+  }
 }
 </script>
 
@@ -121,18 +164,19 @@ import {
 } from '@/api/saasDomain'
 
 // 全量引入格式化工具 请按需保留
-import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { ref, reactive } from 'vue'
+import {getDictFunc, formatDate, formatBoolean, filterDict} from '@/utils/format'
+import {ElMessage, ElMessageBox} from 'element-plus'
+import {ref, reactive} from 'vue'
+import {findInstanceOfOneDomain} from '@/api/saasInstance'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
   ID: 0,
-  // insId: 0,
-  // domainId: 0,
   domainName: '',
   projId: 0,
   projName: '',
+  vip:'',
+  dns:'',
 })
 
 // 验证规则
@@ -183,8 +227,8 @@ const handleCurrentChange = (val) => {
 }
 
 // 查询
-const getTableData = async() => {
-  const table = await getDomainList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
+const getTableData = async () => {
+  const table = await getDomainList({page: page.value, pageSize: pageSize.value, ...searchInfo.value})
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -198,7 +242,7 @@ getTableData()
 // ============== 表格控制部分结束 ===============
 
 // 获取需要的字典 可能为空 按需保留
-const setOptions = async() => {
+const setOptions = async () => {
 }
 
 // 获取需要的字典 可能为空 按需保留
@@ -226,7 +270,7 @@ const deleteRow = (row) => {
 const deleteVisible = ref(false)
 
 // 多选删除
-const onDelete = async() => {
+const onDelete = async () => {
   const ids = []
   if (multipleSelection.value.length === 0) {
     ElMessage({
@@ -239,7 +283,7 @@ const onDelete = async() => {
   multipleSelection.value.map(item => {
     ids.push(item.ID)
   })
-  const res = await deleteDomainByIds({ ids })
+  const res = await deleteDomainByIds({ids})
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -257,8 +301,8 @@ const onDelete = async() => {
 const type = ref('')
 
 // 更新行
-const updateDomainFunc = async(row) => {
-  const res = await findDomain({ ID: row.ID })
+const updateDomainFunc = async (row) => {
+  const res = await findDomain({ID: row.ID})
   console.log(row.ID)
   type.value = 'update'
   if (res.code === 0) {
@@ -268,8 +312,8 @@ const updateDomainFunc = async(row) => {
 }
 
 // 删除行
-const deleteDomainFunc = async(row) => {
-  const res = await deleteDomain({ ID: row.ID })
+const deleteDomainFunc = async (row) => {
+  const res = await deleteDomain({ID: row.ID})
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -295,14 +339,13 @@ const openDialog = () => {
 const closeDialog = () => {
   dialogFormVisible.value = false
   formData.value = {
-    // domainId: 0,
     domainName: '',
     ID: 0,
   }
 }
 // 弹窗确定
-const enterDialog = async() => {
-  elFormRef.value?.validate(async(valid) => {
+const enterDialog = async () => {
+  elFormRef.value?.validate(async (valid) => {
     if (!valid) return
     let res
     switch (type.value) {

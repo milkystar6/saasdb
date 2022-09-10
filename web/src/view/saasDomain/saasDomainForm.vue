@@ -17,6 +17,12 @@
         <el-form-item label="projId:" prop="projId">
           <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
+        <el-form-item label="vip:" prop="vip">
+          <el-input v-model.number="formData.vip" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
+        <el-form-item label="dns:" prop="dns">
+          <el-input v-model.number="formData.dns" :clearable="true" placeholder="请输入"/>
+        </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
@@ -50,11 +56,12 @@ const router = useRouter()
 
 const type = ref('')
 const formData = ref({
-  Id: 0,
-  domainId: 0,
-  insId: 0,
+  ID: 0,
   domainName: '',
   projId: 0,
+  projName: '',
+  vip:'',
+  dns:'',
 })
 // 验证规则
 const rule = reactive({

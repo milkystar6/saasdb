@@ -95,3 +95,11 @@ export const getInstanceList = (params) => {
     params
   })
 }
+
+export const findInstanceOfOneDomain = (params) => {
+  return service({
+    url: '/saas_instance/findInstanceOfOneDomain',
+    method: 'get',
+    params
+  })
+}
