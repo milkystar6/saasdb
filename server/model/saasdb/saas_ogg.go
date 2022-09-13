@@ -17,5 +17,5 @@ type OggInfo struct {
 
 // TableName OggInfo 表名
 func (OggInfo) TableName() string {
-	return "OggInfo"
+	return "saas_ogg_info"
 }

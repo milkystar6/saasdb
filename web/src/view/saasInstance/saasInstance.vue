@@ -109,10 +109,6 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增实例信息">
       <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="120px">
-        <!--        实例ID应该不支持修改，ID由系统自动生成，如果要更改应该从数据库里改       -->
-        <!--        <el-form-item label="实例ID:" prop="ID">-->
-        <!--          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>-->
-        <!--        </el-form-item>-->
         <el-form-item label="实例名称:" prop="instance_name">
           <el-input v-model.number="formData.instance_name" :clearable="true" placeholder="请输入" />
         </el-form-item>
@@ -183,7 +179,6 @@ export default {
   name: 'Instance',
   methods: {
     getProcesslistByRows(row) {
-      // const res = await showinsprocesslist({ ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port })
       const data = {
         ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
       }

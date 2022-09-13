@@ -161,3 +161,24 @@ func (saas_instanceApi *InstanceApi) GetInstanceList(c *gin.Context) {
 		}, "获取成功", c)
 	}
 }
+
+func (saas_instanceApi *InstanceApi) GetInstanceByDomainID(c *gin.Context) {
+	var saas_instance saasdb.Instance
+	_ = c.ShouldBindQuery(&saas_instance)
+	verify := utils.Rules{
+		"domainId": {utils.NotEmpty()},
+	}
+	if err := utils.Verify(saas_instance, verify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if list, total, err := saas_instanceService.GetInstanceInfoByDomainID(saas_instance.DomainId); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:  list,
+			Total: total,
+		}, "获取成功", c)
+	}
+}

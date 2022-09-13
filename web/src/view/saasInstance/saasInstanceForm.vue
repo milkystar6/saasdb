@@ -1,44 +1,50 @@
 <template>
   <div>
     <div class="gva-form-box">
-      <el-form :model="formData" ref="elFormRef" label-position="right" :rules="rule" label-width="80px">
+      <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="80px">
         <el-form-item label="ID:" prop="ID">
-          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入"/>
+          <el-input v-model.number="formData.ID" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="projId:" prop="projId">
-          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
+          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="ip:" prop="ip">
-          <el-input v-model="formData.ip" :clearable="true" placeholder="请输入"/>
+          <el-input v-model="formData.ip" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="port:" prop="port">
-          <el-input v-model.number="formData.port" :clearable="true" placeholder="请输入"/>
+          <el-input v-model.number="formData.port" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="application:" prop="application">
           <el-select v-model="formData.application" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['oracle','mysql','redis','mongodb','tidb']" :key="item" :label="item"
-                       :value="item"
+            <el-option
+              v-for="item in ['oracle','mysql','redis','mongodb','tidb']"
+              :key="item"
+              :label="item"
+              :value="item"
             />
           </el-select>
         </el-form-item>
         <el-form-item label="version:" prop="version">
-          <el-input v-model="formData.version" :clearable="true" placeholder="请输入"/>
+          <el-input v-model="formData.version" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="useType:" prop="useType">
           <el-select v-model="formData.useType" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item"/>
+            <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item" />
           </el-select>
         </el-form-item>
         <el-form-item label="health:" prop="health">
           <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']"
-                       :key="item" :label="item" :value="item"
+            <el-option
+              v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']"
+              :key="item"
+              :label="item"
+              :value="item"
             />
           </el-select>
         </el-form-item>
         <el-form-item label="role:" prop="role">
           <el-select v-model="formData.role" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item"/>
+            <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item" />
           </el-select>
         </el-form-item>
         <el-form-item>

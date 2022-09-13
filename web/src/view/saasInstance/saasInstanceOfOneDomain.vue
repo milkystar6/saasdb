@@ -1,13 +1,447 @@
 <template>
+  <div>
+    <div class="gva-search-box">
+      <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
+        <el-form-item>
+          <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
+          <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="gva-table-box">
+      <div class="gva-btn-list">
+        <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
+        <el-popover v-model:visible="deleteVisible" placement="top" width="160">
+          <p>确定要删除吗？</p>
+          <div style="text-align: right; margin-top: 8px;">
+            <el-button size="small" type="primary" link @click="deleteVisible = false">取消</el-button>
+            <el-button size="small" type="primary" @click="onDelete">确定</el-button>
+          </div>
+          <template #reference>
+            <el-button
+              icon="delete"
+              size="small"
+              style="margin-left: 10px;"
+              :disabled="!multipleSelection.length"
+              @click="deleteVisible = true"
+            >删除
+            </el-button>
+          </template>
+        </el-popover>
+      </div>
+      <el-table
+        ref="multipleTable"
+        style="width: 100%"
+        tooltip-effect="dark"
+        :data="tableData"
+        row-key="ID"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" />
+        <!--        <el-table-column align="left" label="日期" width="180">-->
+        <!--          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
+        <!--        </el-table-column>-->
+        <!--        <el-table-column align="left" label="实例ID" prop="ID" width="80"/>-->
+        <el-table-column align="left" label="实例名称" prop="instance_name" width="150" />
+        <!--        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>-->
+        <!--        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>-->
+        <el-table-column align="left" label="ip" prop="ip" width="120" />
+        <el-table-column align="left" label="port" prop="port" width="80" />
+        <el-table-column align="left" label="应用类型" prop="application" width="100" />
+        <el-table-column align="left" label="数据库版本" prop="version" width="150" />
+        <el-table-column align="left" label="使用类型" prop="useType" width="100" />
+        <el-table-column align="left" label="健康状态" prop="health" width="100" />
+        <el-table-column align="left" label="数据库等级" prop="level" width="100" />
+        <el-table-column align="left" label="角色" prop="role" width="120" />
+        <el-table-column align="left" label="数据库会话管理" prop="数据库会话管理" width="150">
+          <template #default="scope">
+            <el-button
+              type="primary"
+              link
+              icon="edit"
+              size="small"
+              class="table-button"
+              @click="getProcesslistByRows(scope.row)"
+            >查看会话列表
+            </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column align="left" label="参数查询" prop="参数查询" width="120">
+          <template #default="scope">
+            <el-button
+              type="primary"
+              link
+              icon="edit"
+              size="small"
+              class="table-button"
+              @click="getRunningVariablesByRows(scope.row)"
+            >查看运行参数
+            </el-button>
+          </template>
+        </el-table-column>
 
+        <el-table-column align="left" label="按钮组">
+          <template #default="scope">
+            <el-button
+              type="primary"
+              link
+              icon="edit"
+              size="small"
+              class="table-button"
+              @click="updateInstanceFunc(scope.row)"
+            >变更
+            </el-button>
+            <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="gva-pagination">
+        <el-pagination
+          layout="total, sizes, prev, pager, next, jumper"
+          :current-page="page"
+          :page-size="pageSize"
+          :page-sizes="[10, 30, 50, 100]"
+          :total="total"
+          @current-change="handleCurrentChange"
+          @size-change="handleSizeChange"
+        />
+      </div>
+    </div>
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增实例信息">
+      <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="120px">
+        <el-form-item label="实例名称:" prop="instance_name">
+          <el-input v-model.number="formData.instance_name" :clearable="true" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="项目ID:" prop="projId">
+          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="集群ID:" prop="domainId">
+          <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="ip:" prop="ip">
+          <el-input v-model="formData.ip" :clearable="true" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="port:" prop="port">
+          <el-input v-model.number="formData.port" :clearable="true" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="数据库类型:" prop="application">
+          <el-select v-model="formData.application" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option
+              v-for="item in ['oracle','mysql','redis','mongodb','tidb']"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="数据库版本:" prop="version">
+          <el-input v-model="formData.version" :clearable="true" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="使用类型:" prop="useType">
+          <el-select v-model="formData.useType" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="数据库等级:" prop="level">
+          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="健康状态:" prop="health">
+          <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option
+              v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="role:" prop="role">
+          <el-select v-model="formData.role" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button size="small" @click="closeDialog">取 消</el-button>
+          <el-button size="small" type="primary" @click="enterDialog">确 定</el-button>
+        </div>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
+
 <script>
+
+import {findInstanceOfOneDomain} from "@/api/saasInstance";
+
 export default {
-  name: "saasInstanceOfOneDomain"
+  name: 'Instance',
+  data(){
+    return {
+      tableData:[]
+    }
+  },
+  created() {
+    if (JSON.stringify(this.$route.query) !== '{}') {
+      const data = {
+        ...this.$route.query,
+      }
+      findInstanceOfOneDomain(data).then(res =>{
+
+        this.tableData = res.data.list || []
+      })
+    }
+  },
+  methods: {
+    getProcesslistByRows(row) {
+      const data = {
+        ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+      }
+      this.$router.push(
+          {
+            name: 'showinsprocesslist',
+            query: data,
+          },
+      )
+    },
+
+    getRunningVariablesByRows(row) {
+      console.log(this.$router)
+      const data = {
+        ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+      }
+      console.log(data)
+      this.$router.push({
+            name: 'showVariables',
+            query: data,
+          },
+      )
+    },
+  },
+}
+</script>
+<script setup>
+import {
+  createInstance,
+  deleteInstance,
+  deleteInstanceByIds,
+  updateInstance,
+  findInstance,
+  getInstanceList, findInstanceOfOneDomain,
+} from '@/api/saasInstance'
+
+// 全量引入格式化工具 请按需保留
+import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { ref, reactive } from 'vue'
+import { showinsprocesslist } from '@/api/saas_insShowProcesslist'
+
+// 自动化生成的字典（可能为空）以及字段
+const formData = ref({
+  ID: 0,
+  projId: 0,
+  ip: '',
+  port: 0,
+  version: '',
+  level: '',
+  domainId: 0,
+  instance_name: '',
+})
+
+// 验证规则
+const rule = reactive({
+  ID: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
+
+})
+
+const elFormRef = ref()
+
+// =========== 表格控制部分 ===========
+const page = ref(1)
+const total = ref(0)
+const pageSize = ref(10)
+const tableData = ref([])
+const searchInfo = ref({})
+
+// 重置
+const onReset = () => {
+  searchInfo.value = {}
+}
+
+// 搜索
+const onSubmit = () => {
+  page.value = 1
+  pageSize.value = 10
+  getTableData()
+}
+
+// 分页
+const handleSizeChange = (val) => {
+  pageSize.value = val
+  getTableData()
+}
+
+// 修改页面容量
+const handleCurrentChange = (val) => {
+  page.value = val
+  getTableData()
+}
+
+// 查询
+const getTableData = async() => {
+  console.log(window.location)
+  const table = await findInstanceOfOneDomain({ page: page.value, pageSize: pageSize.value, ...searchInfo.value, })
+  if (table.code === 0) {
+    tableData.value = table.data.list
+    total.value = table.data.total
+    page.value = table.data.page
+    pageSize.value = table.data.pageSize
+  }
+}
+
+// getTableData()
+
+// ============== 表格控制部分结束 ===============
+
+// 获取需要的字典 可能为空 按需保留
+const setOptions = async() => {
+}
+
+// 获取需要的字典 可能为空 按需保留
+setOptions()
+
+// 多选数据
+const multipleSelection = ref([])
+// 多选
+const handleSelectionChange = (val) => {
+  multipleSelection.value = val
+}
+
+// 删除行
+const deleteRow = (row) => {
+  ElMessageBox.confirm('确定要删除吗?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(() => {
+    deleteInstanceFunc(row)
+  })
+}
+
+// 批量删除控制标记
+const deleteVisible = ref(false)
+
+// 多选删除
+const onDelete = async() => {
+  const ids = []
+  if (multipleSelection.value.length === 0) {
+    ElMessage({
+      type: 'warning',
+      message: '请选择要删除的数据',
+    })
+    return
+  }
+  multipleSelection.value &&
+  multipleSelection.value.map(item => {
+    ids.push(item.ID)
+  })
+  const res = await deleteInstanceByIds({ ids })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    if (tableData.value.length === ids.length && page.value > 1) {
+      page.value--
+    }
+    deleteVisible.value = false
+    getTableData()
+  }
+}
+
+// 行为控制标记（弹窗内部需要增还是改）
+const type = ref('')
+
+// 更新行
+const updateInstanceFunc = async(row) => {
+  const res = await findInstance({ ID: row.ID })
+  type.value = 'update'
+  if (res.code === 0) {
+    formData.value = res.data.resaas_instance
+    dialogFormVisible.value = true
+  }
+}
+
+// 删除行
+const deleteInstanceFunc = async(row) => {
+  const res = await deleteInstance({ ID: row.ID })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    if (tableData.value.length === 1 && page.value > 1) {
+      page.value--
+    }
+    getTableData()
+  }
+}
+
+// 弹窗控制标记
+const dialogFormVisible = ref(false)
+
+// 打开弹窗
+const openDialog = () => {
+  type.value = 'create'
+  dialogFormVisible.value = true
+}
+
+// 关闭弹窗
+const closeDialog = () => {
+  dialogFormVisible.value = false
+  formData.value = {
+
+    ID: 0,
+    ip: '',
+    port: 0,
+    version: '',
+  }
+}
+// 弹窗确定
+const enterDialog = async() => {
+  elFormRef.value?.validate(async(valid) => {
+    if (!valid) return
+    let res
+    switch (type.value) {
+      case 'create':
+        res = await createInstance(formData.value)
+        break
+      case 'update':
+        res = await updateInstance(formData.value)
+        break
+      default:
+        res = await createInstance(formData.value)
+        break
+    }
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '创建/更改成功',
+      })
+      closeDialog()
+      getTableData()
+    }
+  })
 }
 </script>
 
-<style scoped>
-
+<style>
 </style>

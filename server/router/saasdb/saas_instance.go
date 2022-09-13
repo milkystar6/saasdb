@@ -21,6 +21,7 @@ func (s *InstanceRouter) InitInstanceRouter(Router *gin.RouterGroup) {
 		saas_instanceRouter.DELETE("deleteInstance", saas_instanceApi.DeleteInstance)           // 删除Instance
 		saas_instanceRouter.DELETE("deleteInstanceByIds", saas_instanceApi.DeleteInstanceByIds) // 批量删除Instance
 		saas_instanceRouter.PUT("updateInstance", saas_instanceApi.UpdateInstance)              // 更新Instance
+		saas_instanceRouter.POST("findInstanceOfOneDomain", saas_instanceApi.GetInstanceByDomainID) // 根据DoaminID获取Instance列表
 	}
 	{
 		saas_instanceRouterWithoutRecord.GET("findInstance", saas_instanceApi.FindInstance)       // 根据ID获取Instance

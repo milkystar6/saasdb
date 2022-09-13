@@ -50,7 +50,6 @@
         <el-table-column type="selection" width="55"/>
         <el-table-column align="left" label="数据库实例集群ID" prop="ID" width="150"/>
         <el-table-column align="left" label="项目名称" prop="projName" width="150"/>
-<!--        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>-->
         <el-table-column align="left" label="集群名称" prop="domainName" width="300"/>
         <el-table-column align="left" label="高可用VIP" prop="vip" width="150"/>
         <el-table-column align="left" label="域名" prop="dns" width="150"/>
@@ -60,12 +59,12 @@
               <el-button
                   type="primary"
                   link
-                  icon="Search"
+                  icon="search"
                   size="large"
                   class="table-button"
                   plain
-                  @click="new GetInstanceInfoFunc(scope.row)"
-              >{{ '实例信息' }}
+                  @click="GetInstanceInfoByDomainID(scope.row)"
+              >{{ '详情' }}
               </el-button>
 
               <el-button
@@ -76,7 +75,7 @@
                   class="table-button"
                   plain
                   @click="updateDomainFunc(scope.row)"
-              >变更{{ 'debug ROW ID => ' }}{{ scope.row.ID }}
+              >变更
 
               </el-button>
               <el-button
@@ -131,6 +130,7 @@
     </el-dialog>
   </div>
 </template>
+
 <script>
 import {findInstanceOfOneDomain} from "@/api/saasInstance";
 
@@ -138,9 +138,9 @@ export default {
   name: 'Domain',
 // 获取对应实例的详细信息
   methods: {
-    GetInstanceInfoFunc(row) {
+    GetInstanceInfoByDomainID(row) {
       const data = {
-        ID: row.ID,
+        domainId: row.ID,
       }
       this.$router.push(
           {

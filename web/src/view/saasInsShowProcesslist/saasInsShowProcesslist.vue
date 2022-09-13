@@ -44,7 +44,7 @@
         <el-table-column align="left" label="COMMAND" prop="COMMAND" width="120"/>
         <el-table-column align="left" label="STATE" prop="STATE" width="250"/>
         <el-table-column align="left" label="INFO" prop="INFO" width="300"/>
-        <el-table-column align="left" label="查询连接" >
+        <el-table-column align="left" label="查询连接">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button"
                        @click="StopProcesslistById(scope.row)"
@@ -57,13 +57,13 @@
   </div>
 </template>
 <script>
-import { showinsprocesslist } from '@/api/saas_insShowProcesslist'
+import {showinsprocesslist} from '@/api/saas_insShowProcesslist'
 
 export default {
-  name: 'showinsprocesslist',
-  data(){
+  name: 'Showinsprocesslist',
+  data() {
     return {
-      tableData:[]
+      tableData: []
     }
   },
   created() {
@@ -71,17 +71,25 @@ export default {
       const data = {
         ...this.$route.query,
       }
-      showinsprocesslist(data).then(res =>{
+      showinsprocesslist(data).then(res => {
         console.log(res.data.processlist.ProcessListInfo)
-        this.tableData = res.data.processlist.ProcessListInfo || []
+        const a = res.data.processlist.ProcessListInfo || []
+        for (const info in a) {
+          // console.log(a[info_arr])
+          a[info]["vm"] = res.data.vm
+          a[info]["vm_mysql_host"] = res.data.vm_mysql_host
+          a[info]["vm_mysql_port"] = res.data.vm_mysql_port
+        }
+        this.tableData = a
       })
     }
   },
 }
 </script>
 <script setup>
-import { stopprocesslist } from '@/api/saas_insShowProcesslist'
-import {ElMessage, ElMessageBox } from 'element-plus';
+import {stopprocesslist} from '@/api/saas_insShowProcesslist'
+import {ElMessage, ElMessageBox} from 'element-plus';
+
 const StopProcesslistById = (row) => {
   ElMessageBox.confirm('确定要stop该会话吗?', '提示', {
     confirmButtonText: '确定',
@@ -91,8 +99,13 @@ const StopProcesslistById = (row) => {
     stopProcessFunc(row)
   })
 }
-const stopProcessFunc = async(row) => {
-  const res =await stopprocesslist({ ID: row.ID })
+const stopProcessFunc = async (row) => {
+  const res = await stopprocesslist({
+    ID: row.ID,
+    vm: row.vm,
+    vm_mysql_host: row.vm_mysql_host,
+    vm_mysql_port: row.vm_mysql_port
+  })
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -101,9 +114,7 @@ const stopProcessFunc = async(row) => {
     if (tableData.value.length === 1 && page.value > 1) {
       page.value--
     }
-    // getTableData()
   }
-
 }
 
 </script>

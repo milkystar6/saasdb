@@ -9,3 +9,7 @@ type InstanceSearch struct{
     saasdb.Instance
     request.PageInfo
 }
+
+type SearchInstanceByDomainID struct {
+	DomainId     int     `json:"domainId" form:"domainId" gorm:"column:domain_id;comment:;"`
+}

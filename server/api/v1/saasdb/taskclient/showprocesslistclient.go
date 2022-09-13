@@ -22,7 +22,7 @@ func (server *ProcessTaskApi) ShowProcesslist(c *gin.Context) {
 	var search request.SearchProcessList
 	_ = c.ShouldBindJSON(&search)
 	verify := utils.Rules{
-		"vm":          {utils.NotEmpty()},
+		"vm":            {utils.NotEmpty()},
 		"vm_mysql_host": {utils.NotEmpty()},
 		"vm_mysql_port": {utils.NotEmpty()},
 	}
@@ -30,9 +30,9 @@ func (server *ProcessTaskApi) ShowProcesslist(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	port,_:=strconv.Atoi(search.VmMySQLPort)
+	port, _ := strconv.Atoi(search.VmMySQLPort)
 
-	if processlist, err := ShowPorcessListService.ShowProcessList(search.Vm, search.VmMySQLHost,port ); err != nil {
+	if processlist, err := ShowPorcessListService.ShowProcessList(search.Vm, search.VmMySQLHost, port); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	} else {
@@ -41,7 +41,10 @@ func (server *ProcessTaskApi) ShowProcesslist(c *gin.Context) {
 			response.FailWithMessage(fmt.Sprintf("unmarshal data to json failed ,err: %v", err), c)
 		}
 		response.OkWithData(gin.H{
-			"processlist": spl,
+			"processlist":   spl,
+			"vm":            search.Vm,
+			"vm_mysql_host": search.VmMySQLHost,
+			"vm_mysql_port": search.VmMySQLPort,
 		}, c)
 	}
 }
@@ -60,9 +63,9 @@ func (server *ProcessTaskApi) ManageProcesslist(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//port, _ := strconv.Atoi(theworker.VmMySQLPort)
-	//err := ProcessManagerService.StopProcessById(theworker.Vm, theworker.VmMySQLHost, port, theworker.ID)
-	err := ShowPorcessListService.StopProcessById("127.0.0.1", "127.0.0.1", 3307, theworker.ID)
+	port, _ := strconv.Atoi(theworker.VmMySQLPort)
+	err := ShowPorcessListService.StopProcessById(theworker.Vm, theworker.VmMySQLHost, port, theworker.ID)
+	//err := ShowPorcessListService.StopProcessById("127.0.0.1", "127.0.0.1", 3307, theworker.ID)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return

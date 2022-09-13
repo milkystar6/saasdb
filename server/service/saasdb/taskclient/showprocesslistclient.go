@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
-	"github.com/songzhibin97/gkit/tools/pretty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -56,7 +55,7 @@ func (c *ProcessTaskClientService) NewShowProcessListTask(client grpc_pb.MySQLSh
 			fmt.Println(e)
 		}
 		// strbyte 是 []byte 类型，可以直接通过接口 func()gin.H{} 返回给前端json数组
-		fmt.Printf("%s\n", pretty.Pretty(strbyte))
+		//fmt.Printf("%s\n", pretty.Pretty(strbyte)) 
 		return strbyte, nil
 	}
 	return nil, fmt.Errorf("can't get any processlist , please cheak the log")
@@ -124,7 +123,6 @@ func (c *ProcessTaskClientService) StopProcessByIdTask(client grpc_pb.MySQLStopP
 }
 
 // 入口func 接收前端的 vm mysqlhost port 和会话ID信息
-
 func (c *ProcessTaskClientService) StopProcessById(vm, mysqlhost string, port, processId int) error {
 	var msg = global.GrpcMsg{
 		WorkNode: vm,
