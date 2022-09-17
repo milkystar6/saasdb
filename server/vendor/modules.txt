@@ -335,6 +335,7 @@ github.com/spf13/viper
 # github.com/stretchr/testify v1.7.1
 ## explicit
 github.com/stretchr/testify/assert
+github.com/stretchr/testify/require
 # github.com/subosito/gotenv v1.2.0
 github.com/subosito/gotenv
 # github.com/swaggo/gin-swagger v1.3.0

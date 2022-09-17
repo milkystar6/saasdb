@@ -44,10 +44,10 @@ import {
 } from '@/api/saasInstance'
 
 // 自动获取字典
-import { getDictFunc } from '@/utils/format'
-import { useRoute, useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { ref, reactive } from 'vue'
+import {getDictFunc} from '@/utils/format'
+import {useRoute, useRouter} from 'vue-router'
+import {ElMessage} from 'element-plus'
+import {ref, reactive} from 'vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -57,7 +57,7 @@ const formData = ref({
   ID: 0,
   USER: 0,
   HOST: '',
-  DB:'',
+  DB: '',
   COMMAND: 0,
   TIME: '',
   STATE: '',
@@ -74,10 +74,10 @@ const rule = reactive({
 const elFormRef = ref()
 
 // 初始化方法
-const init = async() => {
+const init = async () => {
   // 建议通过url传参获取目标数据ID 调用 find方法进行查询数据操作 从而决定本页面是create还是update 以下为id作为url参数示例
   if (route.query.id) {
-    const res = await findInstance({ ID: route.query.id })
+    const res = await findInstance({ID: route.query.id})
     if (res.code === 0) {
       formData.value = res.data.resaas_instance
       type.value = 'update'
@@ -89,8 +89,8 @@ const init = async() => {
 
 init()
 // 保存按钮
-const save = async() => {
-  elFormRef.value?.validate(async(valid) => {
+const save = async () => {
+  elFormRef.value?.validate(async (valid) => {
     if (!valid) return
     let res
     switch (type.value) {

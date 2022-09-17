@@ -14,7 +14,7 @@ import (
 type ProcessTaskApi struct {
 }
 
-var ShowPorcessListService = service.ServiceGroupApp.SaasdbServiceGroup.ProcessTaskClientService
+var ProcessManagerService = service.ServiceGroupApp.SaasdbServiceGroup.ProcessTaskClientService
 
 // 查询MySQL的会话列表
 func (server *ProcessTaskApi) ShowProcesslist(c *gin.Context) {
@@ -32,7 +32,7 @@ func (server *ProcessTaskApi) ShowProcesslist(c *gin.Context) {
 	}
 	port, _ := strconv.Atoi(search.VmMySQLPort)
 
-	if processlist, err := ShowPorcessListService.ShowProcessList(search.Vm, search.VmMySQLHost, port); err != nil {
+	if processlist, err := ProcessManagerService.ShowProcessList(search.Vm, search.VmMySQLHost, port); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	} else {
@@ -64,8 +64,7 @@ func (server *ProcessTaskApi) ManageProcesslist(c *gin.Context) {
 		return
 	}
 	port, _ := strconv.Atoi(theworker.VmMySQLPort)
-	err := ShowPorcessListService.StopProcessById(theworker.Vm, theworker.VmMySQLHost, port, theworker.ID)
-	//err := ShowPorcessListService.StopProcessById("127.0.0.1", "127.0.0.1", 3307, theworker.ID)
+	err := ProcessManagerService.StopProcessById(theworker.Vm, theworker.VmMySQLHost, port, theworker.ID)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
