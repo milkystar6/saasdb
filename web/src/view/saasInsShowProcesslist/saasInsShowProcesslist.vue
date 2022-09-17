@@ -42,6 +42,7 @@
         <el-table-column align="left" label="HOST" prop="HOST" width="150"/>
         <el-table-column align="left" label="DB" prop="DB" width="200"/>
         <el-table-column align="left" label="COMMAND" prop="COMMAND" width="120"/>
+        <el-table-column align="left" label="TIME" prop="TIME" width="120"/>
         <el-table-column align="left" label="STATE" prop="STATE" width="250"/>
         <el-table-column align="left" label="INFO" prop="INFO" width="300"/>
         <el-table-column align="left" label="查询连接">

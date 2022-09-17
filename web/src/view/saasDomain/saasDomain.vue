@@ -52,7 +52,7 @@
         <el-table-column align="left" label="项目名称" prop="projName" width="150"/>
         <el-table-column align="left" label="集群名称" prop="domainName" width="300"/>
         <el-table-column align="left" label="高可用VIP" prop="vip" width="150"/>
-        <el-table-column align="left" label="域名" prop="dns" width="150"/>
+        <el-table-column align="left" label="域名" prop="dns" width="300"/>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-row>
@@ -115,10 +115,10 @@
           <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="vip:" prop="vip">
-          <el-input v-model.number="formData.vip" :clearable="true" placeholder="请输入"/>
+          <el-input v-model="formData.vip" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="dns:" prop="dns">
-          <el-input v-model.number="formData.dns" :clearable="true" placeholder="请输入"/>
+          <el-input v-model="formData.dns" :clearable="true" placeholder="请输入"/>
         </el-form-item>
       </el-form>
       <template #footer>
