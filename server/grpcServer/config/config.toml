@@ -3,8 +3,8 @@ mysqlmanager_user = "root"
 mysqlmanager_password = "letsg0"
 
 [GrpcServer]
-creditsServeKey = "/Users/anderalex/go/src/workgrpc/certify/server.key"
-creditsServeCrt = "/Users/anderalex/go/src/workgrpc/certify/server.crt"
+creditsServeKey = "/Users/haochen/go/src/saasdb/server/service/saasdb/cerify/server.key"
+creditsServeCrt = "/Users/haochen/go/src/saasdb/server/service/saasdb/cerify/server.crt"
 protocol = "tcp"
 listenPort = 3000
 

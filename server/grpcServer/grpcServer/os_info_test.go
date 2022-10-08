@@ -41,7 +41,6 @@ func GetCpuCoreInfo() {
 	}
 	info, _ := cpu.Times(false)
 	fmt.Println(info)
-
 }
 func GetMemMoreInfo(){
 	info, _ := mem.VirtualMemory()

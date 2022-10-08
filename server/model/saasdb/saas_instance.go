@@ -23,11 +23,11 @@ type Instance struct {
 	Health       string   `json:"health" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating');comment:;"`
 	Level        string   `json:"level" form:"level" gorm:"column:level;type:enum('1','2','3','4');comment:;"`
 	Role         string   `json:"role" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
-	CpuNum       *int     `json:"cpu_num" form:"cpu_num" gorm:"column:cpu_num;type:int(10)";comment:数据库instance的cpu个数`
-	Memory       *int     `json:"memory" form:"memory" gorm:"column:memory";comment:数据库内存大小，单位为Bit`
-	DataDirSize  *int     `json:"data_dir_size" form:"data_dir_size" gorm:"column:data_dir_size";comment:数据库datadir大小，单位为Bit`
-	Feature      *Feature `json:"feature" gorm:"TYPE:json"`
-	Auth         *Auth    `json:"auth" gorm:"TYPE:json"`
+	//CpuNum       *int     `json:"cpu_num" form:"cpu_num" gorm:"column:cpu_num;type:int(10);comment:数据库instance的cpu个数"`
+	//Memory       *int     `json:"memory" form:"memory" gorm:"column:memory;comment:数据库内存大小，单位为Bit"`
+	//DataDirSize  *int     `json:"data_dir_size" form:"data_dir_size" gorm:"column:data_dir_size;comment:数据库datadir大小，单位为Bit"`
+	Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
+	Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
 }
 
 // TableName Instance 表名
