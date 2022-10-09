@@ -1,0 +1,18 @@
+[MySQLInstance]
+MyHost = "127.0.0.1"
+MyUser = "root"
+MyPassword = "letsg0"
+MyPort = 3306
+
+[SaasDB]
+SaasDBHost = "127.0.0.1"
+SaasDBUser = "root"
+SaasPassword = "letsg0"
+SaasPort = 3306
+SaasDBName = "saasdb"
+
+[Instance]
+InstanceName="test-instance"
+ProjId=123
+DomainId=123
+Role="master"
