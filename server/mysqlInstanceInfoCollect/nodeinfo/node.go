@@ -85,7 +85,7 @@ func (r *NodeCollecter) CountMem() *Mem {
 }
 
 func (r *NodeCollecter) CountDatadir(datadirname string) *DataDisk {
-	usage, err := disk.Usage("/")
+	usage, err := disk.Usage(datadirname)
 	if err != nil {
 		log.Fatalf("统计MySQL datadir %v 信息错误, error: %v", datadirname, err)
 	}

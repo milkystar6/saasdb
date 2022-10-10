@@ -76,7 +76,7 @@ func (receiver *Instance) CreateInstance(db *gorm.DB) error {
 	f := string(feature)
 	if err != nil {
 	}
-	sql := "INSERT INTO `saasdb`.`saas_instance` (created_at,updated_at,instance_name,proj_id,domain_id,ip,port,application,version,use_type,health,role,feature) " +
+	sql := "REPLACE INTO `saasdb`.`saas_instance` (created_at,updated_at,instance_name,proj_id,domain_id,ip,port,application,version,use_type,health,role,feature) " +
 		"VALUES " +
 		fmt.Sprintf("(NOW(),NOW(),'%v','%v','%v','%v','%v','%v','%v','%v','%v','%v','%v')", receiver.InstanceName, *receiver.ProjId, *receiver.DomainId, receiver.Ip, *receiver.Port, receiver.Application, receiver.Version, receiver.UseType, receiver.Health, receiver.Role, f)
 

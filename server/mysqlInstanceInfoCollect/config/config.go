@@ -31,7 +31,7 @@ type SaasDB struct {
 }
 
 type Instance struct {
-	InstanceName string `toml:"InstanceName" json:"instance_name"`
+	//InstanceName string `toml:"InstanceName" json:"instance_name"`
 	ProjId       int    `toml:"ProjId" json:"proj_id"`
 	DomainId     int    `toml:"DomainId" json:"domain_id"`
 	Role         string `toml:"Role" json:"role"`
