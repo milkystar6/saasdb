@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="data-center-box">
-      <CenterCard title="设备在线情况">
+      <CenterCard title="TODO 数据库在线情况">
         <template #action>
           <span class="gvaIcon-prompt" style="color: #999" />
         </template>
@@ -44,7 +44,7 @@
           <lineCharts />
         </template>
       </CenterCard>
-      <CenterCard title="源接入台数占比" style="grid-auto-columns: 1.5fr">
+      <CenterCard title="TODO MySQL集群信息统计" style="grid-auto-columns: 1.5fr">
         <template #action>
           <span class="gvaIcon-prompt" style="color: #999" />
         </template>
