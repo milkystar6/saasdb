@@ -98,7 +98,7 @@ func (saas_instanceApi *InstanceApi) DeleteInstanceByIds(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /saas_instance/updateInstance [put]
 func (saas_instanceApi *InstanceApi) UpdateInstance(c *gin.Context) {
-	var saas_instance saasdb.Instance
+	var saas_instance saasdb.InstanceDontUpdateFeature
 	_ = c.ShouldBindJSON(&saas_instance)
 	verify := utils.Rules{
 		"ip":          {utils.NotEmpty()},
