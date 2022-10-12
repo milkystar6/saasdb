@@ -4,6 +4,7 @@ MyUser = "root"
 MyPassword = "letsg0"
 MyPort = 3306
 
+
 [SaasDB]
 SaasDBHost = "127.0.0.1"
 SaasDBUser = "root"

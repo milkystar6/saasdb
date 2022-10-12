@@ -6,6 +6,7 @@ import (
 	"MySQLInstanceInfoCollect/model"
 	"MySQLInstanceInfoCollect/nodeinfo"
 	"log"
+	"os"
 )
 
 var DB model.MyDB
@@ -25,9 +26,10 @@ func (r *Reporter) ConnSaasDB(collector *nodeinfo.NodeCollecter, conn *config.My
 		return err
 	}
 	insInfo := r.Write2SaasDB(Conn, collector)
+	hostname, _ := os.Hostname()
 	instance := model.Instance{
 		GVA_MODEL:    model.GVA_MODEL{},
-		InstanceName: collect.ConnInfo.Instance.InstanceName,
+		InstanceName: hostname,
 		HostId:       nil,
 		ProjId:       &collect.ConnInfo.Instance.ProjId,
 		DomainId:     &collect.ConnInfo.Instance.DomainId,
@@ -51,7 +53,6 @@ func (r *Reporter) ConnSaasDB(collector *nodeinfo.NodeCollecter, conn *config.My
 	}
 	return instance.CreateInstance(Conn.DB)
 }
-
 
 func (r *Reporter) Write2SaasDB(c *model.MyDB, collector *nodeinfo.NodeCollecter) *model.MysqlInstanceInfo {
 	return c.OrganizeDatabaseInformation(collector)

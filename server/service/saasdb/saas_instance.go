@@ -33,7 +33,7 @@ func (saas_instanceService *InstanceService) DeleteInstanceByIds(ids request.Ids
 
 // UpdateInstance 更新Instance记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (saas_instanceService *InstanceService) UpdateInstance(saas_instance saasdb.Instance) (err error) {
+func (saas_instanceService *InstanceService) UpdateInstance(saas_instance saasdb.InstanceDontUpdateFeature) (err error) {
 	err = global.GVA_DB.Save(&saas_instance).Error
 	return err
 }

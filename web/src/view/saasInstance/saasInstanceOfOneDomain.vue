@@ -19,62 +19,68 @@
           </div>
           <template #reference>
             <el-button
-              icon="delete"
-              size="small"
-              style="margin-left: 10px;"
-              :disabled="!multipleSelection.length"
-              @click="deleteVisible = true"
+                icon="delete"
+                size="small"
+                style="margin-left: 10px;"
+                :disabled="!multipleSelection.length"
+                @click="deleteVisible = true"
             >删除
             </el-button>
           </template>
         </el-popover>
       </div>
       <el-table
-        ref="multipleTable"
-        style="width: 100%"
-        tooltip-effect="dark"
-        :data="tableData"
-        row-key="ID"
-        @selection-change="handleSelectionChange"
+          ref="multipleTable"
+          style="width: 100%"
+          tooltip-effect="dark"
+          :data="tableData"
+          row-key="ID"
+          @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" />
+        <el-table-column type="selection" width="55"/>
         <!--        <el-table-column align="left" label="日期" width="180">-->
         <!--          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>-->
         <!--        </el-table-column>-->
         <!--        <el-table-column align="left" label="实例ID" prop="ID" width="80"/>-->
-        <el-table-column align="left" label="实例名称" prop="instance_name" width="150" />
+        <el-table-column align="left" label="实例名称" prop="instance_name" width="150"/>
         <!--        <el-table-column align="left" label="项目ID" prop="projId" width="120"/>-->
         <!--        <el-table-column align="left" label="集群ID" prop="domainId" width="120"/>-->
-        <el-table-column align="left" label="ip" prop="ip" width="120" />
-        <el-table-column align="left" label="port" prop="port" width="80" />
-        <el-table-column align="left" label="应用类型" prop="application" width="100" />
-        <el-table-column align="left" label="数据库版本" prop="version" width="150" />
-        <el-table-column align="left" label="使用类型" prop="useType" width="100" />
-        <el-table-column align="left" label="健康状态" prop="health" width="100" />
-        <el-table-column align="left" label="数据库等级" prop="level" width="100" />
-        <el-table-column align="left" label="角色" prop="role" width="120" />
+        <el-table-column align="left" label="ip" prop="ip" width="120"/>
+        <el-table-column align="left" label="port" prop="port" width="80"/>
+        <el-table-column align="left" label="应用类型" prop="application" width="100"/>
+        <el-table-column align="left" label="数据库版本" prop="version" width="150"/>
+        <el-table-column align="left" label="使用类型" prop="useType" width="100"/>
+        <el-table-column align="left" label="健康状态" prop="health" width="100"/>
+        <!--        <el-table-column align="left" label="数据库等级" prop="level" width="100"/>-->
+        <el-table-column align="left" label="角色" prop="role" width="120">
+          <template #default="scope">
+            <span v-if="scope.row.role === 'master' ">主库</span>
+            <span v-if="scope.row.role === 'slaveforha' ">高可用备库</span>
+            <span v-if="scope.row.role === 'slaveonly' ">只读从库</span>
+          </template>
+        </el-table-column>
         <el-table-column align="left" label="数据库会话管理" prop="数据库会话管理" width="150">
           <template #default="scope">
             <el-button
-              type="primary"
-              link
-              icon="edit"
-              size="small"
-              class="table-button"
-              @click="getProcesslistByRows(scope.row)"
+                type="success"
+                circle
+                icon="el-icon-view"
+                size="mini"
+                class="optBtn"
+                @click="getProcesslistByRows(scope.row)"
             >查看会话列表
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column align="left" label="参数查询" prop="参数查询" width="120">
+        <el-table-column align="left" label="参数查询" prop="参数查询" width="150">
           <template #default="scope">
             <el-button
-              type="primary"
-              link
-              icon="edit"
-              size="small"
-              class="table-button"
-              @click="getRunningVariablesByRows(scope.row)"
+                type="success"
+                circle
+                icon="el-icon-view"
+                size="mini"
+                class="optBtn"
+                @click="getRunningVariablesByRows(scope.row)"
             >查看运行参数
             </el-button>
           </template>
@@ -83,83 +89,84 @@
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button
-              type="primary"
-              link
-              icon="edit"
-              size="small"
-              class="table-button"
-              @click="updateInstanceFunc(scope.row)"
+                type="warning"
+                circle
+                icon="el-icon-view"
+                size="mini"
+                class="optBtn"
+                @click="updateInstanceFunc(scope.row)"
             >变更
             </el-button>
-            <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
+            <el-button size="mini" class="optBtn"
+                       type="danger" icon="el-icon-delete" circle @click="deleteRow(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <div class="gva-pagination">
         <el-pagination
-          layout="total, sizes, prev, pager, next, jumper"
-          :current-page="page"
-          :page-size="pageSize"
-          :page-sizes="[10, 30, 50, 100]"
-          :total="total"
-          @current-change="handleCurrentChange"
-          @size-change="handleSizeChange"
+            layout="total, sizes, prev, pager, next, jumper"
+            :current-page="page"
+            :page-size="pageSize"
+            :page-sizes="[10, 30, 50, 100]"
+            :total="total"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
         />
       </div>
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="新增实例信息">
       <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="120px">
         <el-form-item label="实例名称:" prop="instance_name">
-          <el-input v-model.number="formData.instance_name" :clearable="true" placeholder="请输入" />
+          <el-input v-model.number="formData.instance_name" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="项目ID:" prop="projId">
-          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入" />
+          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="集群ID:" prop="domainId">
-          <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入" />
+          <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="ip:" prop="ip">
-          <el-input v-model="formData.ip" :clearable="true" placeholder="请输入" />
+          <el-input v-model="formData.ip" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="port:" prop="port">
-          <el-input v-model.number="formData.port" :clearable="true" placeholder="请输入" />
+          <el-input v-model.number="formData.port" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="数据库类型:" prop="application">
           <el-select v-model="formData.application" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option
-              v-for="item in ['oracle','mysql','redis','mongodb','tidb']"
-              :key="item"
-              :label="item"
-              :value="item"
+                v-for="item in ['oracle','mysql','redis','mongodb','tidb']"
+                :key="item"
+                :label="item"
+                :value="item"
             />
           </el-select>
         </el-form-item>
         <el-form-item label="数据库版本:" prop="version">
-          <el-input v-model="formData.version" :clearable="true" placeholder="请输入" />
+          <el-input v-model="formData.version" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="使用类型:" prop="useType">
           <el-select v-model="formData.useType" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item" />
+            <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
         <el-form-item label="数据库等级:" prop="level">
           <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item" />
+            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
         <el-form-item label="健康状态:" prop="health">
           <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option
-              v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']"
-              :key="item"
-              :label="item"
-              :value="item"
+                v-for="item in ['available','unavailable','restarting','starting','stoping','migrating']"
+                :key="item"
+                :label="item"
+                :value="item"
             />
           </el-select>
         </el-form-item>
         <el-form-item label="role:" prop="role">
           <el-select v-model="formData.role" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item" />
+            <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
       </el-form>
@@ -180,9 +187,9 @@ import {findInstanceOfOneDomain} from "@/api/saasInstance";
 
 export default {
   name: 'Instance',
-  data(){
+  data() {
     return {
-      tableData:[]
+      tableData: []
     }
   },
   created() {
@@ -190,7 +197,7 @@ export default {
       const data = {
         ...this.$route.query,
       }
-      findInstanceOfOneDomain(data).then(res =>{
+      findInstanceOfOneDomain(data).then(res => {
 
         this.tableData = res.data.list || []
       })
@@ -235,10 +242,10 @@ import {
 } from '@/api/saasInstance'
 
 // 全量引入格式化工具 请按需保留
-import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { ref, reactive } from 'vue'
-import { showinsprocesslist } from '@/api/saas_insShowProcesslist'
+import {getDictFunc, formatDate, formatBoolean, filterDict} from '@/utils/format'
+import {ElMessage, ElMessageBox} from 'element-plus'
+import {ref, reactive} from 'vue'
+import {showinsprocesslist} from '@/api/saas_insShowProcesslist'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
@@ -296,9 +303,9 @@ const handleCurrentChange = (val) => {
 }
 
 // 查询
-const getTableData = async() => {
+const getTableData = async () => {
   console.log(window.location)
-  const table = await findInstanceOfOneDomain({ page: page.value, pageSize: pageSize.value, ...searchInfo.value, })
+  const table = await findInstanceOfOneDomain({page: page.value, pageSize: pageSize.value, ...searchInfo.value,})
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -312,7 +319,7 @@ const getTableData = async() => {
 // ============== 表格控制部分结束 ===============
 
 // 获取需要的字典 可能为空 按需保留
-const setOptions = async() => {
+const setOptions = async () => {
 }
 
 // 获取需要的字典 可能为空 按需保留
@@ -340,7 +347,7 @@ const deleteRow = (row) => {
 const deleteVisible = ref(false)
 
 // 多选删除
-const onDelete = async() => {
+const onDelete = async () => {
   const ids = []
   if (multipleSelection.value.length === 0) {
     ElMessage({
@@ -353,7 +360,7 @@ const onDelete = async() => {
   multipleSelection.value.map(item => {
     ids.push(item.ID)
   })
-  const res = await deleteInstanceByIds({ ids })
+  const res = await deleteInstanceByIds({ids})
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -371,8 +378,8 @@ const onDelete = async() => {
 const type = ref('')
 
 // 更新行
-const updateInstanceFunc = async(row) => {
-  const res = await findInstance({ ID: row.ID })
+const updateInstanceFunc = async (row) => {
+  const res = await findInstance({ID: row.ID})
   type.value = 'update'
   if (res.code === 0) {
     formData.value = res.data.resaas_instance
@@ -381,8 +388,8 @@ const updateInstanceFunc = async(row) => {
 }
 
 // 删除行
-const deleteInstanceFunc = async(row) => {
-  const res = await deleteInstance({ ID: row.ID })
+const deleteInstanceFunc = async (row) => {
+  const res = await deleteInstance({ID: row.ID})
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -416,8 +423,8 @@ const closeDialog = () => {
   }
 }
 // 弹窗确定
-const enterDialog = async() => {
-  elFormRef.value?.validate(async(valid) => {
+const enterDialog = async () => {
+  elFormRef.value?.validate(async (valid) => {
     if (!valid) return
     let res
     switch (type.value) {
