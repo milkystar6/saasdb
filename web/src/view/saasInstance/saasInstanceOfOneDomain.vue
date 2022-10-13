@@ -8,6 +8,21 @@
         </el-form-item>
       </el-form>
     </div>
+<!--    <div>{{tableData}}</div>-->
+<!--    <el-table-->
+<!--        ref="multipleTable1"-->
+<!--        style="width: 100%"-->
+<!--        tooltip-effect="dark"-->
+<!--        :data="tableData"-->
+<!--    >-->
+<!--      <el-table-column align="left" label="ip" prop="ip" width="120"/>-->
+<!--      <el-table-column align="left" label="port" prop="port" width="80"/>-->
+<!--      <el-table-column align="left" label="应用类型" prop="application" width="100"/>-->
+<!--      <el-table-column align="left" label="数据库版本" prop="version" width="150"/>-->
+<!--      <el-table-column align="left" label="使用类型" prop="useType" width="100"/>-->
+<!--      <el-table-column align="left" label="健康状态" prop="health" width="100"/>-->
+<!--    </el-table>-->
+
     <div class="gva-table-box">
       <div class="gva-btn-list">
         <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
@@ -29,6 +44,7 @@
           </template>
         </el-popover>
       </div>
+
       <el-table
           ref="multipleTable"
           style="width: 100%"
@@ -149,11 +165,11 @@
             <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="数据库等级:" prop="level">
-          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item"/>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="数据库等级:" prop="level">-->
+<!--          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">-->
+<!--            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item"/>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item label="健康状态:" prop="health">
           <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option
@@ -198,8 +214,8 @@ export default {
         ...this.$route.query,
       }
       findInstanceOfOneDomain(data).then(res => {
-
         this.tableData = res.data.list || []
+        console.log(this.tableData)
       })
     }
   },
@@ -275,7 +291,7 @@ const elFormRef = ref()
 const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
-const tableData = ref([])
+// const tableData = ref([])
 const searchInfo = ref({})
 
 // 重置
@@ -307,7 +323,7 @@ const getTableData = async () => {
   console.log(window.location)
   const table = await findInstanceOfOneDomain({page: page.value, pageSize: pageSize.value, ...searchInfo.value,})
   if (table.code === 0) {
-    tableData.value = table.data.list
+    // tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page
     pageSize.value = table.data.pageSize

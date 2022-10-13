@@ -14,6 +14,6 @@ SaasDBName = "saasdb"
 
 [Instance]
 InstanceName="test-instance"
-ProjId=123
-DomainId=123
+#ProjId=123
+DomainId=101
 Role="master"

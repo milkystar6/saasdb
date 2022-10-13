@@ -22,8 +22,10 @@ type Instance struct {
 	Health       string   `json:"health" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating');comment:;"`
 	//Level        string   `json:"level" form:"level" gorm:"column:level;type:enum('1','2','3','4');comment:;"`
 	Role         string   `json:"role" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
-	Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
-	Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
+	Feature      *Feature `json:"feature" gorm:"TYPE:json"`
+	Auth         *Auth    `json:"auth" gorm:"TYPE:json"`
+	//Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
+	//Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
 }
 
 // TableName Instance 表名
@@ -46,8 +48,8 @@ type InstanceDontUpdateFeature struct {
 	Health       string   `json:"health" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating');comment:;"`
 	//Level        string   `json:"level" form:"level" gorm:"column:level;type:enum('1','2','3','4');comment:;"`
 	Role         string   `json:"role" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
-	//Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`  # 更新的时候不更新feature字段
-	Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
+	//Feature      *Feature `json:"feature" gorm:"TYPE:json"`  # 更新的时候不更新feature字段
+	Auth         *Auth    `json:"auth" gorm:"TYPE:json"`
 }
 
 // TableName InstanceDontUpdateFeature

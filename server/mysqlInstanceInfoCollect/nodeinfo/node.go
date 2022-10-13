@@ -34,6 +34,7 @@ type DataDisk struct {
 }
 
 func (r *NodeCollecter) Start(datadir string) *NodeCollecter {
+	datadir = "/Users/haochen/docker/mysql/"
 	return &NodeCollecter{
 		Cpu:      r.CountCpu(),
 		Mem:      r.CountMem(),
