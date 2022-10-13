@@ -142,11 +142,11 @@
             <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item" />
           </el-select>
         </el-form-item>
-        <el-form-item label="数据库等级:" prop="level">
-          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item" />
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="数据库等级:" prop="level">-->
+<!--          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">-->
+<!--            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item" />-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item label="健康状态:" prop="health">
           <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option

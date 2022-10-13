@@ -31,7 +31,7 @@ func (r *Reporter) ConnSaasDB(collector *nodeinfo.NodeCollecter, conn *config.My
 		GVA_MODEL:    model.GVA_MODEL{},
 		InstanceName: hostname,
 		HostId:       nil,
-		ProjId:       &collect.ConnInfo.Instance.ProjId,
+		//ProjId:       &collect.ConnInfo.Instance.ProjId,
 		DomainId:     &collect.ConnInfo.Instance.DomainId,
 		Ip:           collect.ConnInfo.MySQLInstance.MyHost,
 		Port:         &collect.ConnInfo.MySQLInstance.MyPort,
@@ -41,9 +41,9 @@ func (r *Reporter) ConnSaasDB(collector *nodeinfo.NodeCollecter, conn *config.My
 		Health:       "available",
 		Level:        "3",
 		Role:         collect.ConnInfo.Instance.Role,
-		CpuNum:       &insInfo.Cpu.CoresLogical,
-		Memory:       &insInfo.Mem.VirtualMemory,
-		DataDirSize:  &insInfo.DataDisk.DatadirSize,
+		//CpuNum:       &insInfo.Cpu.CoresLogical,
+		//Memory:       &insInfo.Mem.VirtualMemory,
+		//DataDirSize:  &insInfo.DataDisk.DatadirSize,
 		Feature: &model.Feature{NodeCollecter: struct {
 			Cpu      *nodeinfo.Cpu
 			Mem      *nodeinfo.Mem
