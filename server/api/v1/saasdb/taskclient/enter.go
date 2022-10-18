@@ -4,4 +4,5 @@ type ClientApiGroup struct {
 	BackUpTaskApi
 	ProcessTaskApi
 	VariablesTaskApi
+	SlowLogTaskApi
 }

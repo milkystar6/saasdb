@@ -16,21 +16,21 @@ type NodeCollecter struct {
 }
 
 type Cpu struct {
-	CoresLogical  int     // 逻辑cpu个数
-	CoresPhysical int     // 物理cpu个数
-	IsHT          bool    // Hyper-Threading
-	ModelName     string  // 型号
-	MHZ           float64 // 主频
+	CoresLogical  int     `json:"cores_logical,omitempty"`  // 逻辑cpu个数
+	CoresPhysical int     `json:"cores_physical,omitempty"` // 物理cpu个数
+	IsHT          bool    `json:"is_ht,omitempty"`          // Hyper-Threading
+	ModelName     string  `json:"model_name,omitempty"`     // 型号
+	MHZ           float64 `json:"mhz,omitempty"`            // 主频
 }
 type Mem struct {
-	VirtualMemory      uint64
-	VirtualMemoryHuman string
+	VirtualMemory      uint64 `json:"virtual_memory,omitempty"`
+	VirtualMemoryHuman string `json:"virtual_memory_human,omitempty"`
 }
 type DataDisk struct {
-	DatadirName      string
-	DatadirSize      uint64
-	DatadirSizeHuman string
-	FsType           string // file system type
+	DatadirName      string `json:"datadir_name,omitempty"`
+	DatadirSize      uint64 `json:"datadir_size,omitempty"`
+	DatadirSizeHuman string `json:"datadir_size_human,omitempty"`
+	FsType           string `json:"fs_type,omitempty"` // file system type
 }
 
 func (r *NodeCollecter) Start(datadir string) *NodeCollecter {
@@ -98,4 +98,8 @@ func (r *NodeCollecter) CountDatadir(datadirname string) *DataDisk {
 		DatadirSizeHuman: humanSize,
 		FsType:           usage.Fstype,
 	}
+}
+
+func (r *NodeCollecter) CountAllDisk() {
+
 }

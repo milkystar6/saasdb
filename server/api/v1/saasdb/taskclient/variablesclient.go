@@ -26,7 +26,7 @@ func (api *VariablesTaskApi) ShowVariablesFuzzyMatching(c *gin.Context) {
 	verify := utils.Rules{
 		"vm":             {utils.NotEmpty()},
 		"vm_mysql_host":  {utils.NotEmpty()},
-		"vm_mysql_port1": {utils.NotEmpty()},
+		"vm_mysql_port": {utils.NotEmpty()},
 		//"variable_slice":{utils.NotEmpty()}, 可以为空
 	}
 	if err := utils.Verify(search, verify); err != nil {

@@ -8,12 +8,13 @@ import (
 // Host 结构体
 type Host struct {
 	global.GVA_MODEL
-	//HostId  *int `json:"hostId" form:"hostId" gorm:"column:host_id;comment:;uniqueIndex:host_id;"`
 	Hostname string `json:"hostname" form:"hostname" gorm:"column:hostname;comment:;"`
 	Ip       string `json:"ip" form:"ip" gorm:"column:ip;comment:;"`
 	Cpu      *int   `json:"cpu" form:"cpu" gorm:"column:cpu;comment:;size:10;"`
 	Memory   *int   `json:"memory" form:"memory" gorm:"column:memory;comment:;"`
-	Disksize *int   `json:"disksize" form:"disksize" gorm:"column:disksize;comment:;"`
+	//Disksize *int   `json:"disksize" form:"disksize" gorm:"column:disksize;comment:;"`
+	// 不用json 对于不确定key的内容，gorm不好解析
+	DiskInfo string `json:"disk_info" form:"diskinfo" gorm:"column:diskinfo;comment:;"`
 }
 
 // TableName Host 表名
