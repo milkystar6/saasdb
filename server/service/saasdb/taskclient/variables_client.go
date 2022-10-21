@@ -17,7 +17,7 @@ import (
 type VariablesTaskClientService struct {
 }
 
-/*      show vars         */
+// ShowVariablesTask /*      show vars         */
 func ShowVariablesTask(s []string, ip string, port int32) *grpc_pb.HandleVariablesRequest {
 	return &grpc_pb.HandleVariablesRequest{
 		Method:                false, // show
@@ -37,7 +37,7 @@ func NewVariables(s []string) (vv []*grpc_pb.ShowVariablesUseArray) {
 	return vv
 }
 
-/*      set vars         */
+// SetVariablesStringTask /*      set vars         */
 func SetVariablesStringTask(v map[string]string) *grpc_pb.HandleVariablesRequest {
 	a := make(map[string]*grpc_pb.SetVariablesUseMap)
 	for k, v := range v {
@@ -68,7 +68,7 @@ func SetVariablesUseMap_VariableValueInt32(v string) *grpc_pb.SetVariablesUseMap
 	return &grpc_pb.SetVariablesUseMap_VariableValueInt32{VariableValueInt32: v}
 }
 
-// show variables like "" ; 精确匹配参数运行值  TODO 这个方法用处不大 ，直接查询全部的参数然后在前端过滤即可
+// ShowVariables show variables like "" ; 精确匹配参数运行值  TODO 这个方法用处不大 ，直接查询全部的参数然后在前端过滤即可
 func (s *VariablesTaskClientService) ShowVariables(variables []string, ip string, port int32, client grpc_pb.MySQLVariablesServiceClient) {
 	ctx, cancle := context.WithTimeout(context.Background(), time.Second)
 	defer cancle()
@@ -90,7 +90,7 @@ func (s *VariablesTaskClientService) ShowVariables(variables []string, ip string
 	}
 }
 
-// show variables like "%%" 用于模糊匹配参数,不写条件的话, 等同于 show variables
+// ShowVariables_fuzzy_matching show variables like "%%" 用于模糊匹配参数,不写条件的话, 等同于 show variables
 // TODO Variables 参数 用结构体传递 不要用参数了 太繁琐。。。。
 func (s *VariablesTaskClientService) ShowVariables_fuzzy_matching(variables []string, ip string, port int32, client grpc_pb.MySQLVariablesServiceClient) ([]byte, error) {
 	ctx, cancle := context.WithTimeout(context.Background(), global.GrpcCreateTimeout)
@@ -115,7 +115,7 @@ func (s *VariablesTaskClientService) ShowVariables_fuzzy_matching(variables []st
 	return nil, err
 }
 
-// 修改参数的运行值 (数据库配置文件参数设置的值，修改数据库配置文件 方法不够安全，最好是人工修改 ，第一版本不支持自动修改，这种可以加一个数据库运行值和配置文件参数设置值的监控告警)
+// SetVariable 修改参数的运行值 (数据库配置文件参数设置的值，修改数据库配置文件 方法不够安全，最好是人工修改 ，第一版本不支持自动修改，这种可以加一个数据库运行值和配置文件参数设置值的监控告警)
 func (s *VariablesTaskClientService) SetVariable() {
 
 }
@@ -139,7 +139,7 @@ func (s *VariablesTaskClientService) NewClient(msg global.GrpcMsg) (grpc_pb.MySQ
 
 }
 
-// 入口函数
+// ShowVariablesEntry 入口函数
 func (s *VariablesTaskClientService) ShowVariablesEntry(req request.ReqVariables) ([]byte, error) {
 	var msg = global.GrpcMsg{
 		WorkNode: req.Vm,

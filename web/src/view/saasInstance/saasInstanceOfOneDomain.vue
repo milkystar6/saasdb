@@ -102,6 +102,26 @@
           </template>
         </el-table-column>
 
+
+        <el-table-column align="left" label="参数查询" prop="参数查询" width="150">
+          <template #default="scope">
+            <el-button
+                type="success"
+                circle
+                icon="el-icon-view"
+                size="mini"
+                class="optBtn"
+                @click="getSlowLogQueryByRows(scope.row)"
+            >测试中的功能--慢日志分析&&慢日志统一分析管理
+            </el-button>
+          </template>
+        </el-table-column>
+
+
+
+
+
+
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button
@@ -240,6 +260,19 @@ export default {
       console.log(data)
       this.$router.push({
             name: 'showVariables',
+            query: data,
+          },
+      )
+    },
+
+    getSlowLogQueryByRows(row){
+      console.log(this.$router)
+      const data = {
+        ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+      }
+      console.log(data)
+      this.$router.push({
+            name: 'showSlowlogQuery',
             query: data,
           },
       )

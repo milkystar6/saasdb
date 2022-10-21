@@ -30,12 +30,13 @@ func (ls *SlowLogTaskApi) GetSlowLog(c *gin.Context) {
 	}
 
 	req := request.GetSlowLogSearch{
+		Vm:          search.Vm,
 		VmMySQLHost: search.VmMySQLHost,
 		VmMySQLPort: search.VmMySQLPort,
 		StartTime:   search.StartTime,
 		EndTime:     search.EndTime,
 	}
-	SlowLogInfo, err := SlowLogQueryService.GetSlowLog(req)
+	SlowLogInfo, err := SlowLogQueryService.GetSlowLogEntry(req)
 	fmt.Println(SlowLogInfo, err)
 
 }

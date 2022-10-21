@@ -1,0 +1,22 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+import "google/protobuf/timestamp.proto";
+
+/* 定义获取慢日志需要的消息 */
+message SlowLogQueryRequest {
+  string MySQLIP = 1;
+  int32 MySQLPort = 2;
+  google.protobuf.Timestamp StartTime = 3;
+  google.protobuf.Timestamp EndTIme = 4;
+}
+
+/* 定义慢日志返回的消息 */
+message SlowLogQueryResponse {
+  string SlowLogs = 1;
+}
+
+
+service MySQLSlowLogQueryService{
+  rpc NewGetSlowQuery(SlowLogQueryRequest) returns (SlowLogQueryResponse) ;
+}
