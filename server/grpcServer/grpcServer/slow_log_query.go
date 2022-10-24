@@ -14,6 +14,10 @@ import (
 	"time"
 )
 
+const (
+	slowLogTmpTablePrefix = "slow_log_query_tmp"
+)
+
 type SlowLogQueryServer struct {
 	grpc_pb.UnimplementedMySQLSlowLogQueryServiceServer
 }
@@ -22,7 +26,7 @@ func (server *SlowLogQueryServer) NewGetSlowQuery(ctx context.Context, req *grpc
 	mysqlip := req.GetMySQLIP()
 	mysqlport := int(req.GetMySQLPort())
 	starttime := req.GetStartTime()
-	endtime := req.GetEndTIme()
+	endtime := req.GetEndTime()
 	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, mysqlip, "information_schema", mysqlport)
 	if err != nil {
 		return nil, err
@@ -51,13 +55,12 @@ func (server *SlowLogQueryServer) NewGetSlowQuery(ctx context.Context, req *grpc
 	// 关键点解释 :
 	// slow log query 一个无缓冲的阻塞channel
 	// slow log 通过 `pt-query-digest` 工具分析
-	slqChan := make(chan []byte)
+	slqChan := make(chan []byte, 1)
 	errChan := make(chan error, 1)
 	var writesChan chan<- []byte = slqChan
 
 	go func(slowQueryLogFile string, st, et *timestamppb.Timestamp) {
 
-		// TODO analyze slow log file
 		analyzeErr := server.readSlowFile(mysqlip, mysqlport, slowQueryLogFile, st, et, writesChan)
 		if analyzeErr != nil {
 			errChan <- analyzeErr
@@ -87,7 +90,7 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 	checkPtCmd := fmt.Sprintf("%v --version", ptCmd)
 	_, checkPtCmdErr := server.runLinuxCmd(checkPtCmd)
 	if checkPtCmdErr != nil {
-		return checkPtCmdErr
+		return fmt.Errorf("run %v got error, error: %v", checkPtCmd, checkPtCmdErr)
 	}
 
 	type saasdbConn struct {
@@ -109,10 +112,10 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 	t := strings.Split(ip, ".")
 	tt := ""
 	for _, v := range t {
-		tt += v
+		tt += v + "_"
 	}
 	nowStr := strconv.FormatInt(time.Now().Unix(), 10)
-	tmpTableName := tt + strconv.Itoa(port) + nowStr
+	tmpTableName := slowLogTmpTablePrefix + tt + strconv.Itoa(port) + nowStr
 	// 连接saasdb数据库
 	saasdb, err := model.GormMysql(sc.SaasUser, sc.SaasPassword, sc.SaasHost, "saasdb", sc.SaasPort)
 	if err != nil {
@@ -122,8 +125,11 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 	if err := saasdb.Exec(createTmpTableSql).Error; err != nil {
 		return fmt.Errorf("创建临时记录表失败,error: %v", err)
 	}
-
-	analyzeSlowLogQueryCmd := fmt.Sprintf("%v --since %v --until %v --limit 95%%:10 %v --create-history-table --create-review-table --host %v --user %v  --password %v --port %v --review D=saasdb,t=%v ", ptCmd, st, et, slowQueryLogFile, sc.SaasHost, sc.SaasUser, sc.SaasPassword, sc.SaasPort, tmpTableName)
+	layout := "2006-01-02 15:04:05"
+	stAt := st.AsTime().Format(layout)
+	etAt := et.AsTime().Format(layout)
+	fmt.Println("for test ", stAt, etAt)
+	analyzeSlowLogQueryCmd := fmt.Sprintf("%v --since \"%v\" --until \"%v\" --limit 95%%:10 %v --create-history-table --create-review-table --host %v --user %v  --password %v --port %v --review D=saasdb,t=%v ", ptCmd, stAt, etAt, slowQueryLogFile, sc.SaasHost, sc.SaasUser, sc.SaasPassword, sc.SaasPort, tmpTableName)
 	stdout, err := server.runLinuxCmd(analyzeSlowLogQueryCmd)
 	if err != nil {
 		return fmt.Errorf("运行pt慢日志分析工具失败, error: %v", err)
@@ -145,7 +151,7 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 	}
 	ip_port_col := ip + "_" + strconv.Itoa(port)
 	// now we should select the rows from tmp table，and fix the col ip_port to show per slow logs belongs to which instance ,then insert new rows into the saasdb_slow_log_query_history table
-	transformRowsSQL := fmt.Sprintf("REPLACE INTO saasdb_slow_log_query_history(ip_port,checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments) (SELECT \"%v\" as ip_port checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments FROM %v)", ip_port_col, tmpTableName)
+	transformRowsSQL := fmt.Sprintf("REPLACE INTO saasdb_slow_log_query_history(ip_port,checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments) (SELECT \"%v\" as ip_port, checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments FROM %v)", ip_port_col, tmpTableName)
 	if err := saasdb.Exec(transformRowsSQL).Error; err != nil {
 		return fmt.Errorf("we meet error when we trans rows from saasdb_slow_log_query_history to %v , error: %v", tmpTableName, err)
 	}
@@ -158,6 +164,7 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 }
 
 func (server *SlowLogQueryServer) runLinuxCmd(c string) ([]byte, error) {
+	fmt.Println(c)
 	cmd := exec.Command("/bin/bash", "-c", c)
 	// 获取管道输入
 	output, err := cmd.StdoutPipe()

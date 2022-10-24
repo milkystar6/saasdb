@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"strconv"
+	"time"
 )
 
 type SlowLogTaskClientService struct {
@@ -71,10 +72,27 @@ func (ls *SlowLogTaskClientService) GetSlowLog(req request.GetSlowLogSearch, cli
 
 func (ls *SlowLogTaskClientService) GetSlowLogTask(req request.GetSlowLogSearch) *grpc_pb.SlowLogQueryRequest {
 	port, _ := strconv.Atoi(req.VmMySQLPort)
+	// 如果前端没有给详细的其实时间，默认分析一天时间的日志
+	if req.StartTime.IsZero() || req.EndTime.IsZero() {
+		layout := "2006-01-02 15:04:05"
+		t := time.Now().Add(8 * time.Hour) // 转为北京时间
+		toDay := t.Format(layout)
+		beforeDay := t.AddDate(0, 0, -1).Format(layout)
+		loc, _ := time.LoadLocation("Local")
+		toDayTime, _ := time.ParseInLocation(layout, toDay, loc)
+		beforeDayTime, _ := time.ParseInLocation(layout, beforeDay, loc)
+		return &grpc_pb.SlowLogQueryRequest{
+			MySQLIP:   req.VmMySQLHost,
+			MySQLPort: int32(port),
+			StartTime: timestamppb.New(beforeDayTime),
+			EndTime:   timestamppb.New(toDayTime),
+		}
+	}
 	return &grpc_pb.SlowLogQueryRequest{
 		MySQLIP:   req.VmMySQLHost,
 		MySQLPort: int32(port),
 		StartTime: timestamppb.New(req.StartTime),
-		EndTIme:   timestamppb.New(req.EndTime),
+		EndTime:   timestamppb.New(req.EndTime),
 	}
+
 }
