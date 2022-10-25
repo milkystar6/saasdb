@@ -5,7 +5,13 @@ import (
 	"MySQLInstanceInfoCollect/nodeinfo"
 	report2 "MySQLInstanceInfoCollect/report"
 	"log"
+	"sync"
 )
+
+var waitGroup sync.WaitGroup
+
+//为了限制并发量，避免too many open file这样的错误
+var ch = make(chan struct{}, 255)
 
 func main() {
 	var collector collect.Collecter
@@ -17,5 +23,8 @@ func main() {
 
 	// write to saasdb
 	var report report2.Reporter
-	report.Start(info.Version,nodecollector.Start(info.Datadir))
+	report.Start(info.Version, nodecollector.Start(info.Datadir))
+	//datadir := "/Users/haochen/docker/mysql/data/saasdb/"
+	//opsbase.Analyze(datadir)
+
 }

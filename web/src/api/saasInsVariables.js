@@ -10,8 +10,10 @@ import service from '@/utils/request'
 // @Router /variables/get_variable_running_value_fuzzy_matching, [get]
 export const showVariables = (data) => {
   return service({
-    url: '/variables/get_variable_running_value_fuzzy_matching',
+    // url: '/variables/get_variable_running_value_fuzzy_matching',
+    url: '/slow_log_query/get_slow_log_query',
     method: 'post',
     data
   })
 }
+

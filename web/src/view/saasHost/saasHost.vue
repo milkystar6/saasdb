@@ -76,7 +76,7 @@
         <el-form-item label="ip:" prop="ip">
           <el-input v-model="formData.ip" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="cpu:" prop="cpu">
+        <el-form-item label="cpu:" prop="feature.cpu">
           <el-input v-model.number="formData.cpu" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="memory:" prop="memory">
@@ -122,9 +122,7 @@ const formData = ref({
   ID: 0,
   hostname: '',
   ip: '',
-  cpu: 0,
-  memory: 0,
-  disksize: 0,
+  feature: '',
 })
 
 // 验证规则
@@ -289,9 +287,6 @@ const closeDialog = () => {
     hostId: 0,
     hostname: '',
     ip: '',
-    cpu: 0,
-    memory: 0,
-    disksize: 0,
   }
 }
 // 弹窗确定

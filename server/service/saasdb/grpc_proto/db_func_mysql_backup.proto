@@ -1,0 +1,78 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+
+
+
+
+
+/*      定义备份所需要的消息        */
+message BackupTaskRequest {
+  WorkVm WorkVm = 1;
+  MySQLConn MySQLConn = 2;
+  SaasDBMySQLConn SaasDBMySQLConn = 3;
+  BackUpType BackUpType = 4;
+  RemoteStorageS3 RemoteStorageS3 = 5;
+  uint32 BackUpTimeout = 6;
+  uint32 DomainId = 7;
+
+}
+
+message BackupTaskResponse{
+  string MessageInfo = 1;
+  string MessageWarn = 2;
+}
+
+message WorkVm {
+  // 备份工作节点 ip ip地址 即选择哪个节点进行备份任务，一般用不到，或者可能往我们的备份记录表里去写点数据
+  string WorkVm = 1;
+}
+
+
+message MySQLConn {
+  string MySQLUser = 1;
+  string MySQLUserpasswd = 2;
+  string MySQLHost = 3;
+  uint32 MySQLPort = 4;
+}
+
+message SaasDBMySQLConn {
+  string MySQLUser = 1;
+  string MySQLUserpasswd = 2;
+  string MySQLHost = 3;
+  uint32 MySQLPort = 4;
+  string SaaSDBName = 5;
+}
+
+message BackUpType{
+  enum Types {
+    // 物理备份全备
+    FullBackUpWithXtra = 0;
+    // 物理备份增备 -- 留个标志 一般不用
+    IncrBackUpWithXtra = 1;
+    // 逻辑备份 需要先落地再上传 这种选择节点的时候 看是否找几台中间机器
+    // 逻辑备份使用mydmper 全备
+    FullBackUpWithMydumper = 2;
+    // 逻辑备份使用mudmper 单表
+    SingleTableBackUpWithMydumper = 3;
+    // 有些操作系统环境太次了，不支持安装mydumper 使用mysqldump
+    FullBackUpWithMySQLDump = 4;
+    SingleTableBackUpWithMySQLDump = 5;
+  }
+  Types Type = 1;
+}
+
+message RemoteStorageS3 {
+  // 远端存储仓库地址
+  string S3AccessKEY = 1;
+  string S3SecretKey = 2;
+}
+
+
+
+/*      定义备份的服务消息          */
+
+
+service MySQLBackupService{
+  rpc NewBackup(BackupTaskRequest) returns (BackupTaskResponse){};
+}

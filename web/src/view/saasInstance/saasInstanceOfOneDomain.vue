@@ -8,6 +8,21 @@
         </el-form-item>
       </el-form>
     </div>
+    <!--    <div>{{tableData}}</div>-->
+    <!--    <el-table-->
+    <!--        ref="multipleTable1"-->
+    <!--        style="width: 100%"-->
+    <!--        tooltip-effect="dark"-->
+    <!--        :data="tableData"-->
+    <!--    >-->
+    <!--      <el-table-column align="left" label="ip" prop="ip" width="120"/>-->
+    <!--      <el-table-column align="left" label="port" prop="port" width="80"/>-->
+    <!--      <el-table-column align="left" label="应用类型" prop="application" width="100"/>-->
+    <!--      <el-table-column align="left" label="数据库版本" prop="version" width="150"/>-->
+    <!--      <el-table-column align="left" label="使用类型" prop="useType" width="100"/>-->
+    <!--      <el-table-column align="left" label="健康状态" prop="health" width="100"/>-->
+    <!--    </el-table>-->
+
     <div class="gva-table-box">
       <div class="gva-btn-list">
         <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
@@ -29,6 +44,7 @@
           </template>
         </el-popover>
       </div>
+
       <el-table
           ref="multipleTable"
           style="width: 100%"
@@ -86,6 +102,22 @@
           </template>
         </el-table-column>
 
+
+        <el-table-column align="left" label="慢日志分析" prop="慢日志分析" width="150">
+          <template #default="scope">
+            <el-button
+                type="success"
+                circle
+                icon="el-icon-view"
+                size="mini"
+                class="optBtn"
+                @click="getSlowLogQueryByRows(scope.row)"
+            >慢日志分析&&慢日志统一分析管理
+            </el-button>
+          </template>
+        </el-table-column>
+
+
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button
@@ -98,7 +130,8 @@
             >变更
             </el-button>
             <el-button size="mini" class="optBtn"
-                       type="danger" icon="el-icon-delete" circle @click="deleteRow(scope.row)">删除</el-button>
+                       type="danger" icon="el-icon-delete" circle @click="deleteRow(scope.row)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -149,11 +182,11 @@
             <el-option v-for="item in ['正式','线上测试','预发布']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="数据库等级:" prop="level">
-          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">
-            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item"/>
-          </el-select>
-        </el-form-item>
+        <!--        <el-form-item label="数据库等级:" prop="level">-->
+        <!--          <el-select v-model="formData.level" placeholder="请选择" style="width:100%" :clearable="true">-->
+        <!--            <el-option v-for="item in ['0','1','2','3','4']" :key="item" :label="item" :value="item"/>-->
+        <!--          </el-select>-->
+        <!--        </el-form-item>-->
         <el-form-item label="健康状态:" prop="health">
           <el-select v-model="formData.health" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option
@@ -184,7 +217,7 @@
 <script>
 
 import {findInstanceOfOneDomain} from "@/api/saasInstance";
-
+import {showSlowlogQuery} from "@/api/saasInsSlowLogQuery"
 export default {
   name: 'Instance',
   data() {
@@ -198,8 +231,8 @@ export default {
         ...this.$route.query,
       }
       findInstanceOfOneDomain(data).then(res => {
-
         this.tableData = res.data.list || []
+        console.log(this.tableData)
       })
     }
   },
@@ -228,6 +261,19 @@ export default {
           },
       )
     },
+
+    getSlowLogQueryByRows(row) {
+      console.log(this.$router)
+      const data = {
+        ID: row.ID, vm: row.ip, vm_mysql_host: row.ip, vm_mysql_port: row.port,
+      }
+      console.log(data)
+      this.$router.push({
+            name: 'showSlowlogQuery',
+            query: data,
+          },
+      )
+    },
   },
 }
 </script>
@@ -238,7 +284,8 @@ import {
   deleteInstanceByIds,
   updateInstance,
   findInstance,
-  getInstanceList, findInstanceOfOneDomain,
+  getInstanceList,
+  findInstanceOfOneDomain,
 } from '@/api/saasInstance'
 
 // 全量引入格式化工具 请按需保留
@@ -246,7 +293,7 @@ import {getDictFunc, formatDate, formatBoolean, filterDict} from '@/utils/format
 import {ElMessage, ElMessageBox} from 'element-plus'
 import {ref, reactive} from 'vue'
 import {showinsprocesslist} from '@/api/saas_insShowProcesslist'
-
+import {showSlowlogQuery} from "@/api/saasInsSlowLogQuery"
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
   ID: 0,
@@ -275,7 +322,7 @@ const elFormRef = ref()
 const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
-const tableData = ref([])
+// const tableData = ref([])
 const searchInfo = ref({})
 
 // 重置
@@ -307,7 +354,7 @@ const getTableData = async () => {
   console.log(window.location)
   const table = await findInstanceOfOneDomain({page: page.value, pageSize: pageSize.value, ...searchInfo.value,})
   if (table.code === 0) {
-    tableData.value = table.data.list
+    // tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page
     pageSize.value = table.data.pageSize

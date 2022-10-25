@@ -19,50 +19,25 @@
           </div>
           <template #reference>
             <el-button
-              icon="delete"
-              size="small"
-              style="margin-left: 10px;"
-              @click="deleteVisible = true"
+                icon="delete"
+                size="small"
+                style="margin-left: 10px;"
+                @click="deleteVisible = true"
             >删除
             </el-button>
           </template>
         </el-popover>
       </div>
       <el-table
-        ref="multipleTable"
-        style="width: 100%"
-        tooltip-effect="dark"
-        :data="tableData"
-        row-key="ID"
-        @selection-change="handleSelectionChange"
+          style="width: 100%"
+          :data="getTableData"
+          :show-header="false"
       >
-        <!--        <el-table-column align="left" label="参数名称" prop="tableData" width="100"/>-->
-        <!--        <el-table-column align="left" label="参数值" prop="tableData" width="150"/>-->
-        <el-table border style="margin-top: 50px;" :data="transData">
-          <el-table-column
-            v-for="(item, index) in transTitle"
+        <el-table-column
+            v-for="(item, index) in getTableTitle"
             :key="index"
-            :label="item"
-            align="center"
-          >
-            <template slot-scope="scope">
-              {{ scope.row[index] }}
-            </template>
-          </el-table-column>
-
-        </el-table>
-        <el-table-column align="left" label=" ">
-          <template #default="scope">
-            <el-button
-              type="primary"
-              link
-              icon="edit"
-              size="small"
-              class="table-button"
-              @click="getProcesslistByRows(scope.row)"
-            > 修改参数
-            </el-button>
-          </template>
+            :prop="item"
+        >
         </el-table-column>
       </el-table>
     </div>
@@ -76,24 +51,61 @@ export default {
   name: 'ShowVariables',
   data() {
     return {
-      tableData: [
+      tableTitle: [
         {
-          innodb_adaptive_flushing: 0,
-          innodb_adaptive_hash_index: '',
-          innodb_buffer_pool_size: 0,
-          innodb_doublewrite: '',
-          innodb_flush_log_at_trx_commit: '',
-          innodb_io_capacity: '',
-          innodb_lock_wait_timeout: '',
-          innodb_log_file_size: '',
-          innodb_log_files_in_group: '',
-          innodb_read_only: '',
-          sql_mode: '',
-          sync_binlog: '',
-          transaction_isolation: '',
-          version: ''
+          prop: 'innodb_adaptive_flushing',
+          label: 'innodb_adaptive_flushing',
         },
-      ]
+        {
+          prop: 'innodb_buffer_pool_size',
+          label: 'innodb_buffer_pool_size',
+        },
+        {
+          prop: 'innodb_doublewrite',
+          label: 'innodb_doublewrite',
+        },
+        {
+          prop: 'innodb_flush_log_at_trx_commit',
+          label: 'innodb_flush_log_at_trx_commit',
+        },
+        {
+          prop: 'innodb_io_capacity',
+          label: 'innodb_io_capacity',
+        },
+        {
+          prop: 'innodb_lock_wait_timeout',
+          label: 'innodb_lock_wait_timeout',
+        },
+        {
+          prop: 'innodb_log_file_size',
+          label: 'innodb_log_file_size',
+        },
+        {
+          prop: 'innodb_log_files_in_group',
+          label: 'innodb_log_files_in_group',
+        },
+        {
+          prop: 'innodb_read_only',
+          label: 'innodb_read_only',
+        },
+        {
+          prop: 'sql_mode',
+          label: 'SQL MODE',
+        },
+        {
+          prop: 'sync_binlog',
+          label: 'sync_binlog',
+        },
+        {
+          prop: 'transaction_isolation',
+          label: 'transaction_isolation',
+        },
+        {
+          prop: 'version',
+          label: '版本',
+        },
+      ],
+      tableData: []
     }
   },
   created() {
@@ -101,29 +113,23 @@ export default {
       const data = {
         ...this.$route.query,
       }
-      console.log('>>>>>', data)
       showVariables(data).then(res => {
-        console.log(res.data)
-        this.tableData.value = res.data.variables_value || []
-        const matrixData = this.tableData.map((row) => {
-          const arr = []
-          for (const key in row) {
-            arr.push(row[key])
-          }
-          return arr
-        })
-        console.log(arr)
-        // 加入标题拼接最终的数据
-        this.transData = matrixData[0].map((col, i) => {
-          return [this.originTitle[i], ...matrixData.map((row) => {
-            return row[i]
-          })]
-        })
-        console.log('xxxxx', this.transData)
+        const a = res.data.variables_value || []
+        this.tableData.push(a)
       })
     }
-
   },
+
+  computed: {
+    getTableTitle() {
+      return this.tableData.reduce((pre, cur, index) => pre.concat(`value${index}`), ['title'])
+    },
+    getTableData() {
+      return this.tableTitle.map(item => {
+        return this.tableData.reduce((pre, cur, index) => Object.assign(pre, {['value' + index]: cur[item.prop]}), {'title': item.label,});
+      });
+    }
+  }
 }
 </script>
 

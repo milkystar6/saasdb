@@ -14,16 +14,17 @@ type Instance struct {
 	HostId       *int     `json:"hostId" form:"hostId" gorm:"column:host_id;comment:hostId;"`
 	ProjId       *int     `json:"projId" form:"projId" gorm:"column:proj_id;comment:项目id;"`
 	DomainId     *int     `json:"domainId" form:"domainId" gorm:"column:domain_id;comment:;"`
-	Ip           string   `json:"ip" form:"ip" gorm:"column:ip;comment:ip;"`
-	Port         *int     `json:"port" form:"port" gorm:"column:port;comment:port;"`
+	Ip           string   `json:"ip" form:"ip" gorm:"column:ip;comment:ip;uniqueIndex:ip_port;"`
+	Port         *int     `json:"port" form:"port" gorm:"column:port;comment:port;uniqueIndex:ip_port;"`
 	Application  string   `json:"application" form:"application" gorm:"column:application;type:enum('oracle','mysql','redis','mongodb','tidb');comment:application应用类型;"`
 	Version      string   `json:"version" form:"version" gorm:"column:version;comment:;"`
 	UseType      string   `json:"useType" form:"useType" gorm:"column:use_type;type:enum('正式','线上测试','预发布');comment:;"`
 	Health       string   `json:"health" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating');comment:;"`
-	//Level        string   `json:"level" form:"level" gorm:"column:level;type:enum('1','2','3','4');comment:;"`
 	Role         string   `json:"role" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
-	Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
-	Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
+	Feature      *Feature `json:"feature" gorm:"TYPE:json"`
+	Auth         *Auth    `json:"auth" gorm:"TYPE:json"`
+	//Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
+	//Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
 }
 
 // TableName Instance 表名
@@ -34,20 +35,20 @@ func (Instance) TableName() string {
 // InstanceDontUpdateFeature 结构体
 type InstanceDontUpdateFeature struct {
 	global.GVA_MODEL
-	InstanceName string   `json:"instance_name" form:"instance_name" gorm:"column:instance_name;comment:实例名称"`
-	HostId       *int     `json:"hostId" form:"hostId" gorm:"column:host_id;comment:hostId;"`
-	ProjId       *int     `json:"projId" form:"projId" gorm:"column:proj_id;comment:项目id;"`
-	DomainId     *int     `json:"domainId" form:"domainId" gorm:"column:domain_id;comment:;"`
-	Ip           string   `json:"ip" form:"ip" gorm:"column:ip;comment:ip;"`
-	Port         *int     `json:"port" form:"port" gorm:"column:port;comment:port;"`
-	Application  string   `json:"application" form:"application" gorm:"column:application;type:enum('oracle','mysql','redis','mongodb','tidb');comment:application应用类型;"`
-	Version      string   `json:"version" form:"version" gorm:"column:version;comment:;"`
-	UseType      string   `json:"useType" form:"useType" gorm:"column:use_type;type:enum('正式','线上测试','预发布');comment:;"`
-	Health       string   `json:"health" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating');comment:;"`
+	InstanceName string `json:"instance_name,omitempty" form:"instance_name" gorm:"column:instance_name;comment:实例名称"`
+	HostId       *int   `json:"hostId,omitempty" form:"hostId" gorm:"column:host_id;comment:hostId;"`
+	ProjId       *int   `json:"projId,omitempty" form:"projId" gorm:"column:proj_id;comment:项目id;"`
+	DomainId     *int   `json:"domainId,omitempty" form:"domainId" gorm:"column:domain_id;comment:;"`
+	Ip           string `json:"ip,omitempty" form:"ip" gorm:"column:ip;comment:ip;"`
+	Port         *int   `json:"port,omitempty" form:"port" gorm:"column:port;comment:port;"`
+	Application  string `json:"application,omitempty" form:"application" gorm:"column:application;type:enum('oracle','mysql','redis','mongodb','tidb');comment:application应用类型;"`
+	Version      string `json:"version,omitempty" form:"version" gorm:"column:version;comment:;"`
+	UseType      string `json:"useType,omitempty" form:"useType" gorm:"column:use_type;type:enum('正式','线上测试','预发布');comment:;"`
+	Health       string `json:"health,omitempty" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating');comment:;"`
 	//Level        string   `json:"level" form:"level" gorm:"column:level;type:enum('1','2','3','4');comment:;"`
-	Role         string   `json:"role" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
-	//Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`  # 更新的时候不更新feature字段
-	Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
+	Role string `json:"role,omitempty" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
+	//Feature      *Feature `json:"feature" gorm:"TYPE:json"`  # 更新的时候不更新feature字段
+	Auth *Auth `json:"auth,omitempty" gorm:"TYPE:json"`
 }
 
 // TableName InstanceDontUpdateFeature
@@ -56,6 +57,27 @@ func (InstanceDontUpdateFeature) TableName() string {
 }
 
 type Feature struct {
+	*Cpu      `json:"Cpu,omitempty" gorm:"TYPE:json" `
+	*Mem      `json:"Mem,omitempty" gorm:"TYPE:json"`
+	*DataDisk `json:"DataDisk,omitempty" gorm:"TYPE:json"`
+}
+type Cpu struct {
+	CoresLogical  *int    `json:"cores_logical,omitempty"`
+	CoresPhysical *int    `json:"cores_physical,omitempty"`
+	IsHT          bool    `json:"is_ht,omitempty"`
+	ModelName     string  `json:"model_name,omitempty"`
+	MHZ           float64 `json:"mhz,omitempty"`
+}
+type Mem struct {
+	VirtualMemory      *int64 `json:"virtual_memory"`
+	VirtualMemoryHuman string `json:"virtual_memory_human"`
+}
+
+type DataDisk struct {
+	DatadirName      string `json:"datadir_name"`
+	DatadirSize      *int64 `json:"datadir_size"`
+	DatadirSizeHuman string `json:"datadir_size_human"`
+	FsType           string `json:"fs_type"`
 }
 
 type Auth struct {
@@ -76,5 +98,30 @@ func (c Auth) Value() (driver.Value, error) {
 }
 
 func (c *Auth) Scan(input interface{}) error {
+	return json.Unmarshal(input.([]byte), c)
+}
+
+func (c Cpu) Value() (driver.Value, error) {
+	b, err := json.Marshal(c)
+	return string(b), err
+}
+
+func (c *Cpu) Scan(input interface{}) error {
+	return json.Unmarshal(input.([]byte), c)
+}
+func (c Mem) Value() (driver.Value, error) {
+	b, err := json.Marshal(c)
+	return string(b), err
+}
+
+func (c *Mem) Scan(input interface{}) error {
+	return json.Unmarshal(input.([]byte), c)
+}
+func (c DataDisk) Value() (driver.Value, error) {
+	b, err := json.Marshal(c)
+	return string(b), err
+}
+
+func (c *DataDisk) Scan(input interface{}) error {
 	return json.Unmarshal(input.([]byte), c)
 }
