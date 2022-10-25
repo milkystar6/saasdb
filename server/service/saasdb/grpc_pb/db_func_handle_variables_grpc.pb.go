@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.20.1
-// source: variables.proto
+// source: db_func_handle_variables.proto
 
 package grpc_pb
 
@@ -101,5 +101,5 @@ var MySQLVariablesService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "variables.proto",
+	Metadata: "db_func_handle_variables.proto",
 }

@@ -1,10 +1,19 @@
+# 用于管理本地的MySQL
 [MySQLManager]
 mysqlmanager_user = "root"
 mysqlmanager_password = "letsg0"
 
+# 用于跟saasdb交互
+[SaasDB]
+SaasDBHost = "127.0.0.1"
+SaasDBUser = "root"
+SaasPassword = "letsg0"
+SaasPort = 3306
+SaasDBName = "saasdb"
+
+# 用于GrpcServer的配置(saasdbAgent)
 [GrpcServer]
-creditsServeKey = "/Users/haochen/go/src/saasdb/server/service/saasdb/cerify/server.key"
-creditsServeCrt = "/Users/haochen/go/src/saasdb/server/service/saasdb/cerify/server.crt"
+creditsServeKey = "/Users/anderalex/go/src/saasdb/server/service/saasdb/cerify/server.key"
+creditsServeCrt = "/Users/anderalex/go/src/saasdb/server/service/saasdb/cerify/server.crt"
 protocol = "tcp"
 listenPort = 3000
-

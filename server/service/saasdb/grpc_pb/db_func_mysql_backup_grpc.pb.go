@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.20.1
-// source: mysqlbackup.proto
+// source: db_func_mysql_backup.proto
 
 package grpc_pb
 
@@ -101,5 +101,5 @@ var MySQLBackupService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "mysqlbackup.proto",
+	Metadata: "db_func_mysql_backup.proto",
 }

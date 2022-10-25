@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.20.1
-// source: showprocesslist.proto
+// source: db_func_show_processlist.proto
 
 package grpc_pb
 
@@ -102,7 +102,7 @@ var MySQLShowProcessListService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "showprocesslist.proto",
+	Metadata: "db_func_show_processlist.proto",
 }
 
 // MySQLStopProcessServiceClient is the client API for MySQLStopProcessService service.
@@ -189,5 +189,5 @@ var MySQLStopProcessService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "showprocesslist.proto",
+	Metadata: "db_func_show_processlist.proto",
 }

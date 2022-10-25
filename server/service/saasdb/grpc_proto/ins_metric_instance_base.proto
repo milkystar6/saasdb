@@ -1,0 +1,27 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+//定义消息
+message InsMetricRequest{
+  string MySQLIP = 1;
+  int32 MySQLPort = 2;
+}
+
+
+message InsMetricResponse{
+  InsMetric InsMetric = 1;
+}
+
+
+message InsMetric{
+  string IP = 1;
+  int32 Port = 2;
+  string DeployPath = 3;
+  string Version = 4;
+  string StartTime = 5;
+  bool Status = 6;
+}
+
+service InsMetricService{
+  rpc NewInsMetric(InsMetricRequest) returns (InsMetricResponse){};
+}
