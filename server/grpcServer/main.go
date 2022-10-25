@@ -32,7 +32,8 @@ func main() {
 	/* Handle Variables MySQL Running 服务 */
 	grpc_pb.RegisterMySQLVariablesServiceServer(s, &grpcServer.VariablesServer{})
 	/* 慢日志分析 服务 */
-	grpc_pb.RegisterMySQLSlowLogQueryServiceServer(s, &grpcServer.SlowLogQueryServer{})
+	grpc_pb.RegisterMySQLSlowLogQueryServiceServer(s, &grpcServer.SlowLogQueryServer{}) // TODO 规范服务的日志 结合zap框架
+
 	// TODO 心跳表服务 读取到集群TOPO表中到mysql信息，然后记录心跳表 参考pt-heartbeat ，获取当前节点mysql的ip port，查询instance表中，该实例的角色信息，根据角色信息做读写心跳检测。 不支持单机多实例类型
 	if err := s.Serve(listen); err != nil {
 		log.Println(fmt.Errorf("run serve err :%w", err))

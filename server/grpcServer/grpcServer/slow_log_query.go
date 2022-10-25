@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	slowLogTmpTablePrefix = "slow_log_query_tmp"
+	slowLogTmpTablePrefix = "slow_log_query_tmp_"
 )
 
 type SlowLogQueryServer struct {
@@ -66,6 +66,7 @@ func (server *SlowLogQueryServer) NewGetSlowQuery(ctx context.Context, req *grpc
 			errChan <- analyzeErr
 		}
 		// 分析完毕后关闭slqChan,解除阻塞
+		close(errChan)
 		close(slqChan)
 
 	}(vv.Value, starttime, endtime)
@@ -77,16 +78,14 @@ func (server *SlowLogQueryServer) NewGetSlowQuery(ctx context.Context, req *grpc
 		}
 	}
 	// 在主进程中读取chan得到的文本数据
-	for res := range slqChan {
-		fmt.Println(res)
-		return nil, err //TODO ... ...
-	}
-	// 不走如下代码
-	return nil, fmt.Errorf("不走如下代码")
+	//for res := range slqChan {
+	//	return &grpc_pb.SlowLogQueryResponse{SlowLogs: fmt.Sprintf("分析慢日志完成,stdout: %v\n", string(res))}, err
+	//}
+	return &grpc_pb.SlowLogQueryResponse{SlowLogs: fmt.Sprintf("分析慢日志完成")}, err
 }
 
 func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLogFile string, st, et *timestamppb.Timestamp, writesChan chan<- []byte) error {
-	ptCmd := "pt-query-digest" //TODO 规范一个绝对路径
+	ptCmd := "pt-query-digest" //TODO 规范一个绝对路径 或者每个节点都安装pt工具集
 	checkPtCmd := fmt.Sprintf("%v --version", ptCmd)
 	_, checkPtCmdErr := server.runLinuxCmd(checkPtCmd)
 	if checkPtCmdErr != nil {
@@ -107,8 +106,8 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 	}
 
 	// 执行分析慢日志命令
-	// TODO 理论上 线上没开日志根据slow log根据日期拆分归档功能 如果线上开启此功能 可以根据日志对应匹配对应的n个文件
-	// TODO 慢日志采用写到数据库里存档的模式 -> 记录数据库的节点放到saasdb的表里，表名称可以每次根据时间等创建上 之后把本次的数据存到中间表中，接下来走个任务，把中间表的数据加上ip port放到saasdb的历史query_log中,replace into的方式  replace into tbl_name(col_name, …) (select …)
+	// 理论上 线上没开日志根据slow log根据日期拆分归档功能 如果线上开启此功能 可以根据日志对应匹配对应的n个文件
+	// 慢日志采用写到数据库里存档的模式 -> 记录数据库的节点放到saasdb的表里，表名称可以每次根据时间等创建上 之后把本次的数据存到中间表中，接下来走个任务，把中间表的数据加上ip port放到saasdb的历史query_log中,replace into的方式  replace into tbl_name(col_name, …) (select …)
 	t := strings.Split(ip, ".")
 	tt := ""
 	for _, v := range t {
@@ -128,7 +127,7 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 	layout := "2006-01-02 15:04:05"
 	stAt := st.AsTime().Format(layout)
 	etAt := et.AsTime().Format(layout)
-	fmt.Println("for test ", stAt, etAt)
+
 	analyzeSlowLogQueryCmd := fmt.Sprintf("%v --since \"%v\" --until \"%v\" --limit 95%%:10 %v --create-history-table --create-review-table --host %v --user %v  --password %v --port %v --review D=saasdb,t=%v ", ptCmd, stAt, etAt, slowQueryLogFile, sc.SaasHost, sc.SaasUser, sc.SaasPassword, sc.SaasPort, tmpTableName)
 	stdout, err := server.runLinuxCmd(analyzeSlowLogQueryCmd)
 	if err != nil {
@@ -138,28 +137,45 @@ func (server *SlowLogQueryServer) readSlowFile(ip string, port int, slowQueryLog
 	// 在saasdb数据库中create if not exists saasdb_slow_log_query_history
 	createSaasDBSlowLogQueryTableSQL := "CREATE TABLE IF NOT EXISTS saasdb_slow_log_query_history (" +
 		"	checksum     CHAR(32) NOT NULL PRIMARY KEY," + "ip_port VARCHAR(20) DEFAULT NULL," +
+		"   domain_id      BIGINT(20) unsigned DEFAULT NULL," +
 		"	fingerprint  TEXT NOT NULL," +
 		"	sample       TEXT NOT NULL," +
 		"	first_seen   DATETIME," +
 		"	last_seen    DATETIME," +
 		"	reviewed_by  VARCHAR(20)," +
 		"	reviewed_on  DATETIME," +
-		"	comments     TEXT" +
+		"	comments     TEXT," +
+		"   KEY `slow_log_query_domain_id` (`domain_id`) " +
 		")"
-	if err := saasdb.Exec(createSaasDBSlowLogQueryTableSQL).Error; err != nil {
+	if err := saasdb.Debug().Exec(createSaasDBSlowLogQueryTableSQL).Error; err != nil {
 		return fmt.Errorf("no `saasdb_slow_log_query_history` table in saasdb,so we should create it before insert rows ,but we meet error when create it , error: %v", err)
 	}
-	ip_port_col := ip + "_" + strconv.Itoa(port)
+	// 根据ip 和 port 获取 节点的domain_id
+	var ins []model.Instance
+	err = saasdb.Debug().Where("ip=? and port =? ", ip, port).Find(&ins).Error
+	if err != nil {
+		return fmt.Errorf("no corresponding domain_id is found, using the `ip`: %v and `port`: %v of the instance", ip, port)
+	}
+	if len(ins) != 1 {
+		return fmt.Errorf("multiple domains are queried, and the correct return value should be only one, res: %v", ins)
+	}
+	var domainId int
+	for _, v := range ins {
+		domainId = *v.DomainId
+	}
+
+	ipPortCol := ip + "_" + strconv.Itoa(port)
 	// now we should select the rows from tmp table，and fix the col ip_port to show per slow logs belongs to which instance ,then insert new rows into the saasdb_slow_log_query_history table
-	transformRowsSQL := fmt.Sprintf("REPLACE INTO saasdb_slow_log_query_history(ip_port,checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments) (SELECT \"%v\" as ip_port, checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments FROM %v)", ip_port_col, tmpTableName)
-	if err := saasdb.Exec(transformRowsSQL).Error; err != nil {
+	transformRowsSQL := fmt.Sprintf("REPLACE INTO saasdb_slow_log_query_history(ip_port,domain_id,checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments) (SELECT \"%v\" as ip_port, \"%v\" as domain_id,checksum,fingerprint,sample,first_seen,last_seen,reviewed_by,reviewed_on,comments FROM %v)", ipPortCol, domainId, tmpTableName)
+	if err := saasdb.Debug().Exec(transformRowsSQL).Error; err != nil {
 		return fmt.Errorf("we meet error when we trans rows from saasdb_slow_log_query_history to %v , error: %v", tmpTableName, err)
 	}
-	droptmpSql := fmt.Sprintf("Drop table saasdb.%v", tmpTableName)
-	if err := saasdb.Exec(droptmpSql).Error; err != nil {
+	droptmpSql := fmt.Sprintf("DROP TABLE IF EXISTS saasdb.%v", tmpTableName)
+	if err := saasdb.Debug().Exec(droptmpSql).Error; err != nil {
 		return fmt.Errorf("we meet error when delete tmp table %v , error: %v", tmpTableName, err)
 	}
 	writesChan <- []byte(fmt.Sprintf("分析慢日志完成,stdout: %v", stdout))
+	//fmt.Printf("分析慢日志完成,stdout: %v\n", string(stdout))
 	return nil
 }
 

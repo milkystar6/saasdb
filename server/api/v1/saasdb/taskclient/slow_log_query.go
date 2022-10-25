@@ -38,10 +38,10 @@ func (ls *SlowLogTaskApi) GetSlowLog(c *gin.Context) {
 	}
 	SlowLogInfo, err := SlowLogQueryService.GetSlowLogEntry(req)
 	if err!=nil{
-		response.FailWithMessage(fmt.Sprintf("创建失败 error: %v",err), c)
+		response.FailWithMessage(fmt.Sprintf("获取慢日志失败, error: %v",err), c)
 	}else {
 		msg:=string(SlowLogInfo)
-		response.OkWithMessage(msg,c)
+		response.OkWithMessage(fmt.Sprintf("获取慢日志成功%v ",msg),c)
 	}
 
 

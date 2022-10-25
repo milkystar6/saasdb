@@ -55,13 +55,13 @@ func (ls *SlowLogTaskClientService) GetSlowLog(req request.GetSlowLogSearch, cli
 	if err != nil {
 		return nil, fmt.Errorf("grpc通信后端失败, 请查看后端日志确认, err: %v", err.Error())
 	}
-	for k, v := range res.SlowLogs {
-		fmt.Printf("variable %v  value : %v\n", k, v)
-	}
+	//for k, v := range res.SlowLogs {
+	//	fmt.Printf("variable %v  value : %v\n", k, v)
+	//}
 	if res != nil {
 		strbyte, e := json.Marshal(res)
 		if e != nil {
-			fmt.Println(e)
+			return nil, e
 		}
 		// strbyte 是 []byte 类型，可以直接通过接口 func()gin.H{} 返回给前端json数组
 		fmt.Printf("%s\n", pretty.Pretty(strbyte))
@@ -94,5 +94,4 @@ func (ls *SlowLogTaskClientService) GetSlowLogTask(req request.GetSlowLogSearch)
 		StartTime: timestamppb.New(req.StartTime),
 		EndTime:   timestamppb.New(req.EndTime),
 	}
-
 }
