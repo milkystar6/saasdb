@@ -7,7 +7,8 @@ import (
 )
 
 const SaasDBNAME = "saasdb"
-// 配置文件匹配
+
+// ServerConfig 配置文件匹配
 type ServerConfig struct {
 	MySQLManager   *MySQLManager   `yaml:"MySQLManager" json:"MySQLManager" toml:"MySQLManager"`
 	GrpcServer     *GrpcServer     `yaml:"GrpcServer" json:"GrpcServer" toml:"GrpcServer"`
@@ -15,7 +16,7 @@ type ServerConfig struct {
 	MyHostAddrInfo *MyHostAddrInfo `yaml:"MyHostAddrInfo" json:"MyHostAddrInfo" toml:"MyHostAddrInfo"`
 }
 type MyHostAddrInfo struct {
-    MyIP string `yaml:"MyIP" json:"MyIP" toml:"MyIP"`
+	MyIP string `yaml:"MyIP" json:"MyIP" toml:"MyIP"`
 }
 type MySQLManager struct {
 	MysqlManagerUser     string `yaml:"mysqlmanager_user" json:"mysqlmanager_user" toml:"mysqlmanager_user"`

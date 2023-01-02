@@ -1,0 +1,38 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+
+/* 定义获取参数需要的消息 */
+message CreateSingleMySQLInstanceReq {
+  string Version = 1;
+  string ReplUser = 2;
+  string ReplUserPasswd = 3;
+  string BackUpAdminUser = 4;
+  string BackUpAdminUserPasswd = 5;
+  int32 MaxConnections = 6;
+  int32 MaxMemorySize = 7;
+  string MySQLIP =8;
+  int32 MysqlPort = 9;
+  int32 DomainId = 10;
+  string InstanceName = 11;
+  int32 HostId = 12;
+  string UseType=13;
+  MySQLHub MySQLHub=14;
+
+}
+
+message MySQLHub {
+  string MySQLHubIP =1;
+  int32 MySQLHubPort=2;
+  string MySQLHubDir=3;
+  string HubSshUser=4;
+  string HubSsHUserPasswd=5;
+}
+
+message CreateSingleMySQLInstanceRes {
+  bool IsOk = 1;
+  string Msg =2;
+}
+service CreateSingleMySQLService{
+  rpc NewCreateSingleMySQLInstance(CreateSingleMySQLInstanceReq) returns (CreateSingleMySQLInstanceRes){};
+}

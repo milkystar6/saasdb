@@ -1,0 +1,5 @@
+package grpcServer
+
+func configureMySQLHighAvailability() {
+
+}
