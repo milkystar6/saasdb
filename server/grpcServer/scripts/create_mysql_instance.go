@@ -64,12 +64,13 @@ func (c *CreateMysqlInstance) RunCreateScripts(scriptName string) error {
 		" --backup_user " + c.BackupUser +
 		" --backup_user_passwd " + c.BackupUserPasswd +
 		" --max_memory " + strconv.Itoa(c.MaxMemory) + "" +
-		" --max_connections" + strconv.Itoa(c.MaxConnections) +
+		" --max_connections " + strconv.Itoa(c.MaxConnections) +
 		" --hub_ip " + c.MySQLHub.MySQLHubIP +
 		" --hub_port " + strconv.Itoa(c.MySQLHub.MySQLHubPort) +
 		" --hub_dir " + c.MySQLHub.MySQLHubDir +
 		" --hub_ssh_user " + c.MySQLHub.HubSshUser +
-		" --hub_ssh_user_passwd" + c.MySQLHub.HubSsHUserPasswd
+		" --hub_ssh_user_passwd " + c.MySQLHub.HubSsHUserPasswd +
+		" --host_id " + strconv.Itoa(c.HostId)
 
 	cmd := exec.Command("/bin/bash", ScriptPath+scriptName, scriptArgs)
 	output, err := cmd.Output()

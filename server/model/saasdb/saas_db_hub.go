@@ -1,4 +1,4 @@
-package request
+package saasdb
 
 type DBHub struct {
 	DBType  string `json:"DBType,omitempty" form:"db_type" gorm:"column:db_type;type:enum('oracle','mysql','redis','mongodb','tidb');comment:数据库类型;"`
