@@ -1,6 +1,0 @@
-
-if [[ $1 == "--version" ]];then
-    echo "abcd"
-else
-    sleep 1000
-fi
