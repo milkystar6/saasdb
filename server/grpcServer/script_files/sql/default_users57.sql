@@ -16,9 +16,10 @@ CREATE USER 'repl'@'%' IDENTIFIED WITH mysql_native_password BY '3665156F23D8C05
 GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'repl'@'%';
 
 -- monitor --
-CREATE USER 'pmm'@'localhost' IDENTIFIED BY 'pass' WITH MAX_USER_CONNECTIONS 10;
+DROP USER IF EXISTS 'pmm'@'localhost';
+CREATE USER 'pmm'@'localhost' IDENTIFIED BY '7yZ3WjZThF5eKqh5' WITH MAX_USER_CONNECTIONS 10;
 GRANT SELECT, PROCESS, REPLICATION CLIENT, RELOAD ON *.* TO 'pmm'@'localhost';
-
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'pmm'@'localhost';
 
 -- saasdb_admin --
 DROP USER IF EXISTS 'saasdb_admin'@'127.0.0.1';
@@ -26,11 +27,16 @@ CREATE USER 'saasdb_admin'@'127.0.0.1' IDENTIFIED WITH 'mysql_native_password' B
 GRANT SELECT, RELOAD, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'saasdb_admin'@'127.0.0.1';
 
 -- backup --
-DROP USER IF EXISTS 'backup'@'localhost';
-CREATE USER 'backup'@'localhost' IDENTIFIED WITH 'mysql_native_password' AS '*84F85C2180F3305F7058C5463AAD498EFE72DAAE' REQUIRE NONE PASSWORD EXPIRE DEFAULT ACCOUNT UNLOCK;
-GRANT SELECT, CREATE, DROP, RELOAD, PROCESS, FILE, SUPER, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'backup'@'localhost';
-GRANT INSERT, UPDATE, CREATE, DROP ON `mysql`.`backup_progress` TO 'backup'@'localhost';
-GRANT SELECT, INSERT, UPDATE, CREATE, DROP, ALTER ON `mysql`.`backup_history` TO 'backup'@'localhost';
-GRANT INSERT, UPDATE, CREATE, DROP ON `mysql`.`backup_sbt_history` TO 'backup'@'localhost';
+DROP USER IF EXISTS 'backup'@'127.0.0.1';
+CREATE USER 'backup'@'127.0.0.1' IDENTIFIED WITH 'mysql_native_password' AS '*84F85C2180F3305F7058C5463AAD498EFE72DAAE' REQUIRE NONE PASSWORD EXPIRE DEFAULT ACCOUNT UNLOCK;
+GRANT SELECT, CREATE, DROP, RELOAD, PROCESS, FILE, SUPER, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'backup'@'127.0.0.1';
+GRANT INSERT, UPDATE, CREATE, DROP ON `mysql`.`backup_progress` TO 'backup'@'127.0.0.1';
+GRANT SELECT, INSERT, UPDATE, CREATE, DROP, ALTER ON `mysql`.`backup_history` TO 'backup'@'127.0.0.1';
+GRANT INSERT, UPDATE, CREATE, DROP ON `mysql`.`backup_sbt_history` TO 'backup'@'127.0.0.1';
 
+
+-- make sure this variables enable --
+SET GLOBAL slow_query_log = 1;
+SET GLOBAL log_output = 'FILE';
+SET GLOBAL long_query_time = 0;
 

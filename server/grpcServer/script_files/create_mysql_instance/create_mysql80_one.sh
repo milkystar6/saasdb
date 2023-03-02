@@ -5,8 +5,8 @@
 #       Author: milky star
 #        Email: ch1yanzhi@163.com
 #      History: 1. 完成首发与调试
-#    Functions: 1.用于实现5.7版本,MySQL数据库,单个实例的创建
-#               2.数据库初始用户创建,具体建default_user80.sql
+#    Functions: 1.用于实现8.0版本,MySQL数据库,单个实例的创建
+#               2.数据库初始用户创建，具体建default_user80.sql
 #               3.开启cron任务，mysql数据库日志的按天分割
 #               4.开启MySQL数据库监控，基于pmm
 #    exit code: 0   正常退出脚本
@@ -132,9 +132,9 @@ function print_usage() {
 }
 # shellcheck disable=SC2120
 function download_mysql_package() {
-	remote_basedir_File=${hub_dir}/mysql/57/${version}/basedir
+	remote_basedir_File=${hub_dir}/mysql/80/${version}/basedir
 	# 包含datadir和特定的用户授权信息
-	remote_datadir_File=${hub_dir}/mysql/57/${version}/datadir
+	remote_datadir_File=${hub_dir}/mysql/80/${version}/datadir
 
 	#修改配置文件，如果是需要binlog，serverid取saasdb数据库中saas_instance表的primary key
 	# 不要放在/root 下 ，会报错没权限
@@ -184,13 +184,14 @@ EOF
          }
 EOF
 
-	# 授权
+  # 授权
 	if id "mysql" &>/dev/null; then
       log "User exists"
   else
       log "User does not exist"
       useradd mysql
   fi
+
 	chown -R mysql:mysql ${local_base_dir}
 	chown -R mysql:mysql ${local_data_dir}
 
@@ -200,7 +201,7 @@ function start_mysql() {
 	# 不需要确认文件属主
 	# TODO 调整为使用 tcmalloc
 	${local_base_dir}/${version}/bin/mysqld_safe --defaults-file=${local_mysqld_conf} --user=mysql &
-	sleep 10
+	sleep 30
 	ps -ef | grep -w mysqld_safe | grep ${port} | grep -v grep
 	if [ $? -eq 1 ]; then
 		log "${port} 数据库启动失败"
@@ -234,8 +235,16 @@ function stop_mysql() {
 # 其中auto.cnf在源文件中就清理掉即可 就不需要手动清理了
 function init_conf() {
 
-	port_placeholder="PORT_PLACEHOLDER"
+	port_placeholder="MySQLD_PORT_PLACEHOLDER"
 	sed -i "s/${port_placeholder}/${port}/g" ${local_mysqld_conf}
+
+	admin_port=${port}1
+	admin_port_placeholder="ADMIN_PORT_PLACEHOLDER"
+	sed -i "s/${admin_port_placeholder}/${admin_port}/g" ${local_mysqld_conf}
+
+	mysqlx_port=${port}2
+	mysqlx_port_placeholder="MYSQLX_PORT_PLACEHOLDER"
+	sed -i "s/${mysqlx_port_placeholder}/${mysqlx_port}/g" ${local_mysqld_conf}
 
 	# server_id
 	server_id_placeholder="SERVER_ID_PLACEHOLDER"
@@ -317,13 +326,20 @@ function main() {
 	parseopt "$@"
 	on_debug
 	install_depend_commands
+
+	admin_port=${port}1
+	mysqlx_port=${port}2
+
 	#检查是否存在端口占用
-	if lsof -Pi :"${port}" -sTCP:LISTEN -t >/dev/null; then
-		log "Port is in use"
-		on_failure 100
-	else
-		log "Port is free"
-	fi
+	for i in ${port} ${admin_port} ${mysqlx_port}; do
+		if lsof -Pi :"${i}" -sTCP:LISTEN -t >/dev/null; then
+			log "Port is in use"
+			on_failure 100
+		else
+			log "Port is free"
+		fi
+	done
+
 	# 下载依赖文件
 	download_mysql_package
 	# 初始化配置文件
@@ -401,7 +417,7 @@ EOF
 	instance_name="${host_ip}_${port}"
 	local local_mysql_pmm_user="pmm"
 	local local_mysql_pmm_user_passwd=$(cat ${create_default_user_sql} | grep pmm | grep "CREATE USER" |
-		awk -F "CREATE USER 'pmm'@'localhost' IDENTIFIED BY" '{print $2}' |
+		awk -F "CREATE USER 'pmm'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY" '{print $2}' |
 		awk -F "'" '{print $2}')
 
 	pmm-admin add mysql \
@@ -495,6 +511,7 @@ function conn_saasdb() {
 	saasdb_admin_passwd=$(cat ${create_default_user_sql} | grep saasdb_admin | grep "CREATE USER" |
 		awk -F "IDENTIFIED WITH 'mysql_native_password' BY" '{print $2}' |
 		awk '{print $1}')
+	# shellcheck disable=SC2037
 	conn2saasdb="${local_base_dir}/$version/bin/mysql -usaasdb_admin -p${saasdb_admin_passwd} saasdb" -e ${sql}
 }
 

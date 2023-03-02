@@ -58,6 +58,7 @@ func (c *CreateMysqlInstance) CreateOneMySQL() error {
 func (c *CreateMysqlInstance) RunCreateScripts(scriptName string) error {
 	scriptArgs := "" +
 		" --version " + c.Version +
+		" --host_ip " + c.Ip +
 		" --port " + strconv.Itoa(c.Port) +
 		" --repl_user " + c.ReplUser +
 		" --repl_user_passwd " + c.ReplUserPasswd +

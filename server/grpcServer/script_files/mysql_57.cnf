@@ -4,28 +4,51 @@
 socket=PREFIX/data/sock/mysql.sock
 
 [mysqldump]
+quick
 max_allowed_packet=1G
+default-character-set=utf8mb4
+
+[mysqld_safe]
+user=mysql
+open-files-limit=65535
+
+[mysql]
+no-auto-rehash
+show-warnings
+default-character-set=utf8mb4
 
 [mysqld]
 #******** common parameters ********
 #skip_grant_tables
 old_passwords=0
+default_authentication_plugin=mysql_native_password
+
+character-set-server=utf8
+collation_server=utf8_bin
+
 default_storage_engine=innodb
 default_tmp_storage_engine=innodb
 internal_tmp_disk_storage_engine=innodb
 disabled_storage_engines=''
+
 skip_networking=OFF
+
 performance_schema=ON
 pid-file=PREFIX/data/sock/mysql.pid
+
 datadir=PREFIX/data/mydata
 tmpdir=PREFIX/data/tmpdir
+
 max_allowed_packet=1G
-socket=PREFIX/data/sock/mysql.sock
-character-set-server=utf8
-collation_server=utf8_bin
+
 user=mysql
 port=PORT_PLACEHOLDER
+socket=PREFIX/data/sock/mysql.sock
+
+
+
 skip-name-resolve
+skip_external_locking
 skip-grant-tables=0
 skip-slave-start=0
 wait_timeout=172800
@@ -37,6 +60,10 @@ slave-sql-verify-checksum=1
 binlog_row_image=full
 default-time-zone='+8:00'
 innodb_file_format_max=barracuda
+lower_case_table_names=1
+event_scheduler=0
+back_log=512
+
 
 
 #********** Logs related settings ***********
@@ -116,10 +143,10 @@ innodb_flush_neighbors=0
 innodb_log_group_home_dir=PREFIX/data/redo
 innodb_support_xa=ON
 innodb_log_buffer_size=128M
-innodb_log_file_size=2G
+innodb_log_file_size=1G
 innodb_log_files_in_group=2
 innodb_flush_log_at_trx_commit=1
-innodb_fast_shutdown=2
+innodb_fast_shutdown=1
 
 #### IO options
 innodb_read_only=OFF
@@ -228,6 +255,28 @@ innodb_adaptive_hash_index_parts=32
 innodb_buffer_pool_size=INNODB_BUFFER_POOL_SIEZ_PLACEHOLDER
 innodb_buffer_pool_instances=8
 #performance-schema-instrument='memory/%=COUNTED'
+
+
+#### for pmm ####
+#### slow log
+slow_query_log=ON
+log_output=FILE
+long_query_time=0
+log_slow_admin_statements=ON
+log_slow_slave_statements=ON
+
+log_slow_rate_limit=100
+log_slow_rate_type='query'
+slow_query_log_always_write_time=1
+log_slow_verbosity='full'
+slow_query_log_use_global_control='all'
+
+#### performance
+performance_schema=ON
+performance-schema-instrument='statement/%=ON'
+performance-schema-consumer-statements-digest=ON
+innodb_monitor_enable=all
+
 
 
 #### server_id
