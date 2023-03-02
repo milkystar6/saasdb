@@ -37,12 +37,13 @@ performance_schema=ON
 pid-file=PREFIX/data/sock/mysql.pid
 
 datadir=PREFIX/data/mydata
+basedir=BASEDIR_PLACEHOLDER
 tmpdir=PREFIX/data/tmpdir
 
 max_allowed_packet=1G
 
 user=mysql
-port=PORT_PLACEHOLDER
+port=MYSQLD_PORT_PLACEHOLDER
 socket=PREFIX/data/sock/mysql.sock
 
 
@@ -97,7 +98,7 @@ loose-rpl_semi_sync_master_enabled=1
 # 半同步降级为异步复制的超时时间为2天 单位 ms，当主库检测到状态变量 rpl_semi_sync_master_clients=0时,立刻降级为异步复制
 loose-rpl_semi_sync_master_timeout=172800000
 # 控制合适开启和关闭半同步复制
-loose-rpl_semi_sync_master_wait_no_slave=ON
+loose-rpl_semi_sync_master_wait_no_slave=OFF
 ## ON ：如果只有一个master，数据不提交 必须有下方参数个slave才能提交  OFF： 直接提交
 loose-rpl_semi_sync_master_wait_for_slave_count=1
 ## 无论【rpl_semi_sync_master_wait_no_slave】为ON还是OFF，当slave上线到【rpl_semi_sync_master_wait_for_slave_count】值时，master都会自动由异步模式转为半同步模式
@@ -265,19 +266,14 @@ long_query_time=0
 log_slow_admin_statements=ON
 log_slow_slave_statements=ON
 
-log_slow_rate_limit=100
-log_slow_rate_type='query'
-slow_query_log_always_write_time=1
-log_slow_verbosity='full'
-slow_query_log_use_global_control='all'
-
 #### performance
 performance_schema=ON
 performance-schema-instrument='statement/%=ON'
 performance-schema-consumer-statements-digest=ON
 innodb_monitor_enable=all
 
-
+#### report_host
+report_host=REPORT_HOST_PLACEHOLDER
 
 #### server_id
 server_id=SERVER_ID_PLACEHOLDER

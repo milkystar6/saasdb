@@ -235,7 +235,7 @@ function stop_mysql() {
 # 其中auto.cnf在源文件中就清理掉即可 就不需要手动清理了
 function init_conf() {
 
-	port_placeholder="MySQLD_PORT_PLACEHOLDER"
+	port_placeholder="MYSQLD_PORT_PLACEHOLDER"
 	sed -i "s/${port_placeholder}/${port}/g" ${local_mysqld_conf}
 
 	admin_port=${port}1
@@ -255,7 +255,9 @@ function init_conf() {
 	sed -i "s/${max_connections_placeholder}/${max_connections}/g" ${local_mysqld_conf}
 
 	# innodb_buffer_pool
-	innodb_buffer_pool_size=$((${max_memory} / 8 * 10))
+	num=${max_memory}  # 要计算的整数
+  percent=0.8   # 要计算的百分比
+  innodb_buffer_pool_size=$(echo "scale=0; $num * $percent / 1" | bc)   # 乘以80%并取整
 	innodb_buffer_pool_placeholder="INNODB_BUFFER_POOL_SIEZ_PLACEHOLDER"
 	sed -i "s/${innodb_buffer_pool_placeholder}/${innodb_buffer_pool_size}G/g" ${local_mysqld_conf}
 
@@ -263,6 +265,15 @@ function init_conf() {
 	config_file_prefix="PREFIX"
 	sed -i "s#${config_file_prefix}#${local_data_dir}#g" ${local_mysqld_conf}
 
+	#basedir替换
+	basedir_placeholder="BASEDIR_PLACEHOLDER"
+	basedir_cnf="${local_base_dir}/${version}"
+  sed -i "s#${basedir_placeholder}#${basedir_cnf}#g" ${local_mysqld_conf}
+
+	#report_host替换
+	report_host_prefix="REPORT_HOST_PLACEHOLDER"
+	sed -i "s#${report_host_prefix}#${host_ip}" ${local_mysqld_conf}
+	
 	if [ ${max_memory} -lt 16 ]; then
 		sort_buffer_size=128K
 		join_buffer_size=128K
@@ -503,7 +514,7 @@ function add_monitor() {
 	download_monitor_package
 }
 function install_depend_commands() {
-	yum install -y expect lsof
+	yum install -y expect lsof bc
 }
 function conn_saasdb() {
 	#get passwd of saasdb_admin user
