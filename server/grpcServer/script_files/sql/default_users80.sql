@@ -49,3 +49,4 @@ CREATE USER 'orch_client'@'%' IDENTIFIED WITH 'mysql_native_password' BY '7yZ3Wj
 GRANT RELOAD, PROCESS, SUPER, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'orch_client'@'%';
 GRANT SELECT ON meta.* TO 'orch_client'@'%';
 GRANT SELECT ON `mysql`.`slave_master_info` TO 'orch_client'@'%';
+GRANT SELECT ON `mysql`.`slave_master_info` TO 'orch_client'@'%';
