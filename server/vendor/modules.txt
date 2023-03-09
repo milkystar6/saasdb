@@ -200,6 +200,8 @@ github.com/hashicorp/hcl/json/token
 # github.com/huaweicloud/huaweicloud-sdk-go-obs v3.21.8+incompatible
 ## explicit
 github.com/huaweicloud/huaweicloud-sdk-go-obs/obs
+# github.com/inconshreveable/mousetrap v1.0.1
+github.com/inconshreveable/mousetrap
 # github.com/jackc/chunkreader/v2 v2.0.1
 github.com/jackc/chunkreader/v2
 # github.com/jackc/pgconn v1.11.0
@@ -323,11 +325,13 @@ github.com/spf13/afero/mem
 # github.com/spf13/cast v1.3.1
 ## explicit
 github.com/spf13/cast
+# github.com/spf13/cobra v1.6.1
+## explicit
+github.com/spf13/cobra
 # github.com/spf13/jwalterweatherman v1.1.0
 ## explicit
 github.com/spf13/jwalterweatherman
 # github.com/spf13/pflag v1.0.5
-## explicit
 github.com/spf13/pflag
 # github.com/spf13/viper v1.7.0
 ## explicit
@@ -357,6 +361,12 @@ github.com/ugorji/go/codec
 # github.com/unrolled/secure v1.0.7
 ## explicit
 github.com/unrolled/secure
+# github.com/vishvananda/netlink v1.1.0
+## explicit
+github.com/vishvananda/netlink
+github.com/vishvananda/netlink/nl
+# github.com/vishvananda/netns v0.0.0-20191106174202-0a2b9b5464df
+github.com/vishvananda/netns
 # github.com/xuri/efp v0.0.0-20210322160811-ab561f5b45e3
 github.com/xuri/efp
 # github.com/xuri/excelize/v2 v2.4.1
@@ -538,7 +548,7 @@ google.golang.org/protobuf/types/known/timestamppb
 gopkg.in/ini.v1
 # gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
-# gopkg.in/yaml.v3 v3.0.0
+# gopkg.in/yaml.v3 v3.0.1
 gopkg.in/yaml.v3
 # gorm.io/driver/mysql v1.3.3
 ## explicit

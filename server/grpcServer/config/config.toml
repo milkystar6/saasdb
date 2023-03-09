@@ -8,7 +8,7 @@ mysqlmanager_password = "letsg0"
 SaasDBHost = "127.0.0.1"
 SaasDBUser = "root"
 SaasPassword = "letsg0"
-SaasPort = 3306
+SaasPort = 3307
 SaasDBName = "saasdb"
 
 # 用于GrpcServer的配置(saasdbAgent)

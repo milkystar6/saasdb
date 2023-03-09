@@ -1,0 +1,32 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+
+
+/* Operator Dead Master */
+message OrchWebHookDeadMasterRequest {
+  string DeadMasterAddress = 1;
+}
+message OrchWebHookDeadMasterResponse{
+  string MessageInfo = 1;
+  string MessageWarn = 2;
+  string MessageError = 3;
+}
+
+service OpDeadMasterService{
+  rpc NewOpDeadMaster(OrchWebHookDeadMasterRequest) returns (OrchWebHookDeadMasterResponse){};
+}
+/* Operator New Master */
+message OrchWebHookNewMasterRequest {
+  string NewMasterAddress = 1;
+}
+
+message OrchWebHookNewMasterResponse{
+  string MessageInfo = 1;
+  string MessageWarn = 2;
+  string MessageError = 3;
+}
+
+service OpNewMasterService{
+  rpc NewOpNewMaster(OrchWebHookNewMasterRequest) returns (OrchWebHookNewMasterResponse){};
+}
