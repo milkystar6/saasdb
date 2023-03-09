@@ -1,0 +1,34 @@
+syntax = "proto3";
+option go_package = "..grpc_pb/;grpc_pb";
+package saasdb;
+
+/* Operator Dead Master */
+message DeadMasterRequest {
+  string DeadMasterAddress = 1;
+}
+message DeadMasterResponse{
+  string MessageInfo = 1;
+  string MessageWarn = 2;
+  string MessageError = 3;
+}
+
+
+/* Operator New Master */
+message NewMasterRequest {
+  string NewMasterAddress = 1;
+}
+
+message NewMasterResponse{
+  string MessageInfo = 1;
+  string MessageWarn = 2;
+  string MessageError = 3;
+}
+
+
+service OpDeadMasterService{
+  rpc HandleDeadMaster(DeadMasterRequest) returns (DeadMasterResponse){};
+}
+
+service OpNewMasterService{
+  rpc HandleNewMaster(NewMasterRequest) returns (NewMasterResponse){};
+}

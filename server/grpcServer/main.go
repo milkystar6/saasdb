@@ -41,7 +41,11 @@ func main() {
 	// 创建单一mysql节点服务
 	grpc_pb.RegisterCreateSingleMySQLServiceServer(s, &grpcServer.CreateSingleMySQLInstance{})
 	// 配置主从复制服务
-	// 配置高可用服务 MHA/Orchestrator
+	// 配置高可用服务 向Orchestrator注册MySQL地址
+
+	// Orch_Webhook
+	grpc_pb.RegisterOpDeadMasterServiceServer(s, &grpcServer.HandleDeadMaster{})
+	grpc_pb.RegisterOpNewMasterServiceServer(s, &grpcServer.HandleNewMaster{})
 
 	// TODO 心跳表服务 读取到集群TOPO表中到mysql信息，然后记录心跳表 参考pt-heartbeat ，获取当前节点mysql的ip port，查询instance表中，该实例的角色信息，根据角色信息做读写心跳检测。 不支持单机多实例类型
 	// 数据库读心跳 RS read heartbreat service
