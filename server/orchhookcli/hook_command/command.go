@@ -118,7 +118,6 @@ func (c Command) RpcOpDeadMaster(deadMasterAddr string, client grpc_pb.OpDeadMas
 	ctx, cancle := context.WithTimeout(context.Background(), global.GrpcCreateTimeout)
 	defer cancle()
 	res, err := client.NewOpDeadMaster(ctx, c.OpDeadMasterTask(deadMasterAddr))
-	fmt.Println("DEwsadada", res)
 	if err != nil && res != nil {
 		// todo
 		fmt.Println(res.MessageError)

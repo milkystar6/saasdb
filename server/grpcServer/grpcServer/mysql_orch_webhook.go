@@ -35,6 +35,7 @@ func (h *HandleDeadMaster) NewOpDeadMaster(ctx context.Context, req *grpc_pb.Orc
 	}
 	var op scripts.OrchWebHooks
 	err = op.OpDeadMaster(vip)
+	fmt.Println("1111111111", err)
 	if err != nil {
 		r := &grpc_pb.OrchWebHookDeadMasterResponse{
 			MessageError: "Failed Operator Dead MySQL Master",
