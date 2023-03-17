@@ -1,7 +1,8 @@
 package scripts
 
 import (
-	"bufio"
+	"bytes"
+	"errors"
 	"fmt"
 	"github.com/vishvananda/netlink"
 	"net"
@@ -90,16 +91,16 @@ func (o *OrchWebHooks) OpNewMaster(realIP, vip string) error {
 
 // getInterfaceByIP returns the network interface that has the specified IP address.
 func (o *OrchWebHooks) getInterfaceByIP(ip string) (*net.Interface, error) {
-	fmt.Printf("0000000")
+
 	ifaces, err := net.Interfaces()
 	if err != nil {
-		fmt.Println("1111")
+
 		return nil, err
 	}
 	for _, iface := range ifaces {
 		addrs, err := iface.Addrs()
 		if err != nil {
-			fmt.Println("2222")
+
 			return nil, err
 		}
 		for _, addr := range addrs {
@@ -108,17 +109,16 @@ func (o *OrchWebHooks) getInterfaceByIP(ip string) (*net.Interface, error) {
 			}
 		}
 	}
-	fmt.Println("3333")
+
 	return nil, fmt.Errorf("no interface found for IP address %s", ip)
 }
 
 // deleteVIP deletes the specified VIP address.
 func (o *OrchWebHooks) deleteVIP(vip string, networkInterfaceCard string) error {
 
-	// have many bugs
+	// Don't use this code first. The func has many bugs
 
 	ip := net.ParseIP(vip)
-	fmt.Println("a1111")
 	if ip == nil {
 		return fmt.Errorf("invalid IP address: %s", vip)
 	}
@@ -152,41 +152,26 @@ func (o *OrchWebHooks) deleteVIP(vip string, networkInterfaceCard string) error 
 }
 
 func (o *OrchWebHooks) deleteVIPByShell(vip string, networkcard string) error {
-	// 这里怎么获取子网掩码
-	cmd := exec.Command("ip", "a", "l", "|", "grep", vip, "|", "awk", "'{print $2}'")
-	stdout, err := cmd.StdoutPipe()
+	// Run shell command to get IP and subnet mask
+	cmd := exec.Command("sh", "-c", "ip a l | grep "+vip+" | awk '{print $2}'")
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("failed to create stdout pipe: %v", err)
-		return err
+		return errors.New(stderr.String())
 	}
-
-	if err := cmd.Start(); err != nil {
-		fmt.Printf("failed to start command: %v", err)
-		return err
-	}
-
-	scanner := bufio.NewScanner(stdout)
-	vipAndNetmask := ""
-	for scanner.Scan() {
-		vipAndNetmask = strings.TrimSpace(scanner.Text())
-		fmt.Printf("IP address found: %s\n", vipAndNetmask)
-	}
-
-	if err := scanner.Err(); err != nil {
-		fmt.Printf("error while scanning stdout: %v", err)
-		return err
-	}
-
-	ipDelCmd := exec.Command("sudo", "ip", "addr", "del", vipAndNetmask, networkcard)
-	output, err := ipDelCmd.CombinedOutput()
+	vipAndMask := strings.TrimSpace(stdout.String())
+	// Run shell command to delete VIP
+	cmd = exec.Command("sh", "-c", "ip addr del "+vipAndMask+" dev "+networkcard)
+	stdout.Reset()
+	stderr.Reset()
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	err = cmd.Run()
 	if err != nil {
-		fmt.Printf("failed to delete VIP %s from network interface %s: %v\nOutput: %s", vip, networkcard, err, output)
-		fmt.Println("vipAndNetmask: ", vipAndNetmask)
-		return err
+		return errors.New(stderr.String())
 	}
-
-	fmt.Printf("VIP %s deleted from network interface %s\nOutput: %s", vip, networkcard, output)
-
-	fmt.Println("Done")
 	return nil
 }

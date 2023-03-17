@@ -88,7 +88,7 @@ relay-log=PREFIX/data/relaylog/mysql-relay-bin
 relay_log_purge=1
 slave-sql-verify-checksum=1
 log_slave_updates=1
-slave-net-timeout=10
+slave-net-timeout=4
 
 
 #**** rpl semi ****
@@ -99,7 +99,7 @@ loose-rpl_semi_sync_master_enabled=1
 loose-rpl_semi_sync_master_timeout=172800000
 # 控制合适开启和关闭半同步复制
 loose-rpl_semi_sync_master_wait_no_slave=OFF
-## ON ：如果只有一个master，数据不提交 必须有下方参数个slave才能提交  OFF： 直接提交
+## ON ：如果只有一个master，数据不提交 必须有下方参数个slave才能提交  OFF： 直接提交 数据一致性比较高的场景 配置为ON
 loose-rpl_semi_sync_master_wait_for_slave_count=1
 ## 无论【rpl_semi_sync_master_wait_no_slave】为ON还是OFF，当slave上线到【rpl_semi_sync_master_wait_for_slave_count】值时，master都会自动由异步模式转为半同步模式
 # 主库端设置每个事务在提交时，等待ACK消息的位置

@@ -26,7 +26,7 @@ function parseopt() {
 		print_usage
 		exit 1
 	fi
-	TEMP=$(getopt -o v:h:p:m:M:i:P:d:s:S:H:A:a:B:b: --long version:,host_ip:,port:,max_memory:,max_connections:,hub_ip:,hub_port:,hub_dir:,hub_ssh_user:,hub_ssh_user_passwd:,host_id:,pmm_server_host:,pmm_server_port:,pmm_server_user:,pmm_server_pass: -- "$@")
+	TEMP=$(getopt -o v:h:p:m:M:i:P:d:s:S:H:A:a:B:b:C: --long version:,host_ip:,port:,max_memory:,max_connections:,hub_ip:,hub_port:,hub_dir:,hub_ssh_user:,hub_ssh_user_passwd:,host_id:,pmm_server_host:,pmm_server_port:,pmm_server_user:,pmm_server_pass:,cluster_name_alias: -- "$@")
 	if [ $? -ne 0 ]; then
 		echo "Terminating..." >&2
 		print_usage
@@ -93,6 +93,10 @@ function parseopt() {
 			;;
 		-b | --pmm_server_pass)
 			pmm_server_pass="$2"
+			shift 2
+			;;
+		-C | --cluster_name_alias)
+			cluster_name_alias="$2"
 			shift 2
 			;;
 		--)
@@ -184,13 +188,13 @@ EOF
          }
 EOF
 
-  # 授权
+	# 授权
 	if id "mysql" &>/dev/null; then
-      log "User exists"
-  else
-      log "User does not exist"
-      useradd mysql
-  fi
+		log "User exists"
+	else
+		log "User does not exist"
+		useradd mysql
+	fi
 
 	chown -R mysql:mysql ${local_base_dir}
 	chown -R mysql:mysql ${local_data_dir}
@@ -255,9 +259,9 @@ function init_conf() {
 	sed -i "s/${max_connections_placeholder}/${max_connections}/g" ${local_mysqld_conf}
 
 	# innodb_buffer_pool
-	num=${max_memory}  # 要计算的整数
-  percent=0.8   # 要计算的百分比
-  innodb_buffer_pool_size=$(echo "scale=0; $num * $percent / 1" | bc)   # 乘以80%并取整
+	num=${max_memory}                                                   # 要计算的整数
+	percent=0.8                                                         # 要计算的百分比
+	innodb_buffer_pool_size=$(echo "scale=0; $num * $percent / 1" | bc) # 乘以80%并取整
 	innodb_buffer_pool_placeholder="INNODB_BUFFER_POOL_SIEZ_PLACEHOLDER"
 	sed -i "s/${innodb_buffer_pool_placeholder}/${innodb_buffer_pool_size}G/g" ${local_mysqld_conf}
 
@@ -268,12 +272,12 @@ function init_conf() {
 	#basedir替换
 	basedir_placeholder="BASEDIR_PLACEHOLDER"
 	basedir_cnf="${local_base_dir}/${version}"
-  sed -i "s#${basedir_placeholder}#${basedir_cnf}#g" ${local_mysqld_conf}
+	sed -i "s#${basedir_placeholder}#${basedir_cnf}#g" ${local_mysqld_conf}
 
 	#report_host替换
 	report_host_prefix="REPORT_HOST_PLACEHOLDER"
-	sed -i "s#${report_host_prefix}#${host_ip}" ${local_mysqld_conf}
-	
+	sed -i "s#${report_host_prefix}#${host_ip}#g" ${local_mysqld_conf}
+
 	if [ ${max_memory} -lt 16 ]; then
 		sort_buffer_size=128K
 		join_buffer_size=128K
@@ -316,6 +320,11 @@ function init_mysql() {
 	conn_local_mysql="${local_base_dir}/$version/bin/mysql --defaults-file=${local_mysqld_conf} -uroot -p${default_root_passwd} -S ${local_data_dir}/data/sock/mysql.sock  "
 
 	${conn_local_mysql} <${create_default_user_sql}
+	init_meta_cluster_sql="INSERT INTO cluster (anchor, cluster_name, cluster_domain)
+                         VALUES (1, '${cluster_name_alias}', '@@hostname')
+                         ON DUPLICATE KEY UPDATE cluster_name=VALUES(cluster_name),
+                         cluster_domain=VALUES(cluster_domain);"
+	${conn_local_mysql} meta -e "${init_meta_cluster_sql}"
 	# 清理binlog保证数据库无事务信息
 	${conn_local_mysql} -e "RESET MASTER"
 }
@@ -491,8 +500,9 @@ function run_exporter() {
 		#			--log.level="info" &
 	fi
 
-	# TODO 如何持久化这部分内容
-	# TODO 如何保证如果有节点故障，新来的exporter不会占用这个断端口
+	#  如何持久化这部分内容
+	#  如何保证如果有节点故障，新来的exporter不会占用这个断端口
+	#  通过pmm-agent统一管理
 }
 
 function check_process_exists() {

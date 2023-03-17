@@ -69,21 +69,34 @@ func (c *Command) HandleCmd() {
 
 func (c *Command) OpDeadMaster(deadMasterAddr string) {
 	deadMasterAddrSlice := strings.Split(deadMasterAddr, ":")
-	ip := deadMasterAddrSlice[0]
+	ipOrhost := deadMasterAddrSlice[0]
 	port := deadMasterAddrSlice[1]
+	ip := ""
+	if makeSureIpOrHostname(ipOrhost) {
+		ip = ipOrhost
+	} else {
+		ip = resloveHostname(ipOrhost)
+	}
 	fmt.Println("debug dead master ", ip, port)
-	// 向 mysql宿主机节点发送grpc请求，完成deal master下线流程 ，如果失败，则失败 do noting。 请求成功 则由节点的grpcServer完成vip下线和设置read_only
+	// 向 mysql宿主机节点发送grpc请求，完成dead master下线流程 ，如果失败，则失败 do noting。 请求成功 则由节点的grpcServer完成vip下线和设置read_only
 	if client, err := c.grpcDeadMasterClient(ip); err != nil {
 		// todo 告警推送访问old master失败
 		fmt.Println(err)
 	} else {
+		deadMasterAddr = ip + ":" + port
 		c.RpcOpDeadMaster(deadMasterAddr, client)
 	}
 }
 func (c *Command) OpNewMaster(newMasterAddr string) {
 	deadMasterAddrSlice := strings.Split(newMasterAddr, ":")
-	ip := deadMasterAddrSlice[0]
+	ipOrhost := deadMasterAddrSlice[0]
 	port := deadMasterAddrSlice[1]
+	ip := ""
+	if makeSureIpOrHostname(ipOrhost) {
+		ip = ipOrhost
+	} else {
+		ip = resloveHostname(ipOrhost)
+	}
 	fmt.Println(ip, port)
 	// 向 mysql宿主机节点发送grpc请求，完成new master下线流程 ，对操作发出推送
 	if client, err := c.grpcNewMasterClient(ip); err != nil {
@@ -91,10 +104,9 @@ func (c *Command) OpNewMaster(newMasterAddr string) {
 		fmt.Println(err)
 	} else {
 		// todo grpc请求
+		newMasterAddr = ip + ":" + port
 		err = c.RpcOpNewMaster(newMasterAddr, client)
-
 	}
-
 }
 
 func (c *Command) RpcOpNewMaster(newMasterAddr string, client grpc_pb.OpNewMasterServiceClient) error {

@@ -47,3 +47,48 @@ CREATE USER 'orch_client'@'%' IDENTIFIED WITH 'mysql_native_password' BY '7yZ3Wj
 GRANT RELOAD, PROCESS, SUPER, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'orch_client'@'%';
 GRANT SELECT ON meta.* TO 'orch_client'@'%';
 GRANT SELECT ON `mysql`.`slave_master_info` TO 'orch_client'@'%';
+
+
+
+-- archery工单审核平台用户 --
+DROP USER IF EXISTS 'archery'@'%';
+CREATE USER 'archery'@'%' IDENTIFIED BY 'Travesty#333';
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,PROCESS,REFERENCES,INDEX,ALTER,SUPER,REPLICATION SLAVE,REPLICATION CLIENT,TRIGGER ON *.* TO 'archery'@'%';
+
+
+-- 创建orchestrator管理实例元数据表 --
+
+create database if not exists meta;
+use meta;
+
+create table if not exists pseudo_gtid_status
+(
+    anchor                 int unsigned               not null,
+    originating_mysql_host varchar(128) charset ascii not null,
+    originating_mysql_port int unsigned               not null,
+    originating_server_id  int unsigned               not null,
+    time_generated         timestamp                  not null default current_timestamp,
+    pseudo_gtid_uri        varchar(255) charset ascii not null,
+    pseudo_gtid_hint       varchar(255) charset ascii not null,
+    PRIMARY KEY (anchor)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS cluster
+(
+    anchor         TINYINT                    NOT NULL,
+    cluster_name   VARCHAR(128) CHARSET ascii NOT NULL DEFAULT '',
+    cluster_domain VARCHAR(128) CHARSET ascii NOT NULL DEFAULT '',
+    PRIMARY KEY (anchor)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+# Todo 这部分还是放在shell里去做
+# INSERT INTO cluster (anchor, cluster_name, cluster_domain)
+# VALUES (1, '${cluster_name}', '${cluster_domain}')
+# ON DUPLICATE KEY UPDATE cluster_name=VALUES(cluster_name),
+#                         cluster_domain=VALUES(cluster_domain);
+
+
+CHANGE MASTER TO MASTER_CONNECT_RETRY=1, MASTER_RETRY_COUNT=86400;
