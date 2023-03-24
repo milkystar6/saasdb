@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/grpcServer"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
@@ -9,18 +10,30 @@ import (
 	"google.golang.org/grpc/credentials"
 	"log"
 	"net"
+	"os"
 )
 
 func main() {
 	// openssl生成SAN证书
 	//https://www.cnblogs.com/outsrkem/p/16056756.html
 
+	/* 进程start，init log */
+	agentLoggerErr := al.InitLogger()
+	if agentLoggerErr != nil {
+		fmt.Println(agentLoggerErr)
+		os.Exit(100)
+	}
+	al.Info("Init 日志文件success")
+
+	/* 初始化配置文件 */
 	config.InitConfig()
+
+	/* 注册服务监听 */
 	creditsServeKey := config.LoadConfig.GrpcServer.CreditsServeKey
 	creditsServeCrt := config.LoadConfig.GrpcServer.CreditsServeCrt
 	creds, _ := credentials.NewServerTLSFromFile(creditsServeCrt, creditsServeKey)
 	s := grpc.NewServer(grpc.Creds(creds))
-	fmt.Println("start grpc server listening on", config.LoadConfig.GrpcServer.ListenPort)
+	al.Info(fmt.Sprintf("start grpc server listening on %v", config.LoadConfig.GrpcServer.ListenPort))
 	listen, err := net.Listen(config.LoadConfig.GrpcServer.Protocol, fmt.Sprintf(":%v", config.LoadConfig.GrpcServer.ListenPort))
 	if err != nil {
 		log.Panic(err.Error())
@@ -47,8 +60,8 @@ func main() {
 	grpc_pb.RegisterOpNewMasterServiceServer(s, &grpcServer.HandleNewMaster{})
 
 	// TODO 心跳表服务 读取到集群TOPO表中到mysql信息，然后记录心跳表 参考pt-heartbeat ，获取当前节点mysql的ip port，查询instance表中，该实例的角色信息，根据角色信息做读写心跳检测。 不支持单机多实例类型
-	// 数据库读心跳 RS read heartbreat service
-	//var RS hb.ReadHeatBreatService
+	// 数据库读心跳 RS read heartbeat service
+	//var RS hb.ReadHeatBreadService
 	//RS.Start()
 
 	if err := s.Serve(listen); err != nil {

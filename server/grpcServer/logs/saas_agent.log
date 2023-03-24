@@ -1,0 +1,4 @@
+{"level":"info","time":"2023-04-03T17:43:41.003+0800","caller":"agent_logger/agent_logger.go:64","message":"Init 日志文件success"}
+{"level":"info","time":"2023-04-03T17:43:58.133+0800","caller":"agent_logger/agent_logger.go:64","message":"Init 日志文件success"}
+{"level":"info","time":"2023-04-03T17:45:49.666+0800","caller":"agent_logger/agent_logger.go:64","message":"Init 日志文件success"}
+{"level":"info","time":"2023-04-03T17:45:49.667+0800","caller":"agent_logger/agent_logger.go:64","message":"start grpc server listening on 3000"}

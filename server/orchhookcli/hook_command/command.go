@@ -1,19 +1,20 @@
 package hook_command
 
 import (
-	"context"
 	"fmt"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
 	"github.com/spf13/cobra"
 	"strings"
 )
 
 var (
-	// DeadMasterAddress 旧master ip
+	// DeadMasterAddress 旧master地址
 	DeadMasterAddress string
-	// NewMasterAddress 新master ip
+	// NewMasterAddress 新master地址
 	NewMasterAddress string
+	// OpMySQLReadOnlyAddress 要修改read_only参数的MySQL实例地址
+	OpMySQLReadOnlyAddress string
+	//MySQLReadOnly readonly的值
+	MySQLReadOnly bool
 
 	// GrpcServerListenPort grpc配置
 	GrpcServerListenPort int
@@ -24,6 +25,12 @@ var (
 	GrpcKey string
 	// GrpcWebUrl WebUrl default: example.server.com
 	GrpcWebUrl string
+
+	// saasdb connection
+	SaasDBAddr, SaasDBUser, SaasDBPassword string
+	// modify roles
+	InstanceAddr string
+	Role         string
 )
 
 type Command struct{}
@@ -34,6 +41,7 @@ func (c *Command) HandleCmd() {
 		Short: "My CLI operate",
 	}
 
+	/* 1、op dead master */
 	OpDeadMasterCmd := &cobra.Command{
 		Use:   "Op_dead_master",
 		Short: "Operate dead master",
@@ -48,6 +56,7 @@ func (c *Command) HandleCmd() {
 	OpDeadMasterCmd.Flags().StringVarP(&GrpcWebUrl, "GrpcWebUrl", "l", "", "GrpcWebUrl")
 	OpDeadMasterCmd.Flags().IntVar(&GrpcServerListenPort, "WorkNode", 30081, "GrpcServerListenPort")
 
+	/* 2、op new master */
 	OpNewMasterCmd := &cobra.Command{
 		Use:   "Op_new_master",
 		Short: "Operate new master",
@@ -61,83 +70,49 @@ func (c *Command) HandleCmd() {
 	OpNewMasterCmd.Flags().StringVarP(&GrpcWebUrl, "GrpcWebUrl", "l", "", "GrpcWebUrl")
 	OpNewMasterCmd.Flags().IntVar(&GrpcServerListenPort, "WorkNode", 3000, "GrpcServerListenPort")
 
-	rootCmd.AddCommand(OpDeadMasterCmd, OpNewMasterCmd)
+	/* 3、op set read_only */
+	OpSetReadOnlyCmd := &cobra.Command{
+		Use:   "Op_set_read_only",
+		Short: "set mysql global variable read_only 0 or 1",
+		Run: func(cmd *cobra.Command, args []string) {
+			c.OpSetReadOnly(OpMySQLReadOnlyAddress)
+		},
+	}
+
+	OpSetReadOnlyCmd.Flags().StringVarP(&OpMySQLReadOnlyAddress, "Op_mysql_addr", "r", "127.0.0.1:3306", "要操作的mysql 地址")
+	OpSetReadOnlyCmd.Flags().StringVarP(&GrpcCA, "GrpcCA", "m", "", "GrpcCA")
+	OpSetReadOnlyCmd.Flags().StringVarP(&GrpcWebUrl, "GrpcWebUrl", "l", "", "GrpcWebUrl")
+	OpSetReadOnlyCmd.Flags().IntVar(&GrpcServerListenPort, "WorkNode", 3000, "GrpcServerListenPort")
+	OpSetReadOnlyCmd.Flags().BoolVarP(&MySQLReadOnly, "ReadOnly", "b", false, "是否设置read_only")
+
+	/* 4、modify role of instance */
+	ModifyRolesCmd := &cobra.Command{
+		Use:   "Modify_roles",
+		Short: "Modify the roles for mysqld instance",
+		Run: func(cmd *cobra.Command, args []string) {
+			mysqlAddrSlice := strings.Split(InstanceAddr, ":")
+			ipOrhost := mysqlAddrSlice[0]
+			port := mysqlAddrSlice[1]
+			ip := getIpFromAddr(ipOrhost)
+			meta := ModifyRoleMsg{
+				MIns:            fmt.Sprintf("%v:%v", ip, port),
+				MRole:           Role,
+				MSaasDBAddr:     SaasDBAddr,
+				MSaasDBUser:     SaasDBUser,
+				MSaasDBPassword: SaasDBPassword,
+			}
+			c.ModifyRoles(meta)
+		},
+	}
+	ModifyRolesCmd.Flags().StringVarP(&InstanceAddr, "InstanceAddr", "i", "127.0.0.1:3306", "要修改角色的mysql实例地址")
+	ModifyRolesCmd.Flags().StringVarP(&Role, "role", "r", "standby", "角色")
+	ModifyRolesCmd.Flags().StringVarP(&SaasDBAddr, "SaasDBAddr", "a", "127.0.0.1:3306", "saasdb数据库地址,{ip}:{port}")
+	ModifyRolesCmd.Flags().StringVarP(&SaasDBUser, "SaasDBUser", "u", "", "访问saasdb数据库user")
+	ModifyRolesCmd.Flags().StringVarP(&SaasDBPassword, "SaasDBPassword", "p", "123456", "访问saasdb数据库用户password")
+
+	// root cmd
+	rootCmd.AddCommand(OpDeadMasterCmd, OpNewMasterCmd, OpSetReadOnlyCmd, ModifyRolesCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 	}
-}
-
-func (c *Command) OpDeadMaster(deadMasterAddr string) {
-	deadMasterAddrSlice := strings.Split(deadMasterAddr, ":")
-	ipOrhost := deadMasterAddrSlice[0]
-	port := deadMasterAddrSlice[1]
-	ip := ""
-	if makeSureIpOrHostname(ipOrhost) {
-		ip = ipOrhost
-	} else {
-		ip = resloveHostname(ipOrhost)
-	}
-	fmt.Println("debug dead master ", ip, port)
-	// 向 mysql宿主机节点发送grpc请求，完成dead master下线流程 ，如果失败，则失败 do noting。 请求成功 则由节点的grpcServer完成vip下线和设置read_only
-	if client, err := c.grpcDeadMasterClient(ip); err != nil {
-		// todo 告警推送访问old master失败
-		fmt.Println(err)
-	} else {
-		deadMasterAddr = ip + ":" + port
-		c.RpcOpDeadMaster(deadMasterAddr, client)
-	}
-}
-func (c *Command) OpNewMaster(newMasterAddr string) {
-	deadMasterAddrSlice := strings.Split(newMasterAddr, ":")
-	ipOrhost := deadMasterAddrSlice[0]
-	port := deadMasterAddrSlice[1]
-	ip := ""
-	if makeSureIpOrHostname(ipOrhost) {
-		ip = ipOrhost
-	} else {
-		ip = resloveHostname(ipOrhost)
-	}
-	fmt.Println(ip, port)
-	// 向 mysql宿主机节点发送grpc请求，完成new master下线流程 ，对操作发出推送
-	if client, err := c.grpcNewMasterClient(ip); err != nil {
-		// todo 告警推送提升新master失败
-		fmt.Println(err)
-	} else {
-		// todo grpc请求
-		newMasterAddr = ip + ":" + port
-		err = c.RpcOpNewMaster(newMasterAddr, client)
-	}
-}
-
-func (c *Command) RpcOpNewMaster(newMasterAddr string, client grpc_pb.OpNewMasterServiceClient) error {
-	ctx, cancle := context.WithTimeout(context.Background(), global.GrpcCreateTimeout)
-	defer cancle()
-	res, err := client.NewOpNewMaster(ctx, c.OpNewMasterTask(newMasterAddr))
-	if err != nil {
-		// todo
-		fmt.Println(err)
-		return fmt.Errorf("%v", res.MessageError)
-	} else {
-		return nil
-	}
-}
-
-func (c *Command) OpNewMasterTask(newMasterAddr string) *grpc_pb.OrchWebHookNewMasterRequest {
-	return &grpc_pb.OrchWebHookNewMasterRequest{NewMasterAddress: newMasterAddr}
-}
-
-func (c Command) RpcOpDeadMaster(deadMasterAddr string, client grpc_pb.OpDeadMasterServiceClient) {
-	ctx, cancle := context.WithTimeout(context.Background(), global.GrpcCreateTimeout)
-	defer cancle()
-	res, err := client.NewOpDeadMaster(ctx, c.OpDeadMasterTask(deadMasterAddr))
-	if err != nil && res != nil {
-		// todo
-		fmt.Println(res.MessageError)
-	} else {
-		fmt.Println("task send success")
-	}
-}
-
-func (c *Command) OpDeadMasterTask(deadMasterAddr string) *grpc_pb.OrchWebHookDeadMasterRequest {
-	return &grpc_pb.OrchWebHookDeadMasterRequest{DeadMasterAddress: deadMasterAddr}
 }

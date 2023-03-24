@@ -32,3 +32,13 @@ func resloveHostname(hostname string) string {
 	}
 	return a
 }
+
+func getIpFromAddr(ipOrhost string) string {
+	ip := ""
+	if makeSureIpOrHostname(ipOrhost) {
+		ip = ipOrhost
+	} else {
+		ip = resloveHostname(ipOrhost)
+	}
+	return ip
+}

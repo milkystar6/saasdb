@@ -121,7 +121,7 @@ Configuration{
 		RecoverIntermediateMasterClusterFilters:    []string{},
 		ProcessesShellCommand:                      "bash",
 		OnFailureDetectionProcesses:                []string{},
-		PreGracefulTakeoverProcesses:               []string{}, 在老的master离开之前，新的master优雅的接管master，即在老的master上先设置read_only,属于优雅修改topo的过程
+		PreGracefulTakeoverProcesses:               []string{}, 在老的master离开之前，新的master优雅的接管master，即在老的master上先设置read_only之前要做的事情,属于优雅修改topo的过程
 		PreFailoverProcesses:                       []string{}, Processes to execute before doing a failover (aborting operation should any once of them exits with non-zero code; order of execution undefined). May and should use some of these placeholders: {failureType}, {instanceType}, {isMaster}, {isCoMaster}, {failureDescription}, {command}, {failedHost}, {failureCluster}, {failureClusterAlias}, {failureClusterDomain}, {failedPort}, {countReplicas}, {replicaHosts}, {isDowntimed}
 		PostMasterFailoverProcesses:                []string{},
 		PostIntermediateMasterFailoverProcesses:    []string{},

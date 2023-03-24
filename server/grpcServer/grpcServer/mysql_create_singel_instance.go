@@ -1,6 +1,7 @@
 package grpcServer
 
 import (
+	"context"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/model"
@@ -41,7 +42,7 @@ type MySQLHub struct {
 	HubSsHUserPasswd string `json:"HubSsHUserPasswd,omitempty"`
 }
 
-func (r *CreateSingleMySQLInstance) CreateNewMysqlInstance(req *grpc_pb.CreateSingleMySQLInstanceReq) grpc_pb.CreateSingleMySQLInstanceRes {
+func (r *CreateSingleMySQLInstance) NewCreateSingleMySQLInstance(ctx context.Context, req *grpc_pb.CreateSingleMySQLInstanceReq) (*grpc_pb.CreateSingleMySQLInstanceRes, error) {
 	ci := CI{
 		Version:          req.GetVersion(),
 		Port:             int(req.GetMysqlPort()),
@@ -77,16 +78,16 @@ func (r *CreateSingleMySQLInstance) CreateNewMysqlInstance(req *grpc_pb.CreateSi
 	}
 	saasDB, err := model.GormMysql(sc.SaasUser, sc.SaasPassword, sc.SaasHost, config.SaasDBNAME, sc.SaasPort)
 	if err != nil {
-		return grpc_pb.CreateSingleMySQLInstanceRes{
+		return &grpc_pb.CreateSingleMySQLInstanceRes{
 			IsOk: false,
 			Msg:  fmt.Sprintf("连接saasdb数据库失败,error: %v", err),
-		}
+		}, err
 	}
 
 	// 上报数据库信息到saasdb的saas_instance表
 	err = r.Report2Saasdb(ci, saasDB)
 	if err != nil {
-		return grpc_pb.CreateSingleMySQLInstanceRes{}
+		return &grpc_pb.CreateSingleMySQLInstanceRes{}, err
 	}
 	// TODO 设计这里的逻辑
 
@@ -94,10 +95,10 @@ func (r *CreateSingleMySQLInstance) CreateNewMysqlInstance(req *grpc_pb.CreateSi
 	if ci.Port != 0 {
 		if r.CheckPort(ci.Ip, ci.Port) {
 			err := fmt.Sprintf("Port %d is in use\n", ci.Port)
-			return grpc_pb.CreateSingleMySQLInstanceRes{
+			return &grpc_pb.CreateSingleMySQLInstanceRes{
 				IsOk: false,
 				Msg:  fmt.Sprintf("%v,请重新选择端口", err),
-			}
+			}, fmt.Errorf(err)
 		}
 	}
 	isOk, err := r.CreateOne(ci, saasDB)
@@ -105,7 +106,7 @@ func (r *CreateSingleMySQLInstance) CreateNewMysqlInstance(req *grpc_pb.CreateSi
 		fmt.Println(isOk, err)
 		// clear 信息
 	}
-	return grpc_pb.CreateSingleMySQLInstanceRes{}
+	return &grpc_pb.CreateSingleMySQLInstanceRes{}, nil
 }
 
 func (r *CreateSingleMySQLInstance) CreateOne(ci CI, db *gorm.DB) (isOk bool, err error) {
