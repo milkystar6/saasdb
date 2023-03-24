@@ -19,12 +19,14 @@ type Instance struct {
 	Application  string   `json:"application" form:"application" gorm:"column:application;type:enum('oracle','mysql','redis','mongodb','tidb');comment:application应用类型;"`
 	Version      string   `json:"version" form:"version" gorm:"column:version;comment:;"`
 	UseType      string   `json:"useType" form:"useType" gorm:"column:use_type;type:enum('正式','线上测试','预发布');comment:;"`
-	Health       string   `json:"health" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating','creating');comment:数据库状态;"`
+	Health       string   `json:"health" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating','creating','standby');comment:数据库状态;"`
 	Role         string   `json:"role" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
 	Feature      *Feature `json:"feature" gorm:"TYPE:json"`
 	Auth         *Auth    `json:"auth" gorm:"TYPE:json"`
 	//Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
 	//Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
+	InternetDataCenter string `json:"internet_data_center" form:"internet_data_center" gorm:"column:internet_data_center;type:enum('qingdao','huangdao');comment:idc数据中心"` //基本不用考虑单独拆一个数据中心的表
+
 }
 
 // TableName Instance 表名
@@ -44,7 +46,7 @@ type InstanceDontUpdateFeature struct {
 	Application  string `json:"application,omitempty" form:"application" gorm:"column:application;type:enum('oracle','mysql','redis','mongodb','tidb');comment:application应用类型;"`
 	Version      string `json:"version,omitempty" form:"version" gorm:"column:version;comment:;"`
 	UseType      string `json:"useType,omitempty" form:"useType" gorm:"column:use_type;type:enum('正式','线上测试','预发布');comment:;"`
-	Health       string `json:"health,omitempty" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating');comment:;"`
+	Health       string `json:"health,omitempty" form:"health" gorm:"column:health;type:enum('available','unavailable','restarting','starting','stoping','migrating','standby');comment:;"`
 	//Level        string   `json:"level" form:"level" gorm:"column:level;type:enum('1','2','3','4');comment:;"`
 	Role string `json:"role,omitempty" form:"role" gorm:"column:role;type:enum('master','slaveforha','slaveonly');comment:数据库实例在集群中的角色，master节点只能有一个;"`
 	//Feature      *Feature `json:"feature" gorm:"TYPE:json"`  # 更新的时候不更新feature字段
