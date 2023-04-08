@@ -120,36 +120,42 @@
 	],
 	"OnFailureDetectionProcesses": [
 		"echo '2 $(date '+%Y-%m-%d %H:%M:%S') 检测故障时执行 Detected {failureType} on {failureCluster}. Affected replicas: {countSlaves}' >> /tmp/recovery.log",
-		"echo 'TODO push dingdinghooks'"
-
+		"echo 'TODO push dingdinghooks'",
+		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_set_read_only -r {failureCluster} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081 -b && echo 'set read_only on {failureCluster} success'||echo 'set read_only on {failureCluster} failed' ",
+		"/usr/local/orchestrator/bin/webhook/orch_webhook Modify_roles -i {failureCluster} -a 10.166.201.75:3306 -p letsg0 -u root -r standby "
 	],
 	"PreGracefulTakeoverProcesses": [
-		"echo 1 '在主变为只读之前立即执行（mysql master故障的时候，不会触发该Process） Planned takeover about to take place on {failureCluster}. Master will switch to read_only' >> /tmp/recovery.log",
+		"echo '1 [只对Graceful] 在主变为只读之前立即执行（mysql master故障的时候，不会触发该Process） Planned takeover about to take place on {failureCluster}. Master will switch to read_only' >> /tmp/recovery.log",
 		"echo 'todo 输入合适的{占位符} {failureType}, {instanceType}, {isMaster}, {isCoMaster}, {failureDescription}, {command}, {failedHost}, {failureCluster}, {failureClusterAlias}, {failureClusterDomain}, {failedPort}, {successorHost}, {successorPort}, {countReplicas}, {replicaHosts}, {isDowntimed} 在要下线的主节点执行set read_only'"
 	],
 	"PreFailoverProcesses": [
 		"echo '3 $(date '+%Y-%m-%d %H:%M:%S') 在执行恢复操作之前立即执行 Will recover from {failureType} on {failureCluster}' >> /tmp/recovery.log",
 		"echo '调用webhook Op_dead_master, 完成对旧主(可达的场景下)set read_only并且完成vip下线'>>/tmp/recovery.log",
 		"echo 'Processes to execute before doing a failover (aborting operation should any once of them exits with non-zero code; order of execution undefined). May and should use some of these placeholders: {failureType}, {instanceType}, {isMaster}, {isCoMaster}, {failureDescription}, {command}, {failedHost}, {failureCluster}, {failureClusterAlias}, {failureClusterDomain}, {failedPort}, {countReplicas}, {replicaHosts}, {isDowntimed}, run command: /usr/local/orchestrator/bin/webhook/orch_webhook Op_dead_master --Op_dead_master {failureCluster} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081 '>> /tmp/recovery.log ",
-		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_dead_master --Op_dead_master {failureCluster} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081 && push dingdinghooks success || push dingdinghooks failed"
+		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_dead_master --Op_dead_master {failureCluster} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081  && echo 'push dingdinghooks success' || echo 'push dingdinghooks failed' "
 	],
 	"PostFailoverProcesses": [
-		"echo '5 在任何成功恢复结束时执行 (for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log",
-		"TODO: push success message to DingTalk by dingdinghooks."
+		"echo '5 [成功] 在任何成功恢复结束时执行 (for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log",
+		"echo 'TODO: push success message to DingTalk by dingdinghooks.' "
 	],
 	"PostUnsuccessfulFailoverProcesses": [
-		"echo '8在任何不成功的恢复结束时执行 ' >> /tmp/recovery.log "
+		"echo '8 [失败] 在任何不成功的恢复结束时执行 ' >> /tmp/recovery.log "
 	],
 	"PostMasterFailoverProcesses": [
 		"echo '4在主恢复成功结束时执行 Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Promoted: {successorHost}:{successorPort}' >> /tmp/recovery.log",
 		"echo 'will run command: /usr/local/orchestrator/bin/webhook/orch_webhook Op_new_master --Op_new_master {successorHost}:{successorPort} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081'>>/tmp/recovery.log",
-		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_new_master --Op_new_master {successorHost}:{successorPort} -m /usr/local/orchestrator/bin/webhook/server.crt  -l example.server.com --WorkNode 31081 && push dingdinghooks success || push dingdinghooks failed"
+		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_new_master --Op_new_master {successorHost}:{successorPort} -m /usr/local/orchestrator/bin/webhook/server.crt  -l example.server.com --WorkNode 31081 && echo 'push dingdinghooks success' || echo 'push dingdinghooks failed' ",
+		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_set_read_only -r {successorHost}:{successorPort} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081 && echo 'set read_only off {failureCluster} success'||echo 'set read_only off {failureCluster} failed' ",
+        "/usr/local/orchestrator/bin/webhook/orch_webhook Modify_roles -i {failureCluster} -a 10.166.201.75:3306 -p letsg0 -u root -r master "
+
 	],
 	"PostIntermediateMasterFailoverProcesses": [
+	    "echo DeadIntermediateMaster: An intermediate master (replica with replicas) cannot be reached; All of its replicas are failing replication. This makes for a potential recovery process.",
+		"echo ' DeadIntermediateMaster: 带有replicas节点的replica，Master-Slave1-Slave2，所以叫中间的主节点。Slave1 g的时候怎么操作，' ",
 		"echo '6 在成功的中间主恢复结束时执行Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
 	],
 	"PostGracefulTakeoverProcesses": [
-		"echo '7 在旧主位于新晋升的主之后执行 Planned takeover complete' >> /tmp/recovery.log"
+		"echo '7 [只对Graceful] 在旧主位于新晋升的主之后执行 Planned takeover complete' >> /tmp/recovery.log"
 	],
 	"CoMasterRecoveryMustPromoteOtherCoMaster": true,
 	"DetachLostSlavesAfterMasterFailover": true,

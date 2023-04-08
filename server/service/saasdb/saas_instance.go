@@ -1,6 +1,7 @@
 package saasdb
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
@@ -71,4 +72,16 @@ func (saas_instanceService *InstanceService) GetInstanceInfoByDomainID(domainId 
 	err = db.Where("domain_id=?", &domainId).Find(&saas_instances).Count(&total).Error
 
 	return saas_instances, total, err
+}
+
+// GetDomainIdByIpPort 根据ip 端口获取Doaminid
+func (saas_instanceService *InstanceService) GetDomainIdByIpPort(ip string, port int) (domainId *int, total int64, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&saasdb.Instance{})
+	var saas_instances []saasdb.Instance
+	err = db.Where("ip=? and port=?", ip, port).Find(&saas_instances).Count(&total).Error
+	if total > 1 {
+		err = fmt.Errorf(fmt.Sprintf("存在单个ip port含有多个domainId的逻辑错误，请检查错误的逻辑关系, debug ip:%v,port:%v", ip, port))
+	}
+	return saas_instances[0].DomainId, total, err
 }

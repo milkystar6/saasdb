@@ -1,6 +1,8 @@
 package schedule
 
 import (
+	"fmt"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -19,5 +21,5 @@ func TestWeekdays(t *testing.T) {
 	if wednesday.String() != "Wednesday" {
 		t.Errorf("Unexpected weekday: %v", wednesday)
 	}
-	//fmt.Println(fmt.Sprintf(strconv.Itoa(int(monday))))
+	fmt.Println(fmt.Sprintf(strconv.Itoa(int(monday))))
 }

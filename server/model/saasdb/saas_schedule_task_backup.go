@@ -1,12 +1,12 @@
 package saasdb
 
 const (
-	backupTableName = "saas_schedule_backup"
+	BackupTableName = "saas_schedule_backup"
 	// 备份相关任务
 
-	MySQLBackup   = "MySQL"
-	MongoDBBackup = "MongoDB"
-	TidbBackup    = "TiDB"
+	TypeMySQLBackup   = "mysql"
+	TypeMongoDBBackup = "mongodb"
+	TypeTidbBackup    = "tidb"
 
 	// MySQL备份场景 backup scenarios
 	MySQLBackupUseXtrabackup = "xtrabackup"
@@ -26,7 +26,7 @@ const (
 	SingleDBBak = "db"
 )
 
-type MySQLBackupTask struct {
+type DBBackupTask struct {
 	ScheduleTask
 	// 任务类型
 	BackupType string `json:"backup_type,omitempty" form:"backup_type" gorm:"column:backup_type"`
@@ -34,8 +34,10 @@ type MySQLBackupTask struct {
 	BackupScenarios string `json:"backup_scenarios,omitempty" form:"backup_scenarios" gorm:"column:backup_scenarios"`
 	// 备份方式
 	BackupMode string `json:"backup_mode,omitempty" form:"backup_mode" gorm:"column:backup_mode"`
+	// 集群ID
+	DomainId int `json:"domain_id,omitempty" form:"domain_id" gorm:"column:domain_id"`
 }
 
-func (m *MySQLBackupTask) TableName() string {
-	return backupTableName
+func (m *DBBackupTask) TableName() string {
+	return BackupTableName
 }

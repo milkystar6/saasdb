@@ -4,7 +4,9 @@ package saasdb
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"gorm.io/gorm"
 )
 
 // const instance health
@@ -37,8 +39,7 @@ type Instance struct {
 	Auth         *Auth    `json:"auth" gorm:"TYPE:json"`
 	//Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
 	//Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
-	InternetDataCenter string `json:"internet_data_center" form:"internet_data_center" gorm:"column:internet_data_center;type:enum('qingdao','huangdao');comment:idc数据中心"` //基本不用考虑单独拆一个数据中心的表
-
+	InternetDataCenterId int `json:"internet_data_center_id" form:"internet_data_center_id" gorm:"column:internet_data_center_id;comment:idc数据中心id"`
 }
 
 // TableName Instance 表名
@@ -138,4 +139,15 @@ func (c DataDisk) Value() (driver.Value, error) {
 
 func (c *DataDisk) Scan(input interface{}) error {
 	return json.Unmarshal(input.([]byte), c)
+}
+
+// GetDomainIdByIpPort 根据ip 端口获取Doaminid
+func (i *Instance) GetDomainIdByIpPort(db *gorm.DB, ip string, port int) (domainId *int, total int64, err error) {
+	// 创建db
+	var saas_instances []Instance
+	err = db.Model(Instance{}).Where("ip=? and port=?", ip, port).Find(&saas_instances).Count(&total).Error
+	if total > 1 {
+		err = fmt.Errorf(fmt.Sprintf("存在单个ip port含有多个domainId的逻辑错误，请检查错误的逻辑关系, debug ip:%v,port:%v", ip, port))
+	}
+	return saas_instances[0].DomainId, total, err
 }
