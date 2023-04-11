@@ -11,6 +11,7 @@ const (
 	mysqlRolesSlaveForHa = "slaveforha"
 	mysqlRolesSlaveOnly  = "slaveonly"
 	mysqlRolesMaster     = "master"
+	nilID                = 0
 )
 
 type ModifyRoleMsg struct {
@@ -49,9 +50,11 @@ func (c *Command) ModifyRoles(meta ModifyRoleMsg) {
 	}
 
 	//修改现有集群中的master节点为slave for ha
-	if &domainId != nil {
-		sql := fmt.Sprintf("UPDATE %v SET role='%v' where domain_id ='%v' and role='%v' ", instance.TableName(), mysqlRolesSlaveForHa, &domainId, mysqlRolesMaster)
-		e := db.Debug().Raw(sql).Error
+	if *domainId == nilID {
+		fmt.Println(fmt.Sprintf("Warning: saas_instance表中ip=%v,port=%v的实例没有domain_id,niliid: %v"), ip, port, nilID)
+	} else {
+		sql := fmt.Sprintf("UPDATE %v SET role='%v' where domain_id ='%v' and role='%v' ", instance.TableName(), mysqlRolesSlaveForHa, *domainId, mysqlRolesMaster)
+		e := db.Debug().Exec(sql).Error
 		if e != nil {
 			fmt.Println(e)
 		}
