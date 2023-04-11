@@ -146,7 +146,7 @@
 		"echo 'will run command: /usr/local/orchestrator/bin/webhook/orch_webhook Op_new_master --Op_new_master {successorHost}:{successorPort} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081'>>/tmp/recovery.log",
 		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_new_master --Op_new_master {successorHost}:{successorPort} -m /usr/local/orchestrator/bin/webhook/server.crt  -l example.server.com --WorkNode 31081 && echo 'push dingdinghooks success' || echo 'push dingdinghooks failed' ",
 		"/usr/local/orchestrator/bin/webhook/orch_webhook Op_set_read_only -r {successorHost}:{successorPort} -m /usr/local/orchestrator/bin/webhook/server.crt -l example.server.com --WorkNode 31081 && echo 'set read_only off {failureCluster} success'||echo 'set read_only off {failureCluster} failed' ",
-        "/usr/local/orchestrator/bin/webhook/orch_webhook Modify_roles -i {failureCluster} -a 10.166.201.75:3306 -p letsg0 -u root -r master "
+        "/usr/local/orchestrator/bin/webhook/orch_webhook Modify_roles -i {successorHost}:{successorPort} -a 10.166.201.75:3306 -p letsg0 -u root -r master "
 
 	],
 	"PostIntermediateMasterFailoverProcesses": [

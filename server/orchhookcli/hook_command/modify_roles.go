@@ -31,7 +31,7 @@ func (c *Command) ModifyRoles(meta ModifyRoleMsg) {
 		h = saasdb.Standby
 	} else {
 		r = meta.MRole
-		h = saasdb.Avaialbel
+		h = saasdb.Avaiabel
 	}
 	mr := InstanceModifyRole{
 		//Ip:     strings.Split(meta.MIns, ":")[0],

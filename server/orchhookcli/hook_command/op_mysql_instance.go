@@ -25,7 +25,10 @@ func (c *Command) OpDeadMaster(deadMasterAddr string) {
 		fmt.Println(err)
 	} else {
 		deadMasterAddr = ip + ":" + port
-		c.RpcOpDeadMaster(deadMasterAddr, client)
+		err := c.RpcOpDeadMaster(deadMasterAddr, client)
+		if err != nil {
+			return
+		}
 	}
 }
 func (c *Command) OpNewMaster(newMasterAddr string) {
@@ -43,7 +46,6 @@ func (c *Command) OpNewMaster(newMasterAddr string) {
 		// todo 告警推送提升新master失败
 		fmt.Println(err)
 	} else {
-		// todo grpc请求
 		newMasterAddr = ip + ":" + port
 		err = c.RpcOpNewMaster(newMasterAddr, client)
 	}
@@ -66,15 +68,19 @@ func (c *Command) OpNewMasterTask(newMasterAddr string) *grpc_pb.OrchWebHookNewM
 	return &grpc_pb.OrchWebHookNewMasterRequest{NewMasterAddress: newMasterAddr}
 }
 
-func (c Command) RpcOpDeadMaster(deadMasterAddr string, client grpc_pb.OpDeadMasterServiceClient) {
+func (c Command) RpcOpDeadMaster(deadMasterAddr string, client grpc_pb.OpDeadMasterServiceClient) error {
 	ctx, cancle := context.WithTimeout(context.Background(), global.GrpcCreateTimeout)
 	defer cancle()
 	res, err := client.NewOpDeadMaster(ctx, c.OpDeadMasterTask(deadMasterAddr))
-	if err != nil && res != nil {
-		// todo
-		fmt.Println(res.MessageError)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	} else if res != nil {
+		// todo 这里有bug 不通也是走 task send success
+		return fmt.Errorf("%v", res.MessageError)
 	} else {
 		fmt.Println("task send success")
+		return nil
 	}
 }
 
