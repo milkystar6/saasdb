@@ -11,7 +11,7 @@ import (
 
 // const instance health
 const (
-	Avaiabel    = "availbel"
+	Avaiabel    = "available"
 	Unavailable = "unavailable"
 	Restarting  = "restarting"
 	Starting    = "starting"

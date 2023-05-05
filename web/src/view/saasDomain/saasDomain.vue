@@ -51,7 +51,7 @@
         <el-table-column align="left" label="数据库实例集群ID" prop="ID" width="150"/>
         <el-table-column align="left" label="项目名称" prop="projName" width="150"/>
         <el-table-column align="left" label="集群名称" prop="domainName" width="300"/>
-        <el-table-column align="left" label="高可用VIP" prop="vip" width="150"/>
+        <el-table-column align="left" label="高可用VIP" prop="vip" width="300"/>
         <el-table-column align="left" label="域名" prop="dns" width="300"/>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">

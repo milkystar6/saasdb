@@ -156,7 +156,7 @@ innodb_write_io_threads=16
 innodb_use_native_aio=1
 
 #### Undo options
-innodb_undo_directory=PREFIX/data/undo/
+innodb_undo_directory=PREFIX/data/undo
 innodb_undo_tablespaces=16
 innodb_purge_threads=4
 

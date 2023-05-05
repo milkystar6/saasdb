@@ -112,9 +112,9 @@
         <el-form-item label="实例名称:" prop="instance_name">
           <el-input v-model.number="formData.instance_name" :clearable="true" placeholder="请输入"/>
         </el-form-item>
-        <el-form-item label="项目ID:" prop="projId">
-          <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/>
-        </el-form-item>
+        <!-- <el-form-item label="项目ID:" prop="projId"> -->
+          <!-- <el-input v-model.number="formData.projId" :clearable="true" placeholder="请输入"/> -->
+        <!-- </el-form-item> -->
         <el-form-item label="集群ID:" prop="domainId">
           <el-input v-model.number="formData.domainId" :clearable="true" placeholder="请输入"/>
         </el-form-item>

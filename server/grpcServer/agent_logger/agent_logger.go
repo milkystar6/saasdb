@@ -16,7 +16,7 @@ const (
 	logDir            = "logs/"
 )
 
-var logger *zap.Logger
+var Logger *zap.Logger
 
 // InitLogger 初始化日志记录器
 func InitLogger() error {
@@ -39,7 +39,7 @@ func InitLogger() error {
 
 	// 根据配置创建一个新的 Zap 日志记录器
 	var err error
-	logger, err = config.Build()
+	Logger, err = config.Build()
 	if err != nil {
 		return fmt.Errorf("初始化日志记录器失败：%s", err.Error())
 	}
@@ -49,42 +49,42 @@ func InitLogger() error {
 
 // CloseLogger 关闭日志记录器
 func CloseLogger() {
-	if logger != nil {
-		logger.Sync()
+	if Logger != nil {
+		Logger.Sync()
 	}
 }
 
 // Debug 记录 DEBUG 级别的日志
 func Debug(msg string, fields ...zap.Field) {
-	logger.Debug(msg, fields...)
+	Logger.Debug(msg, fields...)
 }
 
 // Info 记录 INFO 级别的日志
 func Info(msg string, fields ...zap.Field) {
-	logger.Info(msg, fields...)
+	Logger.Info(msg, fields...)
 }
 
 // Warn 记录 WARN 级别的日志
 func Warn(msg string, fields ...zap.Field) {
-	logger.Warn(msg, fields...)
+	Logger.Warn(msg, fields...)
 }
 
 // Error 记录 ERROR 级别的日志
 func Error(msg string, fields ...zap.Field) {
-	logger.Error(msg, fields...)
+	Logger.Error(msg, fields...)
 }
 
 // DPanic 记录 DPANIC 级别的日志
 func DPanic(msg string, fields ...zap.Field) {
-	logger.DPanic(msg, fields...)
+	Logger.DPanic(msg, fields...)
 }
 
 // Panic 记录 PANIC 级别的日志
 func Panic(msg string, fields ...zap.Field) {
-	logger.Panic(msg, fields...)
+	Logger.Panic(msg, fields...)
 }
 
 // Fatal 记录 FATAL 级别的日志
 func Fatal(msg string, fields ...zap.Field) {
-	logger.Fatal(msg, fields...)
+	Logger.Fatal(msg, fields...)
 }

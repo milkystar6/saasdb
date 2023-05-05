@@ -34,12 +34,12 @@
           @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"/>
-        <el-table-column align="left" label="日期" width="180">
-          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
-        </el-table-column>
-        <el-table-column align="left" label="hostId" prop="hostId" width="120"/>
-        <el-table-column align="left" label="hostname" prop="hostname" width="120"/>
-        <el-table-column align="left" label="ip" prop="ip" width="120"/>
+        <!-- <el-table-column align="left" label="日期" width="180"> -->
+          <!-- <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template> -->
+        <!-- </el-table-column> -->
+        <el-table-column align="left" label="hostId" prop="ID" width="120"/>
+        <el-table-column align="left" label="hostname" prop="hostname" width="160"/>
+        <el-table-column align="left" label="ip" prop="ip" width="160"/>
         <el-table-column align="left" label="cpu" prop="cpu" width="120"/>
         <el-table-column align="left" label="memory" prop="memory" width="120"/>
         <el-table-column align="left" label="disksize" prop="disksize" width="120"/>

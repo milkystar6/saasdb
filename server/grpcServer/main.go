@@ -6,6 +6,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/grpcServer"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"log"
@@ -23,6 +24,7 @@ func main() {
 		fmt.Println(agentLoggerErr)
 		os.Exit(100)
 	}
+	zap.ReplaceGlobals(al.Logger)
 	al.Info("Init 日志文件success")
 
 	/* 初始化配置文件 */

@@ -26,7 +26,7 @@ function parseopt() {
 		print_usage
 		exit 1
 	fi
-	TEMP=$(getopt -o v:h:p:m:M:i:P:d:s:S:H:A:a:B:b:C: --long version:,host_ip:,port:,max_memory:,max_connections:,hub_ip:,hub_port:,hub_dir:,hub_ssh_user:,hub_ssh_user_passwd:,host_id:,pmm_server_host:,pmm_server_port:,pmm_server_user:,pmm_server_pass:,cluster_name_alias: -- "$@")
+	TEMP=$(getopt -o v:h:p:m:M:i:P:d:s:S:H:A:a:B:b:C:c: --long version:,host_ip:,port:,max_memory:,max_connections:,hub_ip:,hub_port:,hub_dir:,hub_ssh_user:,hub_ssh_user_passwd:,host_id:,pmm_server_host:,pmm_server_port:,pmm_server_user:,pmm_server_pass:,cluster_name_alias:,model_db_password: -- "$@")
 	if [ $? -ne 0 ]; then
 		echo "Terminating..." >&2
 		print_usage
@@ -97,6 +97,10 @@ function parseopt() {
 			;;
 		-C | --cluster_name_alias)
 			cluster_name_alias="$2"
+			shift 2
+			;;
+		-c | --model_db_password)
+			model_db_password="$2"
 			shift 2
 			;;
 		--)
@@ -314,10 +318,15 @@ function init_conf() {
 }
 function init_mysql() {
 	scripts_dir=${local_data_dir}/script_files
-	default_root_passwd=$(cat ${scripts_dir}/root.cnf)
+	default_root_passwd=$(tr </dev/urandom -dc _A-Z-a-z-0-9 | head -c16)
+	echo ${default_root_passwd} >${scripts_dir}/root.cnf
 	create_default_user_sql=${scripts_dir}/sql/default_users.sql
 
-	conn_local_mysql="${local_base_dir}/$version/bin/mysql --defaults-file=${local_mysqld_conf} -uroot -p${default_root_passwd} -S ${local_data_dir}/data/sock/mysql.sock  "
+	## 修改root默认密码 （修改数据库密码 由模版数据库密码改为生成的16位密码）
+	modify_root_password_sql="ALTER USER root@'%' IDENTIFIED BY '${default_root_passwd}';ALTER USER root@'localhost' IDENTIFIED BY '${default_root_passwd}'"
+	${local_base_dir}/$version/bin/mysql --defaults-file=${local_mysqld_conf} -uroot -p${model_db_password} -S ${local_data_dir}/data/sock/mysql.sock -e "${modify_root_password_sql}"
+
+	conn_local_mysql="${local_base_dir}/$version/bin/mysql --defaults-file=${local_mysqld_conf} -uroot -p${default_root_passwd} -S ${local_data_dir}/data/sock/mysql.sock"
 
 	${conn_local_mysql} <${create_default_user_sql}
 	init_meta_cluster_sql="INSERT INTO cluster (anchor, cluster_name, cluster_domain)

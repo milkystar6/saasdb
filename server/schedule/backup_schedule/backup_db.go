@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	BackupScheduleInterval = 5
+	BackupScheduleInterval = 2
 	BackupTaskTimeout      = 86400 - BackupScheduleInterval*2 // 一天减去BackupScheduleInterval *2 粗略估计值
 )
 
@@ -35,7 +35,7 @@ func (bm *BackupSchedule) BackupSchedule() {
 						fmt.Println("error:", err)
 					}
 					global.GVA_LOG.Info(fmt.Sprintf("满足任务条件，运行任务，cron id: %v,pretty-printed JSON output of scheduled task information:\n%v", mysqlbackuptasks[i].ID, string((b))))
-					//todo run task
+
 					go func(m saasdb.DBBackupTask) {
 						global.GVA_LOG.Info(fmt.Sprintf("更新%v表任务运行状态为running", m.TableName()))
 						err := bm.SetBackupTaskStatWithTimeout(m, "running", BackupTaskTimeout)
@@ -43,8 +43,13 @@ func (bm *BackupSchedule) BackupSchedule() {
 							global.GVA_LOG.Error(fmt.Sprintf("更新%v表任务运行状态失败,err: %v", m.TableName(), err.Error()))
 						}
 					}(mysqlbackuptasks[i])
+					go func() {
+						//todo run task
+						// 向 saas_agent发送grpc备份数据的消息
+					}()
+
 				} else {
-					global.GVA_LOG.Info("none cron task need to run")
+					//global.GVA_LOG.Info("none cron task need to run")
 				}
 			}
 			//global.GVA_LOG.Info("schedule running ...")
@@ -66,6 +71,7 @@ func (bm *BackupSchedule) SetBackupTaskStatWithTimeout(c saasdb.DBBackupTask, st
 	db := global.GVA_DB.Model(&saasdb.DBBackupTask{})
 	c.LastExecutedStat = stat
 	c.LastExecutedAt = nil
+	c.CreatedAt = time.Now()
 	err := db.Where("id=?", c.ID).Save(&c).Error
 	if err != nil {
 		return err
@@ -77,5 +83,4 @@ func (bm *BackupSchedule) SetBackupTaskStatWithTimeout(c saasdb.DBBackupTask, st
 		return err
 	}
 	return err
-
 }

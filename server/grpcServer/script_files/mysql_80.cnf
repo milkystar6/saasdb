@@ -215,7 +215,7 @@ innodb_flush_log_at_trx_commit=1
 innodb_fast_shutdown=1
 
 #### Undo options
-innodb_undo_directory=PREFIX/data/undo/
+innodb_undo_directory=PREFIX/data/undo
 innodb_undo_tablespaces=16
 innodb_purge_threads=4
 

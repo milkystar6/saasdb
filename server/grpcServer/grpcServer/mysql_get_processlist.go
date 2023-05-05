@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/model"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
@@ -52,13 +53,15 @@ func (server *StopProcessServer) NewStopProcess(ctx context.Context, req *grpc_p
 	mysqlip := req.GetMySQLIP()
 	mysqlport := int(req.GetMySQLPort())
 	processid := int(req.GetProcessId())
-
+	al.Logger.Info(fmt.Sprintf("Get Task kill mysql query %v", processid))
 	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, mysqlip, "information_schema", mysqlport)
 	if err != nil {
+		msg := fmt.Sprintf("KILL PROCESS Failed, Get Error Returned %v", err)
+		al.Error(fmt.Sprintf("KILL PROCESS Failed, Get Error Returned %v", err))
 		return &grpc_pb.StopProcessResponse{
 			IsSuccess:               0,
 			MoreDetailedInformation: fmt.Sprintf("%v", fmt.Errorf("KILL PROCESS Failed, Get Error Returned %v", err)),
-		}, fmt.Errorf("KILL PROCESS Failed, Get Error Returned %v", err)
+		}, fmt.Errorf(msg)
 	}
 	defer func() {
 		if sqlDB, err := db.DB(); err == nil {
@@ -70,11 +73,14 @@ func (server *StopProcessServer) NewStopProcess(ctx context.Context, req *grpc_p
 
 	err = db.Exec(sql).Error
 	if err != nil {
+		msg := fmt.Sprintf("KILL PROCESS Failed, Get Error Returned %v", err)
+		al.Error(msg)
 		return &grpc_pb.StopProcessResponse{
 			IsSuccess:               0,
 			MoreDetailedInformation: fmt.Sprintf("%v", fmt.Errorf("KILL PROCESS Failed, Get Error Returned %v", err)),
-		}, fmt.Errorf("KILL PROCESS Failed, Get Error Returned %v", err)
+		}, fmt.Errorf(msg)
 	}
+	al.Logger.Info("KILL QUERY SUCCESS")
 	return &grpc_pb.StopProcessResponse{
 		IsSuccess:               1,
 		MoreDetailedInformation: "",
