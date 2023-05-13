@@ -51,7 +51,7 @@ socket=PREFIX/data/sock/mysql.sock
 skip-name-resolve
 skip_external_locking
 skip-grant-tables=0
-skip-slave-start=0
+skip-slave-start=1
 wait_timeout=172800
 interactive_timeout=172800
 query_cache_size=0

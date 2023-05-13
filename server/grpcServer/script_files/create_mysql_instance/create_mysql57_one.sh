@@ -432,7 +432,7 @@ EOF
 	local local_mysql_pmm_user_passwd=$(cat ${create_default_user_sql} | grep pmm | grep "CREATE USER" |
 		awk -F "CREATE USER 'pmm'@'localhost' IDENTIFIED BY" '{print $2}' |
 		awk -F "'" '{print $2}')
-
+  sleep 2
 	pmm-admin add mysql \
 		--username="${local_mysql_pmm_user}" --password="${local_mysql_pmm_user_passwd}" \
 		--server-insecure-tls \
