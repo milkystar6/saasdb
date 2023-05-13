@@ -1,11 +1,13 @@
 package backup_schedule
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"github.com/robfig/cron/v3"
+	"strconv"
 	"time"
 )
 
@@ -37,16 +39,25 @@ func (bm *BackupSchedule) BackupSchedule() {
 					global.GVA_LOG.Info(fmt.Sprintf("满足任务条件，运行任务，cron id: %v,pretty-printed JSON output of scheduled task information:\n%v", mysqlbackuptasks[i].ID, string((b))))
 
 					go func(m saasdb.DBBackupTask) {
+						ctx := context.Background()
 						global.GVA_LOG.Info(fmt.Sprintf("更新%v表任务运行状态为running", m.TableName()))
-						err := bm.SetBackupTaskStatWithTimeout(m, "running", BackupTaskTimeout)
-						if err != nil {
-							global.GVA_LOG.Error(fmt.Sprintf("更新%v表任务运行状态失败,err: %v", m.TableName(), err.Error()))
-						}
+						ctxWithValue := context.WithValue(ctx, "task_domain_id", strconv.Itoa(m.DomainId))
+						func(ctx context.Context) {
+
+							// 向 Redis 调度器发送任务，然后就完成任务了
+							if put2err := produceTask(ctxWithValue, global.GVA_REDIS); put2err != nil {
+								_ = bm.SetBackupTaskStatWithTimeout(m, "failed", BackupTaskTimeout)
+								global.GVA_LOG.Error(fmt.Sprintf("向异步任务模块（REDIS）队列发送任务失败"))
+							} else {
+								err := bm.SetBackupTaskStatWithTimeout(m, "running", BackupTaskTimeout)
+								if err != nil {
+									global.GVA_LOG.Error(fmt.Sprintf("更新%v表任务运行状态失败,err: %v", m.TableName(), err.Error()))
+								}
+
+							}
+						}(ctxWithValue)
+
 					}(mysqlbackuptasks[i])
-					go func() {
-						//todo run task
-						// 向 saas_agent发送grpc备份数据的消息
-					}()
 
 				} else {
 					//global.GVA_LOG.Info("none cron task need to run")

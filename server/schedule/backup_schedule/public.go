@@ -63,6 +63,7 @@ func shouldExecuteTask(task saasdb.DBBackupTask) bool {
 		}
 		return false
 	}(monthlySlice)
+	//fmt.Println("aaaaaa", monthlySlice)
 	if !checkMonth {
 		return false
 	}
@@ -79,6 +80,7 @@ func shouldExecuteTask(task saasdb.DBBackupTask) bool {
 		}
 		return false
 	}(weeklyDaySlice)
+	//fmt.Println("bbbbb", weeklyDaySlice)
 	if !checkWeeklyDay {
 		return false
 	}
@@ -96,6 +98,7 @@ func shouldExecuteTask(task saasdb.DBBackupTask) bool {
 		}
 		return false
 	}(dailyTimeSlice)
+	//fmt.Println("ccccc", dailyTimeSlice)
 	/* 已满足以上月份，周几，每日时间的 条件,表示符合调度策略*/
 	if checkDailyTime {
 		return true
