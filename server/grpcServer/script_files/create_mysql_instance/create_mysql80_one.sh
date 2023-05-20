@@ -322,6 +322,9 @@ function init_mysql() {
 	echo ${default_root_passwd} >${scripts_dir}/root.cnf
 	create_default_user_sql=${scripts_dir}/sql/default_users.sql
 
+  if [ -z "${model_db_password}" ] ;then
+    model_db_password='letsg0'
+  fi
 	## 修改root默认密码 （修改数据库密码 由模版数据库密码改为生成的16位密码）
 	modify_root_password_sql="ALTER USER root@'%' IDENTIFIED BY '${default_root_passwd}';ALTER USER root@'localhost' IDENTIFIED BY '${default_root_passwd}'"
 	${local_base_dir}/$version/bin/mysql --defaults-file=${local_mysqld_conf} -uroot -p${model_db_password} -S ${local_data_dir}/data/sock/mysql.sock -e "${modify_root_password_sql}"
