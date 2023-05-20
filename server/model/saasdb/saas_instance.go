@@ -21,6 +21,13 @@ const (
 	Standby     = "standby"
 )
 
+// const instance roles
+const (
+	RoleMaster     = "master"
+	RoleSlaveForHa = "slaveforha"
+	RoleSlaveOnly  = "slaveonly"
+)
+
 // Instance 结构体
 type Instance struct {
 	global.GVA_MODEL

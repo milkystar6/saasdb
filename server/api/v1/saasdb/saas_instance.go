@@ -17,6 +17,7 @@ type InstanceApi struct {
 }
 
 var saas_instanceService = service.ServiceGroupApp.SaasdbServiceGroup.InstanceService
+var SaasInstanceService = service.ServiceGroupApp.SaasdbServiceGroup.InstanceService
 
 // CreateInstance 创建Instance
 // @Tags Instance
@@ -173,8 +174,8 @@ func (saas_instanceApi *InstanceApi) GetInstanceByDomainID(c *gin.Context) {
 		return
 	}
 	if list, total, err := saas_instanceService.GetInstanceInfoByDomainID(saas_instance.DomainId); err != nil {
-		global.GVA_LOG.Error("更新失败!", zap.Error(err))
-		response.FailWithMessage("更新失败", c)
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:  list,
