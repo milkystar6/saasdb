@@ -1,11 +1,14 @@
 package backup_consume
 
 import (
+	"database/sql"
 	"fmt"
 	saasdbApi "github.com/flipped-aurora/gin-vue-admin/server/api/v1/saasdb"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	saasdbReq "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.uber.org/zap"
 	"golang.org/x/net/context"
 	"math/rand"
@@ -13,7 +16,12 @@ import (
 )
 
 const (
-	consumeInterval = 1
+	consumeInterval         = 1
+	mysqlBackupUseMysqldump = "mysqldump"
+	mysqlBackupUseXtrafull  = "xtrafull"
+	mysqlBackupUseXtraincr  = "xtraincr"
+	mysqlBackupUseMydumper  = "mydumper"
+	statusRunning           = "running"
 )
 
 type HandleConsume struct {
@@ -47,13 +55,37 @@ func (hc *HandleConsume) HandleConsume() {
 			global.GVA_LOG.Error(err.Error())
 			continue
 		}
-		//TODO 1、创建备份任务日志 saasdb.backuplog
+		/* 1、创建备份任务日志 saasdb.backuplog */
+		err = hc.createBackupLog(domainId, int(dstInstance.ID))
+		if err != nil {
+			global.GVA_LOG.Error(err.Error())
+		}
 		//TODO 2、向目标数据库发起GRPC任务
 		//TODO 3、通过发送webhook消息
-		fmt.Println(dstInstance)
+
 	}
 
 }
+
+func (hc *HandleConsume) createBackupLog(domainId, insId int) error {
+	/* 获取一个唯一的id，通过mongo的objectid实现 */
+	objectID := primitive.NewObjectID()
+	newBackupLog := &saasdb.BackLog{
+		GVA_MODEL:     global.GVA_MODEL{},
+		FinishedAt:    sql.NullTime{},
+		DomainId:      &domainId,
+		InsId:         &insId,
+		BackupType:    mysqlBackupUseXtrafull,
+		DataSize:      nil,
+		Status:        statusRunning,
+		BackUpFeature: nil,
+		BackUpUuid:    objectID.String(),
+	}
+	var se service.ServiceGroup
+	return se.SaasdbServiceGroup.BackLogService.CreateBackLog(*newBackupLog)
+
+}
+
 func (hc *HandleConsume) getDstInstance(id int) (saasdb.Instance, error) {
 	var pageInfo saasdbReq.DomainJoinSearch
 	pageInfo.PageSize = 1

@@ -6,19 +6,19 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/google/uuid"
 )
 
 // BackLog 结构体
 type BackLog struct {
 	global.GVA_MODEL
 	FinishedAt    sql.NullTime   `json:"finished_at" form:"finished_at" gorm:"column:finished_at;TYPE:datetime "` // 完成时间
-	DomainId      int            `json:"domainId" form:"domainId" gorm:"column:domain_id;index;comment:;"`
-	BackupType    string         `json:"backupType" form:"backupType" gorm:"column:backup_type;type:enum('mysqldump','xtrafull','xtraincr','mydumper','redis','tidb');comment:备份类型;"`
-	DataSize      int            `json:"dataSize" form:"dataSize" gorm:"column:data_size;comment:;"`
-	Status        string         `json:"status" form:"status" gorm:"column:status;type:enum('backup','success','failed');comment:备份类型;"`
+	DomainId      *int           `json:"domainId,omitempty" form:"domainId" gorm:"column:domain_id;index;comment:;"`
+	InsId         *int           `json:"ins_id,omitempty" form:"ins_id" gorm:"column:ins_id"`
+	BackupType    string         `json:"backupType,omitempty" form:"backupType" gorm:"column:backup_type;type:enum('mysqldump','xtrafull','xtraincr','mydumper','redis','tidb');comment:备份类型;"`
+	DataSize      *int           `json:"dataSize" form:"dataSize" gorm:"column:data_size;comment:;"`
+	Status        string         `json:"status" form:"status" gorm:"column:status;type:enum('backup','success','failed','running');comment:备份类型;"`
 	BackUpFeature *BackUpFeature `json:"back_up_feature" gorm:"column:back_up_feature;TYPE:json;default:NULL"`
-	BackUpUuid    uuid.UUID      `json:"back_up_uuid" gorm:"column:back_up_uuid;uniqueIndex:back_up_uuid"`
+	BackUpUuid    string         `json:"back_up_uuid" gorm:"column:back_up_uuid;uniqueIndex:back_up_uuid"`
 }
 type BackUpFeature struct {
 	UserName     string `json:"user_name"`
