@@ -27,7 +27,7 @@ function backup() {
     --no-timestamp --slave-info \
     --parallel=${routines} --compress --compress-thread=${routines} \
     --safe-slave-backup --safe-slave-backup-timeout=360 \
-    --ftwrl-wait-threshold=10 --ftwrl-wait-query-type=all --ftwrl-wait-timeout=180 \
+    --ftwrl-wait-threshold=10 --ftwrl-wait-query-type=all --ftwrl-wait-timeout=10 \
     --kill-long-queries-timeout=40 --kill-long-query-type=SELECT \
     --user=${user} --password=${password} --socket=${socket} \
     --backup  \
@@ -43,7 +43,14 @@ function backup() {
 EOF
 }
 
+function start_slave() {
+
+}
+
 function main() {
   backup
+  start_slave
 }
+
+
 main

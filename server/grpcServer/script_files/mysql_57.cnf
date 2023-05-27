@@ -262,7 +262,7 @@ innodb_buffer_pool_instances=8
 #### slow log
 slow_query_log=ON
 log_output=FILE
-long_query_time=0
+
 log_slow_admin_statements=ON
 log_slow_slave_statements=ON
 

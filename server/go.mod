@@ -39,8 +39,10 @@ require (
 	github.com/unrolled/secure v1.0.7
 	github.com/vishvananda/netlink v1.1.0
 	github.com/xuri/excelize/v2 v2.4.1
+	go.mongodb.org/mongo-driver v1.8.2
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
+	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
 	google.golang.org/grpc v1.44.0
@@ -123,7 +125,6 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb // indirect
-	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
 	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
 	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11 // indirect
 	golang.org/x/tools v0.0.0-20201224043029-2b0845dc783e // indirect

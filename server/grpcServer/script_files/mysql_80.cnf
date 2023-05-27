@@ -283,7 +283,7 @@ innodb_adaptive_hash_index_parts=32
 #### slow log
 slow_query_log=ON
 log_output=FILE
-long_query_time=0
+
 log_slow_admin_statements=ON # 表示是否将 慢管理语句（如 ：analyze table 和 alter table 等）记入慢查询日志。
 log_slow_slave_statements=ON
 
