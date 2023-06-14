@@ -34,7 +34,7 @@ GRANT BACKUP_ADMIN on *.* TO 'backup'@'%';
 -- make sure this variables enable --
 SET GLOBAL slow_query_log = 1;
 SET GLOBAL log_output = 'FILE';
-SET GLOBAL long_query_time = 0;
+SET GLOBAL long_query_time = 1;
 
 
 

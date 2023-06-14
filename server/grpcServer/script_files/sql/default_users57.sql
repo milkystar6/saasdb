@@ -38,7 +38,7 @@ GRANT INSERT, UPDATE, CREATE, DROP ON `mysql`.`backup_sbt_history` TO 'backup'@'
 -- make sure this variables enable --
 SET GLOBAL slow_query_log = 1;
 SET GLOBAL log_output = 'FILE';
-SET GLOBAL long_query_time = 0;
+SET GLOBAL long_query_time = 1;
 
 
 -- 创建 orch_client 用户，用于探测、切换
