@@ -31,6 +31,9 @@ var (
 	// modify roles
 	InstanceAddr string
 	Role         string
+
+	// 消息推送webhook reset api
+	AlertsApiAddr, AlertsInfo string
 )
 
 type Command struct{}
@@ -110,8 +113,20 @@ func (c *Command) HandleCmd() {
 	ModifyRolesCmd.Flags().StringVarP(&SaasDBUser, "SaasDBUser", "u", "", "访问saasdb数据库user")
 	ModifyRolesCmd.Flags().StringVarP(&SaasDBPassword, "SaasDBPassword", "p", "123456", "访问saasdb数据库用户password")
 
+	/* 5、发送webhook消息推送 到钉钉 */
+
+	SendAlertsCmd := &cobra.Command{
+		Use:   "SendAlerts",
+		Short: "Send Alerts to webhook,like dingding ,reset api ,etc",
+		Run: func(cmd *cobra.Command, args []string) {
+			c.SendAlerts(AlertsApiAddr, AlertsInfo)
+		},
+	}
+	SendAlertsCmd.Flags().StringVarP(&AlertsApiAddr, "alerts_api_addr", "i", "http://127.0.0.1:21000/api", "外部消息推送api的地址")
+	SendAlertsCmd.Flags().StringVarP(&AlertsInfo, "alerts_info", "m", "监测到mysql故障", "推送消息信息")
+
 	// root cmd
-	rootCmd.AddCommand(OpDeadMasterCmd, OpNewMasterCmd, OpSetReadOnlyCmd, ModifyRolesCmd)
+	rootCmd.AddCommand(OpDeadMasterCmd, OpNewMasterCmd, OpSetReadOnlyCmd, ModifyRolesCmd, SendAlertsCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 	}
