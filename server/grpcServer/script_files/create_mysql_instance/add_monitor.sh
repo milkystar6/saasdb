@@ -87,7 +87,9 @@ function parseopt() {
 		esac
 	done
 }
-
+function print_usage(){
+  echo "命令行参数"
+}
 function install_depend_commands() {
 	yum install -y expect lsof
 }
