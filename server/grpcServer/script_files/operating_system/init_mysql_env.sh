@@ -60,6 +60,8 @@ function init_sysconf() {
         ## 套接字发送缓冲区的最大大小
         "net.core.wmem_max = 16777216"
 
+        ## fs.aio-max-nr
+        "fs.aio-max-nr = 3145728"
     )
 
     # Loop through parameters and add or update them in /etc/sysctl.conf
