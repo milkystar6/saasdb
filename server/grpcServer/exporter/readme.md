@@ -1,9 +1,8 @@
 如下业务能不从主库查询的就不从主库操作
-查询主库事务的要这么查询 10s查一次  不要太频繁
-
-
+查询主库事务的要这么查询 10s查一次 不要太频繁
 
 ## 监控大事务
+
 - 某个SQL执行特别慢，导致整个transaction一直处于running阶段
 - 某个Session的SQL已经执行完了，但是迟迟没有commit，一直处于sleep阶段
 - 某个Session处于lock wait阶段，迟迟没有结束
@@ -102,9 +101,10 @@ WHERE index_name IS NOT NULL
 ORDER BY object_schema, object_name;
 ```
 
-mysql://2WiZSi8X813264H.root:jFdmUTg0gondr6Uw@gateway01.eu-central-1.prod.aws.tidbcloud.com:4000
-host: 'gateway01.eu-central-1.prod.aws.tidbcloud.com',
-port: 4000,
-user: '2WiZSi8X813264H.root',
-password: 'jFdmUTg0gondr6Uw',
-ssl_ca: /etc/ssl/cert.pem
+```sql
+SELECT CONCAT(center_addr, '--', center_port, '--', backup_root_dir, '--', login_user, '--', login_password) WHERE id IN (
+SELECT idc_id
+FROM ${saas_db_name}.saas_instance WHERE ip=${mysql_host} AND on_working=1)
+```
+
+
