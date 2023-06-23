@@ -17,3 +17,9 @@ creditsServeKey = "/Users/anderalex/go/src/saasdb/server/service/saasdb/cerify/s
 creditsServeCrt = "/Users/anderalex/go/src/saasdb/server/service/saasdb/cerify/server.crt"
 protocol = "tcp"
 listenPort = 3000
+
+
+# 脚本目录
+[Scripts]
+scrpits_home_dir = ""
+backup_mysql_scrpit_name = ""

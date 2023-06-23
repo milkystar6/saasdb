@@ -46,7 +46,7 @@ type Instance struct {
 	Auth         *Auth    `json:"auth" gorm:"TYPE:json"`
 	//Feature      *Feature `json:"feature" gorm:"TYPE:json;default:{}"`
 	//Auth         *Auth    `json:"auth" gorm:"TYPE:json;default:{}"`
-	InternetDataCenterId int `json:"internet_data_center_id" form:"internet_data_center_id" gorm:"column:internet_data_center_id;comment:idc数据中心id"`
+	IdcId *int `json:"idc_id,omitempty" form:"idc_id" gorm:"column:idc_id;type:int(10) not null default 2;comment:idc id"`
 }
 
 // TableName Instance 表名

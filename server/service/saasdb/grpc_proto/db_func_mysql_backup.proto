@@ -11,10 +11,11 @@ message BackupTaskRequest {
   WorkVm WorkVm = 1;
   MySQLConn MySQLConn = 2;
   SaasDBMySQLConn SaasDBMySQLConn = 3;
-  BackUpType BackUpType = 4;
+  BackupTypeMySQL BackupTypeMySQL = 4;
   RemoteStorageS3 RemoteStorageS3 = 5;
   uint32 BackUpTimeout = 6;
   uint32 DomainId = 7;
+  string BackupUuid = 8;
 
 }
 
@@ -44,7 +45,7 @@ message SaasDBMySQLConn {
   string SaaSDBName = 5;
 }
 
-message BackUpType{
+message BackupTypeMySQL{
   enum Types {
     // 物理备份全备
     FullBackUpWithXtra = 0;

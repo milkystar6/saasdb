@@ -1,7 +1,7 @@
 package taskclient
 
 type TaskGroup struct {
-	BackUpTaskClientService
+	BackupTaskClientService
 	ProcessTaskClientService
 	VariablesTaskClientService
 	SlowLogTaskClientService

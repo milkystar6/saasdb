@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"encoding/json"
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"time"
 )
@@ -25,7 +24,7 @@ type BackLog struct {
 	DataSize      int            `json:"dataSize" form:"dataSize" gorm:"column:data_size;comment:;"`
 	Status        string         `json:"status" form:"status" gorm:"column:status;type:enum('backup','success','failed');comment:备份类型;"`
 	BackUpFeature *BackUpFeature `json:"backupfeature" gorm:"TYPE:json;default:{}"`
-	BackUpUuid    uuid.UUID      `json:"back_up_uuid" gorm:"column:back_up_uuid;uniqueIndex:back_up_uuid"`
+	BackUpUuid    string         `json:"back_up_uuid" gorm:"column:back_up_uuid;uniqueIndex:back_up_uuid"`
 }
 
 type BackUpFeature struct {

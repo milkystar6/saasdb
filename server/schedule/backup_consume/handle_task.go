@@ -16,12 +16,14 @@ import (
 )
 
 const (
-	consumeInterval         = 1
-	mysqlBackupUseMysqldump = "mysqldump"
-	mysqlBackupUseXtrafull  = "xtrafull"
-	mysqlBackupUseXtraincr  = "xtraincr"
-	mysqlBackupUseMydumper  = "mydumper"
-	statusRunning           = "running"
+	consumeInterval               = 1
+	backupStatusRunning           = "running"
+	mysqlBackupFullUseMysqldump   = "mysqldump_full"
+	mysqlBackupSingleUseMysqldump = "mysqldump_single"
+	mysqlBackupUseXtrafull        = "xtra_full"
+	mysqlBackupUseXtraincr        = "xtra_incr"
+	mysqlBackupFullUseMydumper    = "mydumper_full"
+	mysqlBackupSingleUseMydumper  = "mydumper_single"
 )
 
 type HandleConsume struct {
@@ -77,7 +79,7 @@ func (hc *HandleConsume) createBackupLog(domainId, insId int) error {
 		InsId:         &insId,
 		BackupType:    mysqlBackupUseXtrafull,
 		DataSize:      nil,
-		Status:        statusRunning,
+		Status:        backupStatusRunning,
 		BackUpFeature: nil,
 		BackUpUuid:    objectID.String(),
 	}
