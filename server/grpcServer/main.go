@@ -66,7 +66,10 @@ func main() {
 	//var RS hb.ReadHeatBreadService
 	//RS.Start()
 
+	// MySQL 备份
+	grpc_pb.RegisterMySQLBackupServiceServer(s, &grpcServer.HandleMySQLBackup{})
+
 	if err := s.Serve(listen); err != nil {
-		log.Println(fmt.Errorf("run serve err :%w", err))
+		al.Logger.Error(fmt.Sprintf("run serve err :%v", err))
 	}
 }
