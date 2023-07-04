@@ -6,12 +6,14 @@ import (
 	"strconv"
 )
 
-/*  用于实现创建1个mysql实例
-    支持5.6 5.7 8.0版本数据库创建，默认使用最高版本
-    如果需要特定到某个小版本，可以按需定制或者更新package文件中的mysql包
+/*
+用于实现创建1个mysql实例
+
+	支持5.6 5.7 8.0版本数据库创建，默认使用最高版本
+	如果需要特定到某个小版本，可以按需定制或者更新package文件中的mysql包
 */
 const (
-	ScriptPath                 = "./script_files/create_mysql_instance/"
+	ScriptPath                 = "./script_files/operator_mysql/"
 	CreateOneMySQL56ScriptName = "create_mysql56_one.sh"
 	CreateOneMySQL57ScriptName = "create_mysql57_one.sh"
 	CreateOneMySQL80ScriptName = "create_mysql80_one.sh"

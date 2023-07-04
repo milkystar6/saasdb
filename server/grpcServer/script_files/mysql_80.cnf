@@ -150,7 +150,7 @@ loose-rpl_semi_sync_slave_enabled=1
 master_info_repository=TABLE
 relay_log_info_repository=TABLE
 binlog-rows-query-log-events=1
-
+ 
 #### mysql >=5.6 mariadb error
 gtid_mode=on # GTID only
 enforce_gtid_consistency=true # GTID only

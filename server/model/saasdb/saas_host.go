@@ -8,6 +8,7 @@ import (
 // Host 结构体
 type Host struct {
 	global.GVA_MODEL
+	// todo 增加网卡名称
 	Hostname             string   `json:"hostname" form:"hostname" gorm:"column:hostname;comment:;"`
 	Ip                   string   `json:"ip" form:"ip" gorm:"column:ip;type:varchar(64);index:ip,unique,not null;comment:;"`
 	Gateway              string   `json:"gateway" form:"gateway" gorm:"column:gateway;type:varchar(64);comment:;"`

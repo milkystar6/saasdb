@@ -117,7 +117,7 @@ Configuration{
 		RecoveryPeriodBlockMinutes:                 60,
 		RecoveryPeriodBlockSeconds:                 3600,
 		RecoveryIgnoreHostnameFilters:              []string{},
-		RecoverMasterClusterFilters:                []string{},
+		RecoverMasterClusterFilters:                []string{}, 只对配置项RecoverMasterClusterFilters匹配的集群进行故障切换
 		RecoverIntermediateMasterClusterFilters:    []string{},
 		ProcessesShellCommand:                      "bash",
 		OnFailureDetectionProcesses:                []string{},
@@ -173,3 +173,80 @@ Configuration{
 - 手动、强制、紧急故障转移 
 ### failover的条件
 topology需要开启GTID/伪GTID
+
+
+
+
+Orchestrator 对MySQL主库的故障切换分为自动切换和手动切换。
+手动切换又分为recover、force-master-failover、force-master-takeover以及graceful-master-takeover.
+
+1.自动切换
+自动切换是主库出现故障后，自动提升新主库，进行故的障切换。
+
+自动切换受到以下条件限制和约束：
+
+主库是downtime的集群不进行故障切换。如果希望忽略集群故障，可以设置downtime。
+处于故障活跃期的集群不进行故障切换(即in_active_period=1)
+只对配置项RecoverMasterClusterFilters匹配的集群进行故障切换
+会周期检测主库状态。
+自动切换，会周期进行故障扫描，如果发现故障，条件满足就会进行故障切换。
+
+故障检测和切换具体由CheckAndRecover()实现，具体调用：
+
+GetReplicationAnalysis()，进行故障扫描
+executeCheckAndRecoverFunction()，进行故障恢复
+2.手动切换
+手动切换包括: recover、force-master-failover, force-master-takeover以及graceful-master-takeover。
+
+手动切换不受自动切换中提到的条件限制和约束。
+
+2.1 recover
+recover 以故障主库以及候选实例candiateKey为参数，调用CheckAndRecover()，进行故障切换。
+指定的故障主库必须是故障的，也就是已确认发生故障，如果不是故障的，不进行切换。
+
+2.2 force-master-failover
+不论集群主库是否故障，都会进行后续切换操作，需要用户确认已发生故障。
+
+具体步骤：
+
+(1) 故障扫描 forceAnalysisEntry()-->GetReplicationAnalysis()
+(2) 故障恢复ForceExecuteRecovery(analysisEntry, nil,false)-->executeCheckAndRecoverFunction()，不指定候选主库
+最后，老主库成为单独的DB 实例。
+
+2.3 force-master-takeover
+同上，需要用户自己判定故障。
+
+force-master-takeover，唯一不同于force-master-failover的点是，force-master-takeover带候选主库(即candidate)，并且候选主库必须是集群主库的直连从库。
+其他同force-master-failover。
+
+2.3 graceful-master-takeover
+这种切换方式针对的是：老主库是正常的，需要提升新主库，老主库可作为从库。
+
+具体操作步骤包括：
+
+(1)检查候选主库
+
+候选主库必须是集群的主库的直连从库
+候选主库，没有被禁止提升为主库(即promotion rule 不是must not)
+候选主库，没有延迟过大(超过20s)
+(2) 故障扫描，forceAnalysisEntry()-->GetReplicationAnalysis()
+
+(3) 调用hooks：PreGracefulTakeoverProcesses
+
+(4) 如果集群中不只一个副本，将老主库的从库移动到候选主库之下
+
+(5) 停止候选主库的复制，在候选主库上执行stop slave
+
+(6) 设置老主库只读
+
+(7) 使候选主库追上老主库(start slave until)
+
+(8) 进行故障恢复，新主库形成ForceExecuteRecovery(analysisEntry, &destination.Key, false)-->executeCheckAndRecoverFunction()
+
+(9) 将老主库变成新主库的从库
+
+(10) 调用hooks: PostGracefulTakeoverProcesses
+
+之所以称为graceful，是因为老主库不是故障的，首先会让候选主库追上老主库。最后，将老主库作为新主库的从库(但没有执行start slave)。
+而force-master-failover、force-master-takeover 不会将老主库作为新主库的从库，老主库成为孤立的实例。
+

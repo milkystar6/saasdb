@@ -107,4 +107,22 @@ SELECT idc_id
 FROM ${saas_db_name}.saas_instance WHERE ip=${mysql_host} AND on_working=1)
 ```
 
+## 检测强制半同步是否开启
 
+```sql
+SELECT 0 AS semisync
+FROM DUAL
+WHERE NOT EXISTS(SELECT 1
+                 FROM performance_schema.global_variables
+                 WHERE VARIABLE_NAME = 'rpl_semi_sync_master_wait_no_slave'
+                   AND VARIABLE_VALUE = 'ON')
+UNION
+SELECT 1
+FROM DUAL
+WHERE EXISTS(SELECT 1
+             FROM performance_schema.global_variables
+             WHERE VARIABLE_NAME = 'rpl_semi_sync_master_wait_no_slave'
+               AND VARIABLE_VALUE = 'ON');
+等同于查看参数
+rpm_semi_sync_master_wait_no_slave off表示不强制增强半同步
+```

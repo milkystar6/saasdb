@@ -47,7 +47,7 @@ port=MYSQLD_PORT_PLACEHOLDER
 socket=PREFIX/data/sock/mysql.sock
 
 
-
+skip_ssl
 skip-name-resolve
 skip_external_locking
 skip-grant-tables=0
