@@ -48,9 +48,6 @@ func RunWindowsServer() {
 	//`, address)
 
 	global.GVA_LOG.Error(s.ListenAndServe().Error())
-
-	// todo bug 如果数据库未初始化，这里直接启动携程，会因为空指针panic
-
 	func() {
 		for {
 			time.Sleep(10 * time.Second)
