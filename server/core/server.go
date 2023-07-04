@@ -47,7 +47,22 @@ func RunWindowsServer() {
 	//	如果项目让您获得了收益，希望您能请团队喝杯可乐:https://www.gin-vue-admin.com/coffee/index.html
 	//`, address)
 
-	var schedule schedule2.SaasDBSchedule
-	go schedule.Start()
 	global.GVA_LOG.Error(s.ListenAndServe().Error())
+
+	// todo bug 如果数据库未初始化，这里直接启动携程，会因为空指针panic
+
+	func() {
+		for {
+			time.Sleep(10 * time.Second)
+			if err := global.GVA_DB.Exec("select 1").Error; err != nil {
+				global.GVA_LOG.Error("数据库未配置，无法启动任务调度模块，请先配置saasdb ... ")
+				continue
+			} else {
+				break
+			}
+		}
+
+		var schedule schedule2.SaasDBSchedule
+		go schedule.Start()
+	}()
 }
