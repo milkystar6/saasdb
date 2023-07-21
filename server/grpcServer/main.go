@@ -4,6 +4,7 @@ import (
 	"fmt"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
+	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/customize_exporter"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/grpcServer"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/saasdb/grpc_pb"
 	"go.uber.org/zap"
@@ -24,11 +25,13 @@ func main() {
 		fmt.Println(agentLoggerErr)
 		os.Exit(100)
 	}
-	zap.ReplaceGlobals(al.Logger)
-	al.Info("Init 日志文件success")
 
 	/* 初始化配置文件 */
 	config.InitConfig()
+	fmt.Println("xxxxxx", config.LoadConfig)
+
+	zap.ReplaceGlobals(al.Logger)
+	al.Info("Init 日志文件success")
 
 	/* 注册服务监听 */
 	creditsServeKey := config.LoadConfig.GrpcServer.CreditsServeKey
@@ -63,9 +66,8 @@ func main() {
 
 	// TODO 心跳表服务 读取到集群TOPO表中到mysql信息，然后记录心跳表 参考pt-heartbeat ，获取当前节点mysql的ip port，查询instance表中，该实例的角色信息，根据角色信息做读写心跳检测。 不支持单机多实例类型
 	// 数据库读心跳 RS read heartbeat service
-	//var RS hb.ReadHeatBreadService
-	//RS.Start()
-
+	var rs customize_exporter.CustomizeCollector
+	rs.Test()
 	// MySQL 备份
 	grpc_pb.RegisterMySQLBackupServiceServer(s, &grpcServer.HandleMySQLBackup{})
 

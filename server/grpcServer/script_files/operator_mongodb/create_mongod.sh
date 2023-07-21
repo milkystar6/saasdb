@@ -19,7 +19,7 @@ function log() {
 }
 
 function parseopt() {
-	TEMP=$(getopt -o v:h:p:m:M:i:P:d:s:S:A:a:B:b:C:c:O: --long version:,port:,max_memory:,max_connections:,hub_ip:,hub_port:,hub_dir:,hub_ssh_user:,hub_ssh_user_passwd:,pmm_server_host:,pmm_server_port:,pmm_server_user:,pmm_server_pass:,cluster_name_alias:,model_db_password:,oplog_size: -- "$@")
+	TEMP=$(getopt -o v:h:p:m:M:i:P:d:s:S:A:a:B:b:C:c:O:R: --long version:,port:,max_memory:,max_connections:,hub_ip:,hub_port:,hub_dir:,hub_ssh_user:,hub_ssh_user_passwd:,pmm_server_host:,pmm_server_port:,pmm_server_user:,pmm_server_pass:,cluster_name_alias:,keyfile_secret:,oplog_size:,cluster_role: -- "$@")
 	if [ $? -ne 0 ]; then
 		echo "Terminating..." >&2
 		print_usage
@@ -84,15 +84,18 @@ function parseopt() {
 			cluster_name_alias="$2"
 			shift 2
 			;;
-		-c | --model_db_password)
-			model_db_password="$2"
+		-c | --keyfile_secret)
+			keyfile_secret="$2"
 			shift 2
 			;;
 		-O | --oplog_size)
 			oplog_size="$2"
 			shift 2
 			;;
-
+		-R | --cluster_role)
+			cluster_role="$2"
+			shift 2
+			;;
 		--)
 			shift
 			break
@@ -122,7 +125,7 @@ check_same_state() {
 		if [[ -z "$first_state" ]]; then
 			first_state="$state"
 		elif [[ "$state" != "$first_state" ]]; then
-			echo "Variables $@ 必须同时指定."
+			echo "Variables ${variables} 必须同时指定."
 			return
 		fi
 	done
@@ -243,25 +246,210 @@ function init_conf() {
 	sed -i "s/${oplog_size_placeholder}/${oplog_size}/g" ${local_mongod_conf}
 	# key file
 	## 根据 rs name base64生成secret,作为keyfile的内容,并修改权限为400
+	## 这里 加一个判断，如果字符串的长度太小，比如 s0 ，可能生成的keyfile长度很短，mongodb要求的最小长度为6 ==> 直接扩大两倍
+	## 以上都错了，mongodb keyfile要保证集群是一致的，所以这里要加一个keyfile的密钥的选项
 	key_file_path="${local_data_dir}/keyfile/mongodb-keyfile"
-	echo ${cluster_name_alias} | base64 >${key_file_path}
+	echo "${keyfile_secret}" | base64 >${key_file_path}
+	## todo keyfile记得优化从一个节点拿 统一的
+	cp /root/package/create_mongo/keyfile ${key_file_path}
 	chmod 400 ${key_file_path}
 }
 
 function init_conf_of_supervisor() {
 	mongodb_processlist_conf="/etc/supervisord.d/mongod_${port}.ini"
-	cat ${local_data_dir}/supervisor/monogodb_sample.ini >${mongodb_processlist_conf}
+	#	cat ${local_data_dir}/supervisor/monogodb_sample.ini >${mongodb_processlist_conf}
+	#
+	#	mongod_port_placeholder="MONGOD_PORT_PLACEHOLDER"
+	#	sed -i "s/${mongod_port_placeholder}/${port}/g" ${mongodb_processlist_conf}
+	cat <<EOF >${mongodb_processlist_conf}
 
-	mongod_port_placeholder="MONGOD_PORT_PLACEHOLDER"
-	sed -i "s/${mongod_port_placeholder}/${port}/g" ${mongodb_processlist_conf}
+[program:mongod-${port}]
+command= ${local_base_dir}/${version}/bin/mongod -f ${local_mongod_conf}
+autostart=true
+autorestart=true
+user=root
+stdout_logfile=/tmp/mongo-${port}.stdout.log
+stderr_logfile=/tmp/mongo-${port}.stderr.log
+EOF
 
 }
-function start_mongodb_processlist() {
+function restart_mongodb_process() {
 	# 使用supervisor托管
 	init_conf_of_supervisor
 	supervisorctl update
-	supervisorctl status mongod_${port}
+	supervisorctl restart mongod-${port}
+	supervisorctl status mongod-${port}
 }
+
+function add_monitor() {
+	remote_monitor_File=${hub_dir}/monitor/mysql_monitor/percona
+	local_monitor_base=/usr/local
+	local_monitor_dir=${local_monitor_base}/percona
+	mkdir -p ${local_monitor_dir}
+	download_monitor_package
+}
+
+function check_process_exists() {
+	if pidof -x "$@" >/dev/null; then
+		echo 0
+	else
+		echo 1
+	fi
+}
+
+function download_monitor_package() {
+	local tmp_dir=/tmp
+	PMM_DIR=${local_monitor_dir}/pmm2
+	pmm_server_addr="${pmm_server_host}:${pmm_server_port}"
+	#	Change the path.
+	export PATH=${PATH}:${PMM_DIR}/bin
+	#判断本地是否含有monitor文件
+
+	if [ -d "${PMM_DIR}" ]; then
+		echo "目录存在"
+	else
+		echo "目录不存在"
+		expect <<EOF
+           set timeout 1200;
+           spawn scp -P${hub_port} -r -p ${hub_ssh_user}@${hub_ip}:"${remote_monitor_File}/pmm2" "${tmp_dir}"
+           expect {
+             "*yes/no*" {send "yes\n";exp_continue}
+             "*Permission denied*" {exit 1}
+             "*password*" {send "${hub_ssh_user_passwd}\n";exp_continue}
+             "*Killed by signal 1" {exit 1}
+           }
+EOF
+
+		#	Run the installer.
+		cd ${tmp_dir}/pmm2 && ./install_tarball
+	fi
+
+	# 检查pmm-agent是否运行
+	# shellcheck disable=SC2046
+	if [ $(check_process_exists "pmm-agent") -eq 1 ]; then
+		#	Set up the agent (pick the command for you depending on permissions)
+		pmm-agent setup \
+			--config-file=/usr/local/percona/pmm2/config/pmm-agent.yaml \
+			--server-address=${pmm_server_addr} --server-insecure-tls \
+			--server-username=${pmm_server_user} \
+			--server-password=${pmm_server_pass}
+		#Run the agent. 默认使用7777端口
+		pmm-agent --config-file=${PMM_DIR}/config/pmm-agent.yaml \
+			--server-address=${pmm_server_addr} --server-insecure-tls \
+			--server-username=${pmm_server_user} \
+			--server-password=${pmm_server_pass} &
+	fi
+
+	# 确认本数据库的实例名称，采用ip_port的方式
+	instance_name="$(hostname -i)_${port}"
+	local local_mongodb_pmm_user="pmm"
+	local local_mongodb_pmm_user_passwd="7yZ3WjZThF5eKqh5"
+
+	pmm-admin add mongodb \
+		--username="${local_mongodb_pmm_user}" --password="${local_mongodb_pmm_user_passwd}" \
+		--server-insecure-tls \
+		--server-url=https://${pmm_server_user}:${pmm_server_pass}@${pmm_server_host}:${pmm_server_port} \
+		--service-name=${instance_name} --socket=${local_data_dir}/sock/mongodb-${port}.sock &
+
+}
+# 定义信号处理函数
+function handle_exit_1() {
+	trap 'handle_exit_2' EXIT
+	echo "程序退出，执行自定义操作"
+	# 在这里执行您希望的操作，如清理资源、记录日志等
+	# ...
+	drop_local_database
+	add_monitor
+	uncommant
+	modify_roles
+	restart_mongodb_process
+	exit 0 # 可选：在信号处理函数中执行退出操作
+}
+
+function handle_exit_2() {
+	echo "程序退出，执行自定义操作"
+	# 在这里执行您希望的操作，如清理资源、记录日志等
+	# ...
+	add_monitor
+	uncommant
+	modify_roles
+	restart_mongodb_process
+	exit 0 # 可选：在信号处理函数中执行退出操作
+}
+
+function conn_local_mongod() {
+	## 程序可能会直接退出
+	${local_base_dir}/${version}/bin/mongosh -u mongoadmin -p letsg0 --port ${port} --authenticationDatabase admin "$@"
+}
+function drop_local_database() {
+	## 程序可能会直接退出
+	echo -e "db.getSiblingDB('local').dropDatabase() \n exit" | ${local_base_dir}/${version}/bin/mongosh -u mongoadmin -p letsg0 --port ${port} --authenticationDatabase admin
+
+}
+function on_success() {
+	exit 0
+}
+
+function on_failure() {
+	exit $1
+}
+# 注释以特定字符串开始的行
+# 注释以特定字符串开始的行
+function comment_lines_starting_with() {
+	local file="$1"
+	local string="$2"
+	sed -i "/^[[:space:]]*${string}/ s/^/#/" "${file}"
+}
+
+# 取消注释以特定字符串开始的行
+function uncomment_lines_starting_with() {
+	local file="$1"
+	local string="$2"
+	sed -i "/^#[[:space:]]*${string}/ s/^#//" "${file}"
+}
+
+function comment() {
+	comment_lines_starting_with ${local_mongod_conf} "replication"
+	comment_lines_starting_with ${local_mongod_conf} "  replSetName"
+	comment_lines_starting_with ${local_mongod_conf} "  oplogSizeMB"
+	comment_lines_starting_with ${local_mongod_conf} "  enableMajorityReadConcern"
+
+	comment_lines_starting_with ${local_mongod_conf} "security"
+	comment_lines_starting_with ${local_mongod_conf} "  keyFile"
+	comment_lines_starting_with ${local_mongod_conf} "  authorization"
+
+}
+
+function uncommant() {
+	uncomment_lines_starting_with ${local_mongod_conf} "replication"
+	uncomment_lines_starting_with ${local_mongod_conf} "  replSetName"
+	uncomment_lines_starting_with ${local_mongod_conf} "  oplogSizeMB"
+	uncomment_lines_starting_with ${local_mongod_conf} "  enableMajorityReadConcern"
+
+	uncomment_lines_starting_with ${local_mongod_conf} "security"
+	uncomment_lines_starting_with ${local_mongod_conf} "  keyFile"
+	uncomment_lines_starting_with ${local_mongod_conf} "  authorization"
+}
+
+function modify_roles() {
+	## 修饰角色
+	## 接收三类 replica sharding(shard,config_server)
+	if [ "${cluster_role}" == "shard_server" ]; then
+		cat <<EOF >>"${local_mongod_conf}"
+sharding:
+  clusterRole: shardsvr
+EOF
+	fi
+
+	if [ "${cluster_role}" == "config_server" ]; then
+		cat <<EOF >>"${local_mongod_conf}"
+sharding:
+  clusterRole: configsvr
+EOF
+	fi
+}
+
+  ## 默认 none
 
 function main() {
 	set -e
@@ -270,8 +458,11 @@ function main() {
 	make_sure_port_in_use_or_not "${port}"
 	download_mongodb_package ${version}
 	init_conf
-	start_mongodb_processlist
-
-
+	comment
+	restart_mongodb_process
+	trap 'handle_exit_1' EXIT
+	conn_local_mongod ${local_data_dir}/scripts/extra.js
+	## 后续过程定义在handle_exit的方法中
+}
 
 main "$@"

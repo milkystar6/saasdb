@@ -202,6 +202,13 @@
             <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
+        
+        <el-form-item label="idc_id:" prop="idc_id">
+          <el-select v-model="formData.role" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['1','2']" :key="item" :label="item" :value="item" />
+          </el-select>
+        </el-form-item>
+
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -304,6 +311,7 @@ const formData = ref({
   level: '',
   domainId: 0,
   instance_name: '',
+  idc_id:0,
 })
 
 // 验证规则

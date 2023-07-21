@@ -3,6 +3,9 @@
 mysqlmanager_user = "root"
 mysqlmanager_password = "letsg0"
 
+[MyHostAddrInfo]
+MyIP="127.0.0.1"
+
 # 用于跟saasdb交互
 [SaasDB]
 SaasDBHost = "127.0.0.1"

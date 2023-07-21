@@ -60,7 +60,6 @@ func RegisterTables(db *gorm.DB) {
 		saasdb.BackLog{},
 		saasdb.OggInfo{},
 		saasdb.DBHub{},
-		saasdb.AlertWebhook{},
 		saasdb.BackUpCenter{},
 		saasdb.DBBackupTask{},
 		saasdb.OrchClusterInfo{},

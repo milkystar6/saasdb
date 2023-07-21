@@ -25,3 +25,17 @@ func (r *InformationSchemaProcesslist) GetAllProcesslist(db *gorm.DB) []Informat
 	db.Debug().Model(&r).Table(r.TableName()).Select(selectcol).Scan(&resArr)
 	return resArr
 }
+
+func (r *InformationSchemaProcesslist) GetProcesslistWithCommand(db *gorm.DB, command string) (pro []InformationSchemaProcesslist, tol int64) {
+	resArr := make([]InformationSchemaProcesslist, 0, 0)
+	selectcol := []string{"id", "user", "host", "db", "command", "time", "state", "info"}
+	db.Debug().Model(&r).Table(r.TableName()).Select(selectcol).Where("COMMAND LIKE  ?", command).Scan(&resArr).Count(&tol)
+	return resArr, tol
+}
+
+func (r *InformationSchemaProcesslist) GetProcesslistWithCommandAndUser(db *gorm.DB, command, user string) (pro []InformationSchemaProcesslist, tol int64) {
+	resArr := make([]InformationSchemaProcesslist, 0, 0)
+	selectcol := []string{"id", "user", "host", "db", "command", "time", "state", "info"}
+	db.Debug().Model(&r).Table(r.TableName()).Select(selectcol).Where("COMMAND LIKE  ? AND user = ?", command, user).Scan(&resArr).Count(&tol)
+	return resArr, tol
+}

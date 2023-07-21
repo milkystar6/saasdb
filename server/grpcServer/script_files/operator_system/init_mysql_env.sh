@@ -116,29 +116,83 @@ function set_cpu_to_performance_mode() {
 }
 
 
+#function disable_numa() {
+#    # Check if NUMA is enabled
+#    yum install numactl -y
+#    if numactl --hardware | grep -q "available: 1 nodes (0)"; then
+#      echo "NUMA is not enabled."
+#    else
+#      echo "NUMA is enabled. Disabling NUMA..."
+#
+#      # Backup the original GRUB configuration file
+#      cp /etc/default/grub /etc/default/grub.$(date +%Y%m%d%H%M%S)
+#
+#      # Append "numa=off" to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
+#      sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&numa=off /' /etc/default/grub
+#
+#      # Update GRUB configuration
+#      update-grub
+#
+#      # Reboot the system
+#      reboot
+#
+#    fi
+#
+#}
+
+
+
 function disable_numa() {
-    # Check if NUMA is enabled
+    # Install numactl if not already installed
     yum install numactl -y
+
     if numactl --hardware | grep -q "available: 1 nodes (0)"; then
-      echo "NUMA is not enabled."
+        echo "NUMA is not enabled."
     else
-      echo "NUMA is enabled. Disabling NUMA..."
+        echo "NUMA is enabled. Disabling NUMA..."
 
-      # Backup the original GRUB configuration file
-      cp /etc/default/grub /etc/default/grub.$(date +%Y%m%d%H%M%S)
+        # Backup the original GRUB configuration file
+        cp /etc/default/grub /etc/default/grub.$(date +%Y%m%d%H%M%S)
 
-      # Append "numa=off" to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
-      sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&numa=off /' /etc/default/grub
+        # Check if GRUB_CMDLINE_LINUX_DEFAULT exists
+        if grep -q "^GRUB_CMDLINE_LINUX_DEFAULT=" /etc/default/grub; then
+            # Check if "numa=off" exists in GRUB_CMDLINE_LINUX_DEFAULT
+            if ! line_exists "/etc/default/grub" "numa=off"; then
+                # Append "numa=off" to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
+                sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&numa=off /' /etc/default/grub
+            fi
+        elif grep -q "^GRUB_CMDLINE_LINUX=" /etc/default/grub; then
+            # Check if "numa=off" exists in GRUB_CMDLINE_LINUX
+            if ! line_exists "/etc/default/grub" "numa=off"; then
+                # Append "numa=off" to GRUB_CMDLINE_LINUX in /etc/default/grub
+                sed -i 's/GRUB_CMDLINE_LINUX="/&numa=off /' /etc/default/grub
+            fi
+        else
+            echo "No suitable GRUB parameter found. Script aborted."
+            exit 1
+        fi
 
-      # Update GRUB configuration
-      update-grub
+        # Update GRUB configuration if the command exists
+        if command -v update-grub >/dev/null; then
+            update-grub
+        elif command -v grub2-mkconfig >/dev/null; then
+            sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+        else
+            echo "Unable to update GRUB configuration. Please update it manually."
+        fi
 
-      # Reboot the system
-      reboot
+        sudo grubby --update-kernel=ALL --args="numa=off"
 
+        # Reboot the system
+        echo "System will be rebooted to apply the changes."
+        reboot
     fi
-
 }
+
+
+
+
+
 
 function update_mysql_limits() {
     # 确认MySQL用户的用户名
@@ -160,35 +214,72 @@ function update_mysql_limits() {
     fi
 
 }
-function disable_mm_hugepage(){
-  # 检查大页功能是否已开启
-  if [ -f /sys/kernel/mm/transparent_hugepage/enabled ]; then
-      enabled=$(cat /sys/kernel/mm/transparent_hugepage/enabled)
-      if [[ "$enabled" =~ .*\[.*\].* ]]; then
-          # 开启了大页功能，备份配置文件并关闭大页
-          date=$(date +%Y%m%d%H%M%S)
-          cp /etc/default/grub /etc/default/grub.$date.bak
-          sed -i '/GRUB_CMDLINE_LINUX/s/"$/ transparent_hugepage=never"/' /etc/default/grub
-          grub2-mkconfig -o /boot/grub2/grub.cfg
-          echo "已备份配置文件 /etc/default/grub 为 /etc/default/grub.$date.bak，并已关闭内存大页功能。"
 
-          # 重新加载 GRUB 配置
-          echo "正在重新加载 GRUB 配置，请稍候..."
-          source /etc/default/grub
 
-          # 关闭大页
-          echo never > /sys/kernel/mm/transparent_hugepage/enabled
-          echo "已关闭内存大页功能。"
-      else
-          # 没有开启大页功能
-          echo "内存大页功能未开启，无需关闭。"
-      fi
-  else
-      # 文件不存在，无法确认是否开启大页功能
-      echo "无法确认是否开启内存大页功能。"
-  fi
+#function disable_mm_hugepage(){
+#  # 检查大页功能是否已开启
+#  if [ -f /sys/kernel/mm/transparent_hugepage/enabled ]; then
+#      enabled=$(cat /sys/kernel/mm/transparent_hugepage/enabled)
+#      if [[ "$enabled" =~ .*\[.*\].* ]]; then
+#          # 开启了大页功能，备份配置文件并关闭大页
+#          date=$(date +%Y%m%d%H%M%S)
+#          cp /etc/default/grub /etc/default/grub.$date.bak
+#          sed -i '/GRUB_CMDLINE_LINUX/s/"$/ transparent_hugepage=never"/' /etc/default/grub
+#          grub2-mkconfig -o /boot/grub2/grub.cfg
+#          echo "已备份配置文件 /etc/default/grub 为 /etc/default/grub.$date.bak，并已关闭内存大页功能。"
+#
+#          # 重新加载 GRUB 配置
+#          echo "正在重新加载 GRUB 配置，请稍候..."
+#          source /etc/default/grub
+#
+#          # 关闭大页
+#          echo never > /sys/kernel/mm/transparent_hugepage/enabled
+#          echo "已关闭内存大页功能。"
+#      else
+#          # 没有开启大页功能
+#          echo "内存大页功能未开启，无需关闭。"
+#      fi
+#  else
+#      # 文件不存在，无法确认是否开启大页功能
+#      echo "无法确认是否开启内存大页功能。"
+#  fi
+#
+#}
 
+
+function disable_mm_hugepage() {
+    # 检查大页功能是否已开启
+    if [ -f /sys/kernel/mm/transparent_hugepage/enabled ]; then
+        enabled=$(cat /sys/kernel/mm/transparent_hugepage/enabled)
+        if [[ "$enabled" =~ .*\[.*\].* ]]; then
+            # 开启了大页功能，备份配置文件并关闭大页
+            date=$(date +%Y%m%d%H%M%S)
+            cp /etc/default/grub /etc/default/grub.$date.bak
+            if ! line_exists "/etc/default/grub" "transparent_hugepage=never"; then
+                sed -i '/GRUB_CMDLINE_LINUX/s/"$/ transparent_hugepage=never"/' /etc/default/grub
+                grub2-mkconfig -o /boot/grub2/grub.cfg
+                echo "已备份配置文件 /etc/default/grub 为 /etc/default/grub.$date.bak，并已关闭内存大页功能。"
+            fi
+
+            # 重新加载 GRUB 配置
+            echo "正在重新加载 GRUB 配置，请稍候..."
+            source /etc/default/grub
+
+            # 关闭大页
+            echo never > /sys/kernel/mm/transparent_hugepage/enabled
+            echo "已关闭内存大页功能。"
+        else
+            # 没有开启大页功能
+            echo "内存大页功能未开启，无需关闭。"
+        fi
+    else
+        # 文件不存在，无法确认是否开启大页功能
+        echo "无法确认是否开启内存大页功能。"
+    fi
 }
+
+
+
 function disable_selinux() {
    # 检查 SELinux 状态
    sestatus | grep -i 'SELinux status' | grep -iq 'enabled'
@@ -208,6 +299,21 @@ function disable_firewalld() {
   systemctl stop  firewalld
   systemctl disable firewalld
 }
+
+
+
+# Function to check if a line exists in a file
+function line_exists() {
+    local file="$1"
+    local line="$2"
+    grep -qFx "$line" "$file"
+}
+
+
+
+
+
+
 function main() {
     init_sysconf
 #    reset_diskio_scheduler

@@ -47,6 +47,14 @@
             <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item" />
           </el-select>
         </el-form-item>
+
+        <el-form-item label="idc_id:" prop="idc_id">
+          <el-select v-model="formData.role" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['1','2']" :key="item" :label="item" :value="item" />
+          </el-select>
+        </el-form-item>
+
+
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>

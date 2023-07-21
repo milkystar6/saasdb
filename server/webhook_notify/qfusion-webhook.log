@@ -1,0 +1,405 @@
+2023-07-21 16:18:50.918 | INFO     | __main__:sendmsg2dingtalk_group:194 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 16:18:50.920 | INFO     | __main__:sendmsg2dingtalk_group:195 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 16:18:55.868 | INFO     | __main__:sendmsg2dingtalk_group:194 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 16:18:55.869 | INFO     | __main__:sendmsg2dingtalk_group:195 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 16:19:00.865 | INFO     | __main__:sendmsg2dingtalk_group:194 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 16:19:00.866 | INFO     | __main__:sendmsg2dingtalk_group:195 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 16:22:23.657 | INFO     | __main__:sendmsg2dingtalk_group:194 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 16:22:23.658 | INFO     | __main__:sendmsg2dingtalk_group:195 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 16:22:28.615 | INFO     | __main__:sendmsg2dingtalk_group:194 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 16:22:28.615 | INFO     | __main__:sendmsg2dingtalk_group:195 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:10.492 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:10.493 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:15.445 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:15.446 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:20.463 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:20.464 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:25.459 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:25.460 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:30.469 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:30.470 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:35.445 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:35.445 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:40.458 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:40.458 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:45.446 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:45.446 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:50.441 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:50.442 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:45:55.436 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:45:55.437 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:00.451 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:00.451 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:05.443 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:05.443 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:10.447 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:10.447 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:15.456 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:15.456 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:20.482 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:20.483 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:25.476 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:25.476 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:30.457 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:30.457 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:35.483 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:35.484 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:40.448 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:40.449 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:45.470 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:45.471 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:50.441 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:50.442 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:46:55.438 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:46:55.438 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:00.468 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:00.469 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:05.457 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:05.458 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:10.489 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:10.490 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:15.449 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:15.449 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:20.448 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:20.449 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:25.430 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:25.430 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:30.461 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:30.463 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:35.441 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:35.442 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:40.436 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:40.437 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:45.433 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:45.433 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:50.488 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:50.489 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:47:55.449 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:47:55.450 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:00.448 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:00.449 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:05.457 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:05.458 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:10.457 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:10.458 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:15.452 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:15.453 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:20.458 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:20.458 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:25.442 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:25.442 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:30.436 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:30.437 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:35.494 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:35.495 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:40.445 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:40.446 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:45.430 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:45.431 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:50.450 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:50.450 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:48:55.449 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:48:55.449 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:49:00.459 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:49:00.460 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:49:05.442 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:49:05.442 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 17:49:10.454 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 17:49:10.455 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:00:58.437 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:00:58.438 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:03.401 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:03.402 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:08.369 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:08.370 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:13.379 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:13.379 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:18.389 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:18.389 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:23.411 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:23.412 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:28.396 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:28.397 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:33.377 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:33.378 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:38.384 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:38.385 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:43.378 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:43.379 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:48.376 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:48.377 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:53.400 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:53.400 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:01:58.374 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:01:58.375 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:03.360 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:03.361 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:08.357 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:08.358 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:13.373 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:13.374 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:18.394 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:18.395 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:23.383 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:23.384 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:28.376 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:28.377 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:33.396 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:33.397 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:38.379 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:38.380 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:43.383 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:43.384 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:48.373 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:48.375 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:53.372 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:53.374 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:02:58.404 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:02:58.405 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:03.407 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:03.408 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:08.396 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:08.397 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:13.393 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:13.395 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:18.383 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:18.384 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:23.391 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:23.391 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:28.391 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:28.392 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:33.392 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:33.393 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:38.404 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:38.405 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:43.419 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:43.419 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:48.378 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:48.380 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:53.379 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:53.379 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:03:58.402 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:03:58.403 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:04:03.391 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:04:03.392 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:04:08.395 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:04:08.396 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:04:13.383 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:04:13.384 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:04:18.398 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:04:18.400 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:04:23.399 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:04:23.400 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:05:23.412 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:05:23.413 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:06:33.444 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:06:33.445 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:06:38.360 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:06:38.361 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:06:43.388 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:06:43.389 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:06:48.365 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:06:48.365 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:06:53.414 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:06:53.414 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 18:06:58.379 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 18:06:58.379 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 21:56:04.055 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 21:56:04.056 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 21:56:09.099 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 21:56:09.100 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 21:56:14.013 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 21:56:14.014 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:01:41.256 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:01:41.258 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:01:46.245 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:01:46.246 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:01:51.209 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:01:51.210 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:01:56.200 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:01:56.202 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:02:01.210 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:02:01.210 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:02:06.243 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:02:06.243 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:02:11.205 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:02:11.206 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:04:01.247 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:04:01.249 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:04:06.241 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:04:06.242 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:04:21.254 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:04:21.256 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:04:26.208 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:04:26.208 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:05:16.004 | INFO     | __main__:process_message:389 - [2023-07-21 22:05:16] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:05:16.212 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:05:16.212 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:05:21.010 | INFO     | __main__:process_message:389 - [2023-07-21 22:05:21] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:05:21.224 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:05:21.224 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:05:25.999 | INFO     | __main__:process_message:389 - [2023-07-21 22:05:25] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:05:26.213 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:05:26.214 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:11:26.001 | INFO     | __main__:process_message:388 - [2023-07-21 22:11:26] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:11:26.227 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:11:26.227 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:11:30.996 | INFO     | __main__:process_message:388 - [2023-07-21 22:11:30] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:11:31.185 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:11:31.185 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:11:36.010 | INFO     | __main__:process_message:388 - [2023-07-21 22:11:36] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:11:36.205 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:11:36.206 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:11:41.010 | INFO     | __main__:process_message:388 - [2023-07-21 22:11:41] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:11:41.218 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:11:41.219 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:11:46.010 | INFO     | __main__:process_message:388 - [2023-07-21 22:11:46] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:11:46.231 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:11:46.231 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:11:51.011 | INFO     | __main__:process_message:388 - [2023-07-21 22:11:51] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:11:51.211 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:11:51.212 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:11:56.000 | INFO     | __main__:process_message:388 - [2023-07-21 22:11:56] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:11:56.195 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:11:56.196 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:12:01.009 | INFO     | __main__:process_message:388 - [2023-07-21 22:12:01] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:12:01.212 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:12:01.213 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:12:06.012 | INFO     | __main__:process_message:388 - [2023-07-21 22:12:06] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:12:06.238 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:12:06.239 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:12:11.017 | INFO     | __main__:process_message:388 - [2023-07-21 22:12:11] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:12:11.216 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:12:11.217 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:12:16.002 | INFO     | __main__:process_message:388 - [2023-07-21 22:12:16] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:12:16.224 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:12:16.224 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:12:21.016 | INFO     | __main__:process_message:388 - [2023-07-21 22:12:21] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:12:21.255 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:12:21.256 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:12:26.003 | INFO     | __main__:process_message:388 - [2023-07-21 22:12:26] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:12:26.202 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:12:26.203 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:12:31.012 | INFO     | __main__:process_message:388 - [2023-07-21 22:12:31] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:12:31.198 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:12:31.199 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:21.019 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:21] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:22.275 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:22.276 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:25.999 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:25] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:26.210 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:26.211 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:31.013 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:31] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:31.208 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:31.209 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:36.009 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:36] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:36.215 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:36.216 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:41.005 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:41] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:41.209 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:41.210 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:46.014 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:46] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:46.223 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:46.223 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:51.009 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:51] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:51.200 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:51.200 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:14:55.998 | INFO     | __main__:process_message:389 - [2023-07-21 22:14:55] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:14:56.205 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:14:56.206 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:15:51.004 | INFO     | __main__:process_message:389 - [2023-07-21 22:15:51] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:15:51.215 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:15:51.216 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:15:55.999 | INFO     | __main__:process_message:389 - [2023-07-21 22:15:55] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:15:56.217 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:15:56.217 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:16:01.022 | INFO     | __main__:process_message:389 - [2023-07-21 22:16:01] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:16:01.229 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:16:01.229 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:16:06.014 | INFO     | __main__:process_message:389 - [2023-07-21 22:16:06] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:16:06.230 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:16:06.230 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:16:11.012 | INFO     | __main__:process_message:389 - [2023-07-21 22:16:11] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:16:11.229 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:16:11.230 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:18:16.014 | INFO     | __main__:process_message:390 - [2023-07-21 22:18:16] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:18:16.287 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:18:16.287 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:18:21.012 | INFO     | __main__:process_message:390 - [2023-07-21 22:18:21] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:18:21.217 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:18:21.218 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:18:26.001 | INFO     | __main__:process_message:390 - [2023-07-21 22:18:26] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:18:26.202 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:18:26.203 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:18:41.016 | INFO     | __main__:process_message:390 - [2023-07-21 22:18:41] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:18:41.242 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:18:41.242 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:18:46.002 | INFO     | __main__:process_message:390 - [2023-07-21 22:18:46] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:18:46.204 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:18:46.205 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:20:20.982 | INFO     | __main__:process_message:390 - [2023-07-21 22:20:20] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:20:21.209 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:20:21.209 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:20:25.967 | INFO     | __main__:process_message:390 - [2023-07-21 22:20:25] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:20:26.179 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:20:26.180 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:22:30.980 | INFO     | __main__:process_message:390 - [2023-07-21 22:22:30] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:22:31.246 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:22:31.247 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:22:35.980 | INFO     | __main__:process_message:390 - [2023-07-21 22:22:35] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:22:36.190 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:22:36.191 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:22:56.181 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:22:56.182 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:01.189 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:01.189 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:06.176 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:06.177 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:11.175 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:11.176 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:16.194 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:16.194 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:21.190 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:21.191 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:26.158 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:26.159 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:31.204 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:31.205 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:23:36.187 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': ' ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:23:36.187 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:30:50.978 | INFO     | __main__:process_message:390 - [2023-07-21 22:30:50] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:30:55.966 | INFO     | __main__:process_message:390 - [2023-07-21 22:30:55] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:31:00.979 | INFO     | __main__:process_message:390 - [2023-07-21 22:31:00] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:32:45.975 | INFO     | __main__:process_message:390 - [2023-07-21 22:32:45] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:32:50.976 | INFO     | __main__:process_message:390 - [2023-07-21 22:32:50] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:33:40.979 | INFO     | __main__:process_message:388 - [2023-07-21 22:33:40] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:33:45.965 | INFO     | __main__:process_message:388 - [2023-07-21 22:33:45] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:34:30.969 | INFO     | __main__:process_message:388 - [2023-07-21 22:34:30] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:34:35.976 | INFO     | __main__:process_message:388 - [2023-07-21 22:34:35] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:35:35.982 | INFO     | __main__:process_message:388 - [2023-07-21 22:35:35] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:35:36.252 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:35:35 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:35:36.253 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:35:40.983 | INFO     | __main__:process_message:388 - [2023-07-21 22:35:40] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:35:41.205 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:35:40 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:35:41.206 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:35:45.981 | INFO     | __main__:process_message:388 - [2023-07-21 22:35:45] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:35:46.202 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:35:45 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:35:46.203 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:36:25.971 | INFO     | __main__:process_message:390 - [2023-07-21 22:36:25] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:36:26.171 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:36:25 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:36:26.171 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:36:30.982 | INFO     | __main__:process_message:390 - [2023-07-21 22:36:30] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:36:31.180 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:36:30 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:36:31.181 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:36:35.980 | INFO     | __main__:process_message:390 - [2023-07-21 22:36:35] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:36:36.158 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:36:35 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:36:36.159 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:40:35.978 | INFO     | __main__:process_message:388 - [2023-07-21 22:40:35] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:40:36.242 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:40:35 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:40:36.243 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:40:55.967 | INFO     | __main__:process_message:388 - [2023-07-21 22:40:55] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:40:56.188 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:40:55 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:40:56.189 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'
+2023-07-21 22:41:00.967 | INFO     | __main__:process_message:388 - [2023-07-21 22:41:00] {'message_topic': 'ogg_db_binlog_dump', 'ins_ip': '127.0.0.1', 'ins_port': '3307', 'info': '数据库存在较多Binlog Dump状态会话，counts:0'}
+2023-07-21 22:41:01.179 | INFO     | __main__:sendmsg2dingtalk_group:196 - {'msgtype': 'text', 'text': {'content': '2023-07-21 22:41:00 ogg_db_binlog_dump Column1: 127.0.0.1_3307, Column2: 105,Column3: 风控blaze系统 [incar,variable],数据库存在较多Binlog Dump状态会话，counts:0'}}
+2023-07-21 22:41:01.180 | INFO     | __main__:sendmsg2dingtalk_group:197 - b'{"errcode":0,"errmsg":"ok"}'

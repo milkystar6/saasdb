@@ -22,6 +22,7 @@ type MyHostAddrInfo struct {
 type MySQLManager struct {
 	MysqlManagerUser     string `yaml:"mysqlmanager_user" json:"mysqlmanager_user" toml:"mysqlmanager_user"`
 	MysqlManagerPassword string `yaml:"mysqlmanager_password" json:"mysqlmanager_password" toml:"mysqlmanager_password"`
+	//MysqlLocalAddr       string `yaml:"mysql_local_addr" json:"mysql_local_addr,omitempty" toml:"mysql_local_addr"`
 }
 
 type GrpcServer struct {

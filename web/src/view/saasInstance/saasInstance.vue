@@ -53,6 +53,7 @@
         <el-table-column align="left" label="健康状态" prop="health" width="100"/>
         <el-table-column align="left" label="数据库等级" prop="level" width="100"/>
         <el-table-column align="left" label="角色" prop="role" width="120"/>
+        <el-table-column align="left" label="机房名称" prop="idc_id" width="120"/>
         <el-table-column align="left" label="数据库会话管理" prop="数据库会话管理" width="150">
           <template #default="scope">
             <el-button
@@ -162,6 +163,13 @@
             <el-option v-for="item in ['master','slaveforha','slaveonly']" :key="item" :label="item" :value="item"/>
           </el-select>
         </el-form-item>
+
+        <el-form-item label="机房id:" prop="idc_id">
+          <el-select v-model="formData.role" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="item in ['1','2']" :key="item" :label="item" :value="item"/>
+          </el-select>
+        </el-form-item>
+
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -244,6 +252,7 @@ const formData = ref({
   level: '',
   domainId: 0,
   instance_name: '',
+  idc_id: 1,
 })
 
 // 验证规则
