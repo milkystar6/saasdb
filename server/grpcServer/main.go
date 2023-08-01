@@ -28,7 +28,6 @@ func main() {
 
 	/* 初始化配置文件 */
 	config.InitConfig()
-	fmt.Println("xxxxxx", config.LoadConfig)
 
 	zap.ReplaceGlobals(al.Logger)
 	al.Info("Init 日志文件success")
@@ -67,7 +66,7 @@ func main() {
 	// TODO 心跳表服务 读取到集群TOPO表中到mysql信息，然后记录心跳表 参考pt-heartbeat ，获取当前节点mysql的ip port，查询instance表中，该实例的角色信息，根据角色信息做读写心跳检测。 不支持单机多实例类型
 	// 数据库读心跳 RS read heartbeat service
 	var rs customize_exporter.CustomizeCollector
-	rs.Test()
+	go rs.Test()
 	// MySQL 备份
 	grpc_pb.RegisterMySQLBackupServiceServer(s, &grpcServer.HandleMySQLBackup{})
 
