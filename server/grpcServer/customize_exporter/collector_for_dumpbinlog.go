@@ -12,21 +12,13 @@ import (
 
 func (c *CustomizeCollector) CheckBinlogDumpThreadsCounts() {
 	cfg := config.LoadConfig
-	//dbSaasdb := dbConnCfg{
-	//	User:   cfg.SaasDB.SaasDBUser,
-	//	Passwd: cfg.SaasDB.SaasPassword,
-	//	Port:   cfg.SaasDB.SaasPort,
-	//	Host:   cfg.SaasDB.SaasDBHost,
-	//	Db:     cfg.SaasDB.SaasDBName,
-	//}
-
 	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
 	// 根据端口 去分别查询数据库
 	localAddr := cfg.MyHostAddrInfo.MyIP
 
 	csaas := c.connSaasdb()
 	var ins mo.Instance
-	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr)
+	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
 
 	for _, v := range portSlice {
 
@@ -43,7 +35,7 @@ func (c *CustomizeCollector) CheckBinlogDumpThreadsCounts() {
 
 }
 
-func (c CustomizeCollector) CheckBinlogDumpThreadsCountsWorker(dbInformationSchema dbConnCfg, csaasdb *gorm.DB) {
+func (c *CustomizeCollector) CheckBinlogDumpThreadsCountsWorker(dbInformationSchema dbConnCfg, csaasdb *gorm.DB) {
 	db := c.connLocalMySQL(dbInformationSchema)
 	var pro model.InformationSchemaProcesslist
 
@@ -59,8 +51,8 @@ func (c CustomizeCollector) CheckBinlogDumpThreadsCountsWorker(dbInformationSche
 	//TODO 根据IP、PORT获取MySQL的实例名称
 
 	// 推送webhook消息
-	if count >= maxDumpStatConnNum {
-		fmtJson := fmt.Sprintf(`{"message_topic":"%v","ins_ip": "%v","ins_port":"%v","info":"数据库存在较多%v状态会话，counts:%v"}`, msgJsonTopicDumpGtid, dbInformationSchema.Host, dbInformationSchema.Port, keyForDumpBinlog, count)
+	if count > maxDumpStatConnNum {
+		fmtJson := fmt.Sprintf(`{"message_topic":"%v","ins_ip": "%v","ins_port":"%v","suppress_duration":%v,"info":"%v，counts:%v"}`, msgJsonTopicDumpGtid, dbInformationSchema.Host, dbInformationSchema.Port, oggOrDpSuppressDuration, keyForDumpBinlog, count)
 		fmt.Println(fmtJson)
 		data := []byte(fmtJson)
 		url := fmt.Sprintf("%v/api/reset", webhook.WebhookUrl)
@@ -70,6 +62,7 @@ func (c CustomizeCollector) CheckBinlogDumpThreadsCountsWorker(dbInformationSche
 			"Content-Type": "application/json",
 		}
 		AnalyzeHeader(data, url, headers)
+
 	}
 
 	// 关闭连接

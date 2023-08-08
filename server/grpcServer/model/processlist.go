@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -15,27 +16,45 @@ type InformationSchemaProcesslist struct {
 	Info    string `json:"info" ,form:"info" ,gorm:"column:INFO;TYPE:varchar(65535)"`
 }
 
-func (InformationSchemaProcesslist) TableName() string {
+func (r *InformationSchemaProcesslist) TableName() string {
 	return "PROCESSLIST"
 }
 
 func (r *InformationSchemaProcesslist) GetAllProcesslist(db *gorm.DB) []InformationSchemaProcesslist {
 	resArr := make([]InformationSchemaProcesslist, 0, 0)
 	selectcol := []string{"id", "user", "host", "db", "command", "time", "state", "info"}
-	db.Debug().Model(&r).Table(r.TableName()).Select(selectcol).Scan(&resArr)
+	db.Model(&r).Table(r.TableName()).Select(selectcol).Scan(&resArr)
 	return resArr
 }
 
 func (r *InformationSchemaProcesslist) GetProcesslistWithCommand(db *gorm.DB, command string) (pro []InformationSchemaProcesslist, tol int64) {
 	resArr := make([]InformationSchemaProcesslist, 0, 0)
 	selectcol := []string{"id", "user", "host", "db", "command", "time", "state", "info"}
-	db.Debug().Model(&r).Table(r.TableName()).Select(selectcol).Where("COMMAND LIKE  ?", command).Scan(&resArr).Count(&tol)
+	db.Model(&r).Table(r.TableName()).Select(selectcol).Where("COMMAND LIKE  ?", command).Scan(&resArr).Count(&tol)
 	return resArr, tol
 }
 
 func (r *InformationSchemaProcesslist) GetProcesslistWithCommandAndUser(db *gorm.DB, command, user string) (pro []InformationSchemaProcesslist, tol int64) {
 	resArr := make([]InformationSchemaProcesslist, 0, 0)
 	selectcol := []string{"id", "user", "host", "db", "command", "time", "state", "info"}
-	db.Debug().Model(&r).Table(r.TableName()).Select(selectcol).Where("COMMAND LIKE  ? AND user = ?", command, user).Scan(&resArr).Count(&tol)
+	db.Model(&r).Table(r.TableName()).Select(selectcol).Where("COMMAND LIKE  ? AND user = ?", fmt.Sprintf("%%%s%%", command), user).Scan(&resArr).Count(&tol)
 	return resArr, tol
+}
+
+func (r *InformationSchemaProcesslist) GetProcesslistWithState(db *gorm.DB, state string) (pro []InformationSchemaProcesslist, tol int64) {
+	resArr := make([]InformationSchemaProcesslist, 0, 0)
+	selectcol := []string{"id", "user", "host", "db", "command", "time", "state", "info"}
+	db.Model(&r).Table(r.TableName()).Select(selectcol).Where(" STATE LIKE ?", fmt.Sprintf("%%%s%%", state)).Scan(&resArr).Count(&tol)
+	return resArr, tol
+
+}
+
+func (r *InformationSchemaProcesslist) CountActiveSessions(db *gorm.DB, SESSION_STATES []string) (total int64) {
+	db.Table(r.TableName()).Select("COUNT(*)").Where("STATE IN ?", SESSION_STATES).Count(&total)
+	return total
+}
+
+func (r *InformationSchemaProcesslist) ActiveSessionNotSleep(db *gorm.DB) (tol int64) {
+	db.Table(r.TableName()).Select("COUNT(*)").Where("INFO IS NOT NULL").Count(&tol)
+	return tol - 1 //除去本查询
 }

@@ -159,10 +159,10 @@ func (i *Instance) GetDomainIdByIpPort(db *gorm.DB, ip string, port int) (domain
 	return saas_instances[0].DomainId, total, err
 }
 
-func (i *Instance) QueryPortsByIP(db *gorm.DB, ip string) ([]int, error) {
+func (i *Instance) QueryPortsByIP(db *gorm.DB, ip, insType string) ([]int, error) {
 
 	var instances []Instance
-	err := db.Select("port").Where("ip = ?", ip).Find(&instances).Error
+	err := db.Select("port").Where("ip = ? and application = ?", ip, insType).Find(&instances).Error
 	if err != nil {
 		return nil, err
 	}

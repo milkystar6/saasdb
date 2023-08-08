@@ -3,8 +3,8 @@ package customize_exporter
 import (
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
-	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/model"
-	"time"
+	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
+	"gorm.io/gorm"
 )
 
 /* 向本地MySQL发送读心跳 */
@@ -14,45 +14,43 @@ import (
 /* 连续ping多次之后还不通，就向webhook推送消息*/
 /* 设置个告警恢复机制 有告警的实例写到一个通道中，另外的携程去查询通道中是否有未恢复的 */
 
-type ReadHeatBreatService struct {
-}
+func (c *CustomizeCollector) MySQLSelect1() {
+	cfg := config.LoadConfig
+	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
+	// 根据端口 去分别查询数据库
+	localAddr := cfg.MyHostAddrInfo.MyIP
 
-func (r *ReadHeatBreatService) Start() {
-	for {
-		r.GetAllDBProcess(config.LoadConfig.MyHostAddrInfo.MyIP)
-		// 获取节点上的mysql实例的端口 然后下方发起读心跳检测
-		// RH read heatbreat
+	csaas := c.connSaasdb()
+	var ins mo.Instance
+	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
 
-		r.HB()
-		time.Sleep(time.Second)
-	}
+	for _, v := range portSlice {
 
-}
-func (r *ReadHeatBreatService) HB() {
-
-}
-
-type MP struct {
-	MysqldProcess string
-}
-
-func (r *ReadHeatBreatService) GetAllDBProcess(ip string) []MP {
-
-	db, err := model.GormMysql(config.LoadConfig.MySQLManager.MysqlManagerUser, config.LoadConfig.MySQLManager.MysqlManagerPassword, config.LoadConfig.SaasDB.SaasDBHost, config.SaasDBNAME, config.LoadConfig.SaasDB.SaasPort)
-	if err != nil { // todo err
-	}
-	defer func() {
-		if sqlDB, err := db.DB(); err == nil {
-			err = sqlDB.Close()
+		dbInformationSchema := dbConnCfg{
+			//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
+			//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
+			Host: localAddr,
+			Port: v,
+			Db:   informationSchema,
 		}
-	}()
 
-	mp := make([]MP, 0, 0)
-	var ins model.Instance
-	sql := fmt.Sprintf("SELECT CONCAT(ip,'__',port as MysqldProcess ) FROM %v WHERE ip = \"%v\"", ins.TableName(), ip)
-	err = db.Raw(sql).Scan(&mp).Error
-	if err != nil {
+		go c.dbPingWork(dbInformationSchema, csaas)
+	}
+}
+
+func (c *CustomizeCollector) dbPingWork(cfg dbConnCfg, csaas *gorm.DB) {
+	db := c.connLocalMySQL(cfg)
+	defer c.CloseDB(db)
+	defer c.CloseDB(csaas)
+	if err := db.Debug().Raw("SELECT 1").Error; err != nil {
+		msg := fmt.Sprintf(`
+{"message_topic":"%v",
+"ins_ip": "%v",
+"ins_port":"%v",
+"suppress_duration":%v,
+"info":"%v"}
+`, mesJsonTopicSelect1MySQL, cfg.Host, cfg.Port, select1MySQLUpLimitSuppressDuration, keyForSelect)
+		SendMsg2WebHook(csaas, msg)
 	}
 
-	return mp
 }

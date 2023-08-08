@@ -4,6 +4,7 @@ import (
 	"fmt"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
+	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -65,4 +66,16 @@ func (c *CustomizeCollector) CloseDB(db *gorm.DB) {
 	if err != nil {
 		return
 	}
+}
+
+func (c *CustomizeCollector) GetLocalMySQLPorts() []int {
+	cfg := config.LoadConfig
+	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
+	// 根据端口 去分别查询数据库
+	localAddr := cfg.MyHostAddrInfo.MyIP
+
+	csaas := c.connSaasdb()
+	var ins mo.Instance
+	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
+	return portSlice
 }
