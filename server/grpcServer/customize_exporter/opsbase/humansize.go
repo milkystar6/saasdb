@@ -33,22 +33,22 @@ func (HumanOutput *HumanOutput) HumanByteSize() (h float64, s string) {
 	var humanUnit string
 	if HumanOutput.ByteSize > pb {
 		humanSize = Decimal(HumanOutput.ByteSize / pb)
-		humanUnit = "PiB"
+		humanUnit = " PB"
 	} else if HumanOutput.ByteSize > tb {
 		humanSize = Decimal(HumanOutput.ByteSize / tb)
-		humanUnit = "TiB"
+		humanUnit = " TB"
 	} else if HumanOutput.ByteSize > gb {
 		humanSize = Decimal(HumanOutput.ByteSize / gb)
-		humanUnit = "GiB"
+		humanUnit = " GB"
 	} else if HumanOutput.ByteSize > mb {
 		humanSize = Decimal(HumanOutput.ByteSize / mb)
-		humanUnit = "MiB"
+		humanUnit = " MB"
 	} else if HumanOutput.ByteSize > kb {
 		humanSize = Decimal(HumanOutput.ByteSize / kb)
-		humanUnit = "KiB"
+		humanUnit = " KB"
 	} else {
 		humanSize = Decimal(HumanOutput.ByteSize)
-		humanUnit = "Bit"
+		humanUnit = " B"
 	}
 	return humanSize, humanUnit
 }
