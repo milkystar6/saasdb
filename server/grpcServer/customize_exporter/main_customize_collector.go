@@ -59,6 +59,9 @@ func (c *CustomizeCollector) Start() {
 	go c.runWithInterval(c.SpaceUsage, 12*time.Hour)
 
 	// 锁
+
+	// log rotate
+
 	select {}
 }
 

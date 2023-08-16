@@ -38,4 +38,7 @@ const (
 	mesJsonTopicSelect1MySQL            = "PingMySQL"
 	select1MySQLUpLimitSuppressDuration = 60
 	keyForSelect                        = "MySQL 不可读取"
+
+	/* 如下是dir usage */
+	mesJsonTopicDirUsage = "Top10FileUsage"
 )

@@ -1,6 +1,7 @@
 package customize_exporter
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
@@ -52,17 +53,22 @@ func (c *CustomizeCollector) getSpaceUsage(dbInformationSchema dbConnCfg, csaasd
 	dataDir := c.GetVariables(db, "datadir", 0)
 	//dataDir = "/Users/anderalex/Desktop/学习资料"
 
-	dataDirTotalSize, err1 := calculateDirSize(dataDir)
-	if err1 != nil {
-		al.Error(fmt.Sprintf("Error:%v", err1))
-		return
-	}
-	dataDirSizeHuman := formatSize(uint64(dataDirTotalSize))
-
 	// time of consumption toc
 	/* 统计datadir下 TopN文件 */
-	res, toc, l := opsbase.Analyze(dataDir, 10)
-	info := fmt.Sprintf("more details: top%v文件:%v,统计任务耗时:%v", l, res, toc)
+	res, toc, _ := opsbase.Analyze(dataDir, 10)
+	resJsonData, err := json.MarshalIndent(res, "", "  ")
+	if err != nil {
+		resJsonData = []byte("Unknown")
+	}
+
+	// 输出格式化后的JSON数据
+	//fmt.Println(string(resJsonData))
+
+	info := fmt.Sprintf(`
+{"table_use_most_space":%v,
+"time_consuming":"%v",
+`,
+		string(resJsonData), toc)
 
 	/* 统计挂载点空间使用信息 */
 	mountPoint, err := getMountPoint(dataDir)
@@ -76,11 +82,35 @@ func (c *CustomizeCollector) getSpaceUsage(dbInformationSchema dbConnCfg, csaasd
 		fmt.Println("Error:", err)
 		return
 	}
-
-	extra := fmt.Sprintf(`\ndatadir：%s,\n挂载点信息：%s,\n总空间：%s,\n已用空间：%s,\n可用空间：%s,\n`,
-		dataDir, fsInfo.Path, formatSize(fsInfo.Total),
+	// pmd: physical machine disk
+	infoMountPoint := fmt.Sprintf(`"pmd_space_usage": 
+    {
+        "mp_info": 
+            {
+                "mp_name": "%s",
+                "total_size": "%s",
+                "used_space": "%s",
+                "available_space": "%s"
+            }
+    },`,
+		fsInfo.Path, formatSize(fsInfo.Total),
 		formatSize(fsInfo.Used), formatSize(fsInfo.Free),
 	)
+
+	/* 统计datadir目录空间使用 */
+	dataDirTotalSize, err1 := calculateDirSize(dataDir)
+	if err1 != nil {
+		al.Error(fmt.Sprintf("Error:%v", err1))
+		return
+	}
+	dataDirSizeHuman := formatSize(uint64(dataDirTotalSize))
+
+	infoDataDir := fmt.Sprintf(`
+"datadir_usage":
+    {
+        "datadir_name":"%v",
+        "datadir_size_human":"%v"
+    },`, dataDir, dataDirSizeHuman)
 
 	/* 统计binlog目录信息 */
 	logBinBasename := c.GetVariables(db, "log_bin_basename", 0)
@@ -113,17 +143,56 @@ func (c *CustomizeCollector) getSpaceUsage(dbInformationSchema dbConnCfg, csaasd
 
 	c.push2SaasDB(dbInformationSchema, csaasdb, dUsage)
 
-	info = info + extra + fmt.Sprintf(`binlog目录: %v,\nbinlog目录大小: %v,\n`, binlogDirectory, binlogDirectorySizeHuman)
+	/* webhook推送 */
+	info = info + infoMountPoint + infoDataDir + fmt.Sprintf(`
+"binlog_dir_usage": 
+    {
+        "binlog_dir_name": "%v",
+        "binlog_dir_size": "%v"
+    }
+}`, binlogDirectory, binlogDirectorySizeHuman)
+
 	msg := fmt.Sprintf(`
-{"message_topic":"%v",
-"ins_ip": "%v",
-"ins_port":"%v",
-"suppress_duration":%v,
-"info":"%vcounts:%v"}
-`, "Top10FileUsage", dbInformationSchema.Host, dbInformationSchema.Port, 43200, info, "null")
-	SendMsg2WebHook(csaasdb, msg)
+{    "message_topic":"%v",
+    "ins_ip": "%v",
+    "ins_port":"%v",
+    "suppress_duration":%v,
+    "info":%v
+}`,
+		mesJsonTopicDirUsage,
+		dbInformationSchema.Host,
+		dbInformationSchema.Port,
+		43200,
+		info)
+
+	formattedJSON, err := formatJSON(msg)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Println(formattedJSON)
+
+	SendMsg2WebHookWithApi(csaasdb, msg, "api/reset_email")
 	c.CloseDB(db)
 	c.CloseDB(csaasdb)
+}
+
+func formatJSON(inputJSON string) (string, error) {
+	// 去除换行符和不可见字符
+	cleanedJSON := strings.ReplaceAll(inputJSON, "\n", "")
+
+	var jsonData map[string]interface{}
+	if err := json.Unmarshal([]byte(cleanedJSON), &jsonData); err != nil {
+		return "", err
+	}
+
+	formattedJSON, err := json.MarshalIndent(jsonData, "", "  ")
+	if err != nil {
+		return "", err
+	}
+
+	return string(formattedJSON), nil
 }
 
 // 格式化字节数为易读的单位

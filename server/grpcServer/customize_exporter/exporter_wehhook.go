@@ -50,12 +50,28 @@ func SendMsg2WebHook(csaasdb *gorm.DB, fmtJson string) {
 	db1 := csaasdb
 	webhook, _ := wb.GetHookInfo(db1)
 
-	fmt.Println(fmtJson)
 	data := []byte(fmtJson)
 	url := fmt.Sprintf("%v/api/reset", webhook.WebhookUrl)
 	headers := map[string]string{
 		//"Authorization": "Bearer your-token",
 		//"Custom-Header": "value",
+		"Content-Type": "application/json",
+	}
+	AnalyzeHeader(data, url, headers)
+}
+
+func SendMsg2WebHookWithApi(csaasdb *gorm.DB, fmtJson, api string) {
+	// 获取webhook地址
+	wb := mo.SaasAlertWebhook{
+		Tag: webhookTag,
+	}
+
+	db1 := csaasdb
+	webhook, _ := wb.GetHookInfo(db1)
+	//fmt.Println(fmtJson)
+	data := []byte(fmtJson)
+	url := fmt.Sprintf("%v/%v", webhook.WebhookUrl, api)
+	headers := map[string]string{
 		"Content-Type": "application/json",
 	}
 	AnalyzeHeader(data, url, headers)
