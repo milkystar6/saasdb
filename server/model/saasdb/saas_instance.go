@@ -50,7 +50,7 @@ type Instance struct {
 }
 
 // TableName Instance 表名
-func (Instance) TableName() string {
+func (*Instance) TableName() string {
 	return "saas_instance"
 }
 
@@ -139,7 +139,7 @@ func (c Mem) Value() (driver.Value, error) {
 func (c *Mem) Scan(input interface{}) error {
 	return json.Unmarshal(input.([]byte), c)
 }
-func (c DataDisk) Value() (driver.Value, error) {
+func (c *DataDisk) Value() (driver.Value, error) {
 	b, err := json.Marshal(c)
 	return string(b), err
 }
@@ -157,6 +157,17 @@ func (i *Instance) GetDomainIdByIpPort(db *gorm.DB, ip string, port int) (domain
 		err = fmt.Errorf(fmt.Sprintf("存在单个ip port含有多个domainId的逻辑错误，请检查错误的逻辑关系, debug ip:%v,port:%v", ip, port))
 	}
 	return saas_instances[0].DomainId, total, err
+}
+
+// GetDomainIdByIpPort 根据ip 端口获取Doaminid
+func (i *Instance) GetInsIdByIpPort(db *gorm.DB, ip string, port int) (domainId *uint, total int64, err error) {
+	// 创建db
+	var saas_instances []Instance
+	err = db.Model(Instance{}).Where("ip=? and port=?", ip, port).Find(&saas_instances).Count(&total).Error
+	if total > 1 {
+		err = fmt.Errorf(fmt.Sprintf("存在单个ip port含有多个domainId的逻辑错误，请检查错误的逻辑关系, debug ip:%v,port:%v", ip, port))
+	}
+	return &saas_instances[0].ID, total, err
 }
 
 func (i *Instance) QueryPortsByIP(db *gorm.DB, ip, insType string) ([]int, error) {

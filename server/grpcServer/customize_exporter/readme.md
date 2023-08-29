@@ -76,32 +76,35 @@ WHERE (table_schema, table_name) NOT IN
 
 ```sql
 ##  查询无二级索引的表
-SELECT distinct(CONCAT(t.TABLE_SCHEMA,'.',t.TABLE_NAME))
+SELECT distinct(CONCAT(t.TABLE_SCHEMA, '.', t.TABLE_NAME))
 FROM information_schema.TABLES AS t
-LEFT JOIN (
-    SELECT TABLE_SCHEMA, TABLE_NAME
-    FROM information_schema.STATISTICS
-    WHERE INDEX_NAME != 'PRIMARY'
-) AS idx ON t.TABLE_SCHEMA = idx.TABLE_SCHEMA AND t.TABLE_NAME = idx.TABLE_NAME
+         LEFT JOIN (SELECT TABLE_SCHEMA, TABLE_NAME
+                    FROM information_schema.STATISTICS
+                    WHERE INDEX_NAME != 'PRIMARY') AS idx
+                   ON t.TABLE_SCHEMA = idx.TABLE_SCHEMA AND t.TABLE_NAME = idx.TABLE_NAME
 WHERE t.TABLE_SCHEMA NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys') -- 排除系统库
-    AND t.TABLE_TYPE = 'BASE TABLE'
-    AND idx.TABLE_NAME IS NULL;  -- 没有二级索引
+  AND t.TABLE_TYPE = 'BASE TABLE'
+  AND idx.TABLE_NAME IS NULL; -- 没有二级索引
 ```
-
-
 
 ```sql
 #
 空间大小
-SELECT table_schema AS '数据库', table_name AS '表名', a.TABLE_TYPE,
+SELECT table_schema                                            AS '数据库',
+       table_name                                              AS '表名',
+       a.TABLE_TYPE,
        a.`ENGINE`,
        a.CREATE_TIME,
        a.UPDATE_TIME,
        a.TABLE_COLLATION,
-       table_rows AS '记录数', TRUNCATE ( data_length / 1024 / 1024, 2 ) AS '数据容量(MB)', TRUNCATE ( index_length / 1024 / 1024, 2 ) AS '索引容量(MB)', TRUNCATE ( (data_length + index_length) / 1024 / 1024, 2 ) AS '总大小(MB)'
+       table_rows                                              AS '记录数',
+       TRUNCATE(data_length / 1024 / 1024, 2)                  AS '数据容量(MB)',
+       TRUNCATE(index_length / 1024 / 1024, 2)                 AS '索引容量(MB)',
+       TRUNCATE((data_length + index_length) / 1024 / 1024, 2) AS '总大小(MB)'
 FROM information_schema.TABLES a
 GROUP BY table_schema
-ORDER BY (data_length + index_length) DESC LIMIT 10;
+ORDER BY (data_length + index_length) DESC
+LIMIT 10;
 ```
 
 ```sql
@@ -114,12 +117,6 @@ WHERE index_name IS NOT NULL
   AND object_schema not in ('mysql', 'performance_schema')
   AND index_name <> 'PRIMARY'
 ORDER BY object_schema, object_name;
-```
-
-```sql
-SELECT CONCAT(center_addr, '--', center_port, '--', backup_root_dir, '--', login_user, '--', login_password) WHERE id IN (
-SELECT idc_id
-FROM ${saas_db_name}.saas_instance WHERE ip=${mysql_host} AND on_working=1)
 ```
 
 ## 检测强制半同步是否开启
@@ -142,43 +139,62 @@ WHERE EXISTS(SELECT 1
 rpm_semi_sync_master_wait_no_slave off表示不强制增强半同步
 ```
 
-
-
-
 ## 巡检非系统库的主键类型，并返回主键字段，只在从库执行即可
+
 ```sql
-SELECT 
-  T.TABLE_SCHEMA,
-  T.TABLE_NAME,
-  CASE
-    WHEN PK.CONSTRAINT_NAME IS NULL THEN 'No Primary Key'
-    ELSE CONCAT(PK.COLUMN_NAME, ' (', PK.DATA_TYPE, ')')
-  END AS PRIMARY_KEY
+主键类型非int
+SELECT T.TABLE_SCHEMA,
+       T.TABLE_NAME,
+       CASE
+           WHEN PK.CONSTRAINT_NAME IS NULL THEN 'No Primary Key'
+           ELSE CONCAT(PK.COLUMN_NAME, ' (', PK.DATA_TYPE, ')')
+           END AS PRIMARY_KEY
 FROM INFORMATION_SCHEMA.TABLES AS T
-LEFT JOIN (
-  SELECT 
-    KCU.CONSTRAINT_NAME,
-    KCU.TABLE_SCHEMA,
-    KCU.TABLE_NAME,
-    KCU.COLUMN_NAME,
-    C.DATA_TYPE
-  FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU
-  JOIN INFORMATION_SCHEMA.COLUMNS AS C 
-    ON KCU.TABLE_SCHEMA = C.TABLE_SCHEMA 
-    AND KCU.TABLE_NAME = C.TABLE_NAME 
-    AND KCU.COLUMN_NAME = C.COLUMN_NAME
-  WHERE 
-    KCU.CONSTRAINT_NAME = 'PRIMARY'
-    AND C.DATA_TYPE != 'INT'
-) AS PK ON 
-  PK.TABLE_SCHEMA = T.TABLE_SCHEMA
-  AND PK.TABLE_NAME = T.TABLE_NAME
-WHERE 
-  T.TABLE_SCHEMA NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')
+         LEFT JOIN (SELECT KCU.CONSTRAINT_NAME,
+                           KCU.TABLE_SCHEMA,
+                           KCU.TABLE_NAME,
+                           KCU.COLUMN_NAME,
+                           C.DATA_TYPE
+                    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU
+                             JOIN INFORMATION_SCHEMA.COLUMNS AS C
+                                  ON KCU.TABLE_SCHEMA = C.TABLE_SCHEMA
+                                      AND KCU.TABLE_NAME = C.TABLE_NAME
+                                      AND KCU.COLUMN_NAME = C.COLUMN_NAME
+                    WHERE KCU.CONSTRAINT_NAME = 'PRIMARY'
+                      AND C.DATA_TYPE != 'INT') AS PK ON
+            PK.TABLE_SCHEMA = T.TABLE_SCHEMA
+        AND PK.TABLE_NAME = T.TABLE_NAME
+WHERE T.TABLE_SCHEMA NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')
   AND T.TABLE_TYPE = 'BASE TABLE'
 ORDER BY T.TABLE_SCHEMA, T.TABLE_NAME;
 ```
 
 ## 只看主键是不是int类型，和有没有主键
-```
+
+```sql
+主键类型非int系列
+SELECT T.TABLE_SCHEMA,
+       T.TABLE_NAME,
+       CASE
+           WHEN PK.CONSTRAINT_NAME IS NULL THEN 'No Primary Key'
+           ELSE CONCAT(PK.COLUMN_NAME, ' (', PK.DATA_TYPE, ')')
+           END AS PRIMARY_KEY
+FROM INFORMATION_SCHEMA.TABLES AS T
+         LEFT JOIN (SELECT KCU.CONSTRAINT_NAME,
+                           KCU.TABLE_SCHEMA,
+                           KCU.TABLE_NAME,
+                           KCU.COLUMN_NAME,
+                           C.DATA_TYPE
+                    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU
+                             JOIN INFORMATION_SCHEMA.COLUMNS AS C
+                                  ON KCU.TABLE_SCHEMA = C.TABLE_SCHEMA
+                                      AND KCU.TABLE_NAME = C.TABLE_NAME
+                                      AND KCU.COLUMN_NAME = C.COLUMN_NAME
+                    WHERE KCU.CONSTRAINT_NAME = 'PRIMARY'
+                      AND C.DATA_TYPE NOT LIKE '%int%') AS PK ON
+            PK.TABLE_SCHEMA = T.TABLE_SCHEMA
+        AND PK.TABLE_NAME = T.TABLE_NAME
+WHERE T.TABLE_SCHEMA NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')
+  AND T.TABLE_TYPE = 'BASE TABLE'
+ORDER BY T.TABLE_SCHEMA, T.TABLE_NAME;
 ```

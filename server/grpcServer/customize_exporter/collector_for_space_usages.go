@@ -255,7 +255,7 @@ func (c *CustomizeCollector) push2SaasDB(dbCfg dbConnCfg, db *gorm.DB, info dirU
 	ip := dbCfg.Host
 	port := dbCfg.Port
 	var ins mo.Instance
-	insId, _, _ := ins.GetDomainIdByIpPort(db, ip, port)
+	insId, _, _ := ins.GetInsIdByIpPort(db, ip, port)
 	/* 根据insId向空间使用表中插入数据 */
 
 	d := mo.DirUsage{

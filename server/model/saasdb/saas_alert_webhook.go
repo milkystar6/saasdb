@@ -11,6 +11,7 @@ type SaasAlertWebhook struct {
 	Secret     string `json:"secret,omitempty" form:"secret" gorm:"column:secret;type:varchar(500);comment:secret if has"`
 	Tag        string `json:"tag,omitempty" form:"tag" gorm:"column:tag;comment:tag"`
 	Comment    string `json:"comment,omitempty" form:"comment" gorm:"column:comment;comment:备注"`
+	ProjId     *int   `json:"projId" form:"projId" gorm:"column:proj_id;comment:;"`
 }
 
 func (a *SaasAlertWebhook) TableName() string {

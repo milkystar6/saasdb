@@ -48,7 +48,7 @@ func (c *CustomizeCollector) Start() {
 	// meta data lock
 	go c.runWithInterval(c.CheckWaitMetaDL, 1*time.Second)
 	// 长事务
-	go c.runWithInterval(c.GetLongQuerySql, 10*time.Second)
+	go c.runWithInterval(c.GetLongQuerySql, 60*time.Second)
 
 	// 全表扫描
 

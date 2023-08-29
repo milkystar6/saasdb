@@ -48,7 +48,7 @@ func (c *CustomizeCollector) connLocalMySQL(cfg dbConnCfg) *gorm.DB {
 
 func (c *CustomizeCollector) newConn(cfg dbConnCfg) (db *gorm.DB) {
 	// 用户名:密码@tcp(ip:port)/数据库?charset=utf8mb4&parseTime=True&loc=Local
-	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local&timeout=10s&readTimeout=10s&writeTimeout=10s", cfg.User, cfg.Passwd, cfg.Host, cfg.Port, cfg.Db)
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local&timeout=10s&readTimeout=60s&writeTimeout=10s", cfg.User, cfg.Passwd, cfg.Host, cfg.Port, cfg.Db)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{SkipDefaultTransaction: true})
 	// TODO 错误处理 不panic 统计日志记录格式
 	if err != nil {
