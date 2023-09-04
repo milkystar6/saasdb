@@ -76,3 +76,18 @@ func SendMsg2WebHookWithApi(csaasdb *gorm.DB, fmtJson, api string) {
 	}
 	AnalyzeHeader(data, url, headers)
 }
+
+func SendMsg2WebHookWithApiUseJson(csaasdb *gorm.DB, data []byte, api string) {
+	// 获取webhook地址
+	wb := mo.SaasAlertWebhook{
+		Tag: webhookTag,
+	}
+
+	db1 := csaasdb
+	webhook, _ := wb.GetHookInfo(db1)
+	url := fmt.Sprintf("%v/%v", webhook.WebhookUrl, api)
+	headers := map[string]string{
+		"Content-Type": "application/json",
+	}
+	AnalyzeHeader(data, url, headers)
+}
