@@ -20,6 +20,9 @@ type Transaction struct {
 	State              string    `gorm:"column:state"`
 	CurrentStatement   string    `gorm:"column:current_statement"`
 	LastStatement      string    `gorm:"column:last_statement"`
+	Host               string    `gorm:"column:host"`
+	Db                 string    `gorm:"column:db"`
+	DiffSec            string    `gorm:"column:diff_sec"`
 }
 
 func (c *CustomizeCollector) GetLongQuerySql() {
@@ -53,33 +56,74 @@ func (c *CustomizeCollector) LongQuerySql(cfg dbConnCfg, csaas *gorm.DB) (e erro
 	db := c.connLocalMySQL(cfg)
 
 	tol := int64(0)
-	getLongQuerySqlNum := fmt.Sprintf(`
-select count(*)
-from information_schema.INNODB_TRX,
-     sys.session as se
-where trx_mysql_thread_id = conn_id
-AND TIMESTAMPDIFF(SECOND, INNODB_TRX.trx_started, NOW()) > %v;`, longTransactionThreshold)
+	yyy := "%S_TIMETASK%"
+	checkSql := fmt.Sprintf(`
+select
+count(*)
+from
+	information_schema.innodb_trx a
+inner join information_schema. PROCESSLIST b on
+	a.TRX_MYSQL_THREAD_ID = b.id
+	and b.command = "Sleep"
+	and ( UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(a.trx_started) ) >%v
+inner join PERFORMANCE_SCHEMA .threads c on
+	b.id = c.PROCESSLIST_ID
+inner join PERFORMANCE_SCHEMA .events_statements_current d on
+	d.THREAD_ID = c.THREAD_ID
+	and upper(d.SQL_TEXT) not like "%%%v";
+`, longTransactionThreshold, yyy)
 
-	e = db.Raw(getLongQuerySqlNum).Scan(&tol).Error
+	getLongTrxInfo := fmt.Sprintf(`
+select
+	a.trx_started  AS trx_started, 
+	(UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(a.trx_started)) AS  diff_sec,
+	b.id AS trx_id,
+	b.user AS user ,
+	b.HOST AS host,
+	b.db AS db,
+	d.SQL_TEXT AS last_statement
+from
+	information_schema.innodb_trx a
+inner join information_schema. PROCESSLIST b on
+	a.TRX_MYSQL_THREAD_ID = b.id
+	and b.command = "Sleep"
+	and ( UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(a.trx_started) ) >%v
+inner join PERFORMANCE_SCHEMA .threads c on
+	b.id = c.PROCESSLIST_ID
+inner join PERFORMANCE_SCHEMA .events_statements_current d on
+	d.THREAD_ID = c.THREAD_ID
+	and upper(d.SQL_TEXT) not like "%%%v" order by 2;
+`, longTransactionThreshold, yyy)
 
-	getLongQuerySql := fmt.Sprintf(`
-select trx_id,
-       INNODB_TRX.trx_state,
-       INNODB_TRX.trx_started,
-       se.conn_id as processlist_id,
-       trx_lock_memory_bytes,
-       se.user,
-       se.command,
-       se.state,
-       se.current_statement,
-       se.last_statement
-from information_schema.INNODB_TRX,
-     sys.session as se
-where trx_mysql_thread_id = conn_id 
-AND TIMESTAMPDIFF(SECOND, INNODB_TRX.trx_started, NOW()) > %v;`, longTransactionThreshold)
+	//	getLongQuerySqlNum := fmt.Sprintf(`
+	//select count(*)
+	//from information_schema.INNODB_TRX,
+	//     sys.session as se
+	//where trx_mysql_thread_id = conn_id
+	//AND TIMESTAMPDIFF(SECOND, INNODB_TRX.trx_started, NOW()) > %v;`, longTransactionThreshold)
+	//
+	//	e = db.Raw(getLongQuerySqlNum).Scan(&tol).Error
+	e = db.Raw(checkSql).Scan(&tol).Error
+
+	//	getLongQuerySql := fmt.Sprintf(`
+	//select trx_id,
+	//       INNODB_TRX.trx_state,
+	//       INNODB_TRX.trx_started,
+	//       se.conn_id as processlist_id,
+	//       trx_lock_memory_bytes,
+	//       se.user,
+	//       se.command,
+	//       se.state,
+	//       se.current_statement,
+	//       se.last_statement
+	//from information_schema.INNODB_TRX,
+	//     sys.session as se
+	//where trx_mysql_thread_id = conn_id
+	//AND TIMESTAMPDIFF(SECOND, INNODB_TRX.trx_started, NOW()) > %v;`, longTransactionThreshold)
 
 	var transactions []Transaction
-	e = db.Raw(getLongQuerySql).Scan(&transactions).Error
+	//e = db.Raw(getLongQuerySql).Scan(&transactions).Error
+	e = db.Raw(getLongTrxInfo).Scan(&transactions).Error
 
 	if tol > 0 && transactions != nil {
 		msg := fmt.Sprintf(`
