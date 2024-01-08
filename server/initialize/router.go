@@ -82,6 +82,7 @@ func Routers() *gin.Engine {
 		saasdbRouter.InitSlowLogQueryRouter(PrivateGroup)
 		saasdbRouter.InitOggInfoRouter(PrivateGroup)
 		saasdbRouter.InitClusterRouter(PrivateGroup)
+		saasdbRouter.InitDBOverViewRouter(PrivateGroup)
 	}
 
 	InstallPlugin(Router) // 安装插件

@@ -56,7 +56,7 @@ func (c *CustomizeCollector) getSlowQueryLog(dbInformationSchema dbConnCfg, csaa
 		// 协程结束
 	} else {
 		al.Info("开始输出慢日志")
-		slowQueryLogDir = "testfile.log"
+		//slowQueryLogDir = "testfile.log"
 		c.tailfSlowLog(slowQueryLogDir, dbInformationSchema, csaasdb)
 	}
 }
@@ -190,14 +190,12 @@ func (w *SlowLogWatcher) TailSlowLog(dbInformationSchema dbConnCfg, csaasdb *gor
 				if err != nil {
 					break
 				}
-				w.getSlowLogOutPut(line) // 这里是新增的slow log输出 最好是写到一个chan中，放结构体中。这里只是打印
+				w.getSlowLogOutPut(line)
 				w.offset += int64(len(line))
 
 			}
 
 			if !IsEmptyStruct(slowQueryInfo) {
-				//fmt.Println("获取到slow query log", slowQueryInfo)
-				// 使用 encoding/json 包将结构体转换为 JSON 格式的字节数组
 				slowQueryInfo.InsHost = dbInformationSchema.Host
 				slowQueryInfo.InsPort = dbInformationSchema.Port
 				jsonData, err := json.Marshal(slowQueryInfo)
@@ -205,7 +203,6 @@ func (w *SlowLogWatcher) TailSlowLog(dbInformationSchema dbConnCfg, csaasdb *gor
 					fmt.Println("转换为 JSON 时出错：", err)
 				}
 
-				// 将 JSON 数据打印出来
 				fmt.Println(string(jsonData))
 				SendMsg2WebHookWithApiUseJson(csaasdb, jsonData, "api/mysql_slow_query_log")
 			}

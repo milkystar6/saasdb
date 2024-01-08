@@ -14,6 +14,7 @@ type Domain struct {
 	Dns        string `json:"dns" form:"dns" gorm:"column:dns;comment:数据库连接dns;"`
 	IdcId      *int   `json:"idc_id,omitempty" form:"idc_id" gorm:"column:idc_id;type:int(10) not null default 2;comment:idc id"`
 	IsPrimary  bool   `json:"is_primary" form:"is_primary" gorm:"is_primary"`
+	ClusterId  *int   `json:"cluster,omitempty" form:"cluster_id" gorm:"cluster_id"`
 }
 
 // TableName Domain 表名

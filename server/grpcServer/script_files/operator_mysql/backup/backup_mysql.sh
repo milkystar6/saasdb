@@ -92,7 +92,7 @@ remote_backup_dir="/data/backup_file_storage/mysql/${proj_name}/${current_time}_
 # for mysql 5.7
 function backup57() {
 	expect <<EOF
-    set timeout 12800;
+#    set timeout 12800;
     spawn bash -c "/usr/local/xtrabackup/bin/xtrabackup --defaults-file=${myconf} \
     --no-timestamp --slave-info \
     --parallel=${routines} --compress --compress-thread=${routines} \
@@ -115,7 +115,7 @@ EOF
 # for mysql 8.0.30
 function backup80() {
 	expect <<EOF
-      set timeout 12800;
+#      set timeout 12800;
       spawn bash -c "/usr/local/xtrabackup/bin/xtrabackup --defaults-file=${myconf} \
       --no-timestamp --slave-info \
       --parallel=${routines} --compress --compress-thread=${routines} \
@@ -166,9 +166,11 @@ function get_hub_info() {
 	local sql
 
 	sql="
-SELECT CONCAT(center_addr, '--', center_port, '--', backup_root_dir, '--', login_user, '--', login_password) WHERE id IN (
+SELECT CONCAT(center_addr, '--', center_port, '--', backup_root_dir, '--', login_user, '--', login_password)
+saas_backup_center
+WHERE id IN (
 SELECT idc_id
-FROM ${saas_db_name}.saas_instance WHERE ip=${mysql_host} AND on_working=1)
+FROM ${saas_db_name}.saas_instance WHERE ip=${mysql_host})
       "
 	# shellcheck disable=SC2046
 	# shellcheck disable=SC2005
@@ -221,4 +223,4 @@ function backup_policy() {
 		backup80
 	fi
 }
-main
+main "$@"

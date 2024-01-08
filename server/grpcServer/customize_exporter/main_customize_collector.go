@@ -1,6 +1,7 @@
 package customize_exporter
 
 import (
+	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
 	"time"
 )
 
@@ -38,25 +39,25 @@ func (c *CustomizeCollector) Test() {
 }
 
 func (c *CustomizeCollector) Start() {
-	//msg := `开启本地自定义采集模块`
-	//al.Info(msg)
+	msg := `开启本地自定义采集模块`
+	al.Info(msg)
 
-	//// 抽数会话
-	//go c.runWithInterval(c.CheckBinlogDumpThreadsCounts, 60*time.Second)
-	//// 活跃会话
-	//go c.runWithInterval(c.ActiveSessions, 10*time.Second)
-	//// meta data lock
-	//go c.runWithInterval(c.CheckWaitMetaDL, 1*time.Second)
-	//// 长事务
-	//go c.runWithInterval(c.GetLongQuerySql, 60*time.Second)
-	//
-	//// 全表扫描
-	//
-	//// select 1
-	//go c.runWithInterval(c.MySQLSelect1, 1*time.Second) // 可以做到 db.conn里
-	//
-	//// 统计数据空间占用情况
-	//go c.runWithInterval(c.SpaceUsage, 12*time.Hour)
+	// 抽数会话
+	go c.runWithInterval(c.CheckBinlogDumpThreadsCounts, 60*time.Second)
+	// 活跃会话
+	go c.runWithInterval(c.ActiveSessions, 10*time.Second)
+	// meta data lock
+	go c.runWithInterval(c.CheckWaitMetaDL, 1*time.Second)
+	// 长事务
+	go c.runWithInterval(c.GetLongQuerySql, 60*time.Second)
+
+	// 全表扫描
+
+	// select 1
+	go c.runWithInterval(c.MySQLSelect1, 1*time.Second) // 可以做到 db.conn里
+
+	// 统计数据空间占用情况
+	go c.runWithInterval(c.SpaceUsage, 12*time.Hour)
 
 	// 锁
 

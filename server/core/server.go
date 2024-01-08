@@ -47,7 +47,6 @@ func RunWindowsServer() {
 	//	如果项目让您获得了收益，希望您能请团队喝杯可乐:https://www.gin-vue-admin.com/coffee/index.html
 	//`, address)
 
-	global.GVA_LOG.Error(s.ListenAndServe().Error())
 	func() {
 		for {
 			time.Sleep(10 * time.Second)
@@ -62,4 +61,5 @@ func RunWindowsServer() {
 		var schedule schedule2.SaasDBSchedule
 		go schedule.Start()
 	}()
+	global.GVA_LOG.Error(s.ListenAndServe().Error())
 }

@@ -14,7 +14,7 @@ type SaasDBSchedule struct {
 func (s SaasDBSchedule) Start() {
 	// 一组 生产消息 消费消息
 	go func() {
-		s.BackupSchedule.BackupSchedule()
+		//s.BackupSchedule.BackupSchedule()
 	}()
 
 	go func() {

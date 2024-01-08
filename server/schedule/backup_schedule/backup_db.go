@@ -7,7 +7,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"github.com/robfig/cron/v3"
-	"strconv"
 	"time"
 )
 
@@ -41,13 +40,14 @@ func (bm *BackupSchedule) BackupSchedule() {
 					go func(m saasdb.DBBackupTask) {
 						ctx := context.Background()
 						global.GVA_LOG.Info(fmt.Sprintf("更新%v表任务运行状态为running", m.TableName()))
-						ctxWithValue := context.WithValue(ctx, "task_domain_id", strconv.Itoa(m.DomainId))
+						//ctxWithValue := context.WithValue(ctx, "task_domain_id", strconv.Itoa(m.DomainId))
+						ctxWithValue := context.WithValue(ctx, "task_domain_id", m)
 						func(ctx context.Context) {
 
 							// 向 Redis 调度器发送任务，然后就完成任务了
 							if put2err := produceTask(ctxWithValue, global.GVA_REDIS); put2err != nil {
+								global.GVA_LOG.Error(fmt.Sprintf("向异步任务模块（REDIS）队列发送任务失败,error: %v", put2err))
 								_ = bm.SetBackupTaskStatWithTimeout(m, "failed", BackupTaskTimeout)
-								global.GVA_LOG.Error(fmt.Sprintf("向异步任务模块（REDIS）队列发送任务失败"))
 							} else {
 								err := bm.SetBackupTaskStatWithTimeout(m, "running", BackupTaskTimeout)
 								if err != nil {

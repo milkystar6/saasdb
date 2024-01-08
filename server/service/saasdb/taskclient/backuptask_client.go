@@ -24,6 +24,7 @@ type BackupTaskMeta struct {
 	NotifyWebhook   string            `json:"notify_webhook"`                 // 消息推送地址
 	SaasDBMySQLConn saasdb.SaasdbConn `json:"saas_db_my_sql_connn,omitempty"` // saasdb数据库连接地址
 	DbDomainId      int               `json:"db_domain_id,omitempty"`         // 数据库集群id
+	BackupLogUUid   string            `json:"backup_log_u_uid,omitempty"`     // 备份日志uuid
 }
 
 // BackupEntry 入口函数

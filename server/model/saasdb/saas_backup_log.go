@@ -14,7 +14,7 @@ type BackLog struct {
 	FinishedAt    sql.NullTime   `json:"finished_at" form:"finished_at" gorm:"column:finished_at;TYPE:datetime "` // 完成时间
 	DomainId      *int           `json:"domainId,omitempty" form:"domainId" gorm:"column:domain_id;index;comment:;"`
 	InsId         *int           `json:"ins_id,omitempty" form:"ins_id" gorm:"column:ins_id"`
-	BackupType    string         `json:"backupType,omitempty" form:"backupType" gorm:"column:backup_type;type:enum('mysqldump','xtrafull','xtraincr','mydumper','redis','tidb');comment:备份类型;"`
+	BackupType    string         `json:"backupType,omitempty" form:"backupType" gorm:"column:backup_type;type:enum('mysqldump','mysqldump_full','mysqldump_single','xtra_full','xtra_incr','mydumper_full','mydumper_single','redis','tidb');comment:备份类型;"`
 	DataSize      *int           `json:"dataSize" form:"dataSize" gorm:"column:data_size;comment:;"`
 	Status        string         `json:"status" form:"status" gorm:"column:status;type:enum('backup','success','failed','running');comment:备份类型;"`
 	BackUpFeature *BackUpFeature `json:"back_up_feature" gorm:"column:back_up_feature;TYPE:json;default:NULL"`

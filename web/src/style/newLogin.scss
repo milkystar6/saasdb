@@ -23,6 +23,7 @@
         justify-content: space-evenly;
         .login_panel_right {
             background-image: url("@/assets/login_left.svg");
+            // background-image: url("@/assets/logo_login.png");
             background-size: cover;
             width: 40%;
             height: 60%;
@@ -40,7 +41,7 @@
                 margin: 30px 0;
                 .login_panel_form_title_logo {
                     width: 90px;
-                    height: 72px;
+                    height: 90px;
                 }
                 .login_panel_form_title_p {
                     font-size: 40px;
