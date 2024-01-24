@@ -28,8 +28,8 @@ aws-s3:
   disable-ssl: false
   secret-id: xxxxxxxx
   secret-key: xxxxxxxx
-  base-url: https://gin.vue.admin
-  path-prefix: github.com/flipped-aurora/gin-vue-admin/server
+  base-url:
+  path-prefix:
 captcha:
   key-long: 6
   img-width: 240
@@ -142,8 +142,8 @@ tencent-cos:
   region: ap-shanghai
   secret-id: xxxxxxxx
   secret-key: xxxxxxxx
-  base-url: https://gin.vue.admin
-  path-prefix: github.com/flipped-aurora/gin-vue-admin/server
+  base-url:
+  path-prefix:
 timer:
   start: true
   spec: '@daily'
@@ -157,7 +157,7 @@ timer:
     interval: 168h
 zap:
   level: info
-  prefix: '[SAAS DB SERVER LOG]'
+  prefix: '[SAASDB SERVER LOG]'
   format: console
   director: log
   encode-level: LowercaseColorLevelEncoder

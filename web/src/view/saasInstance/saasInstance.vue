@@ -252,7 +252,7 @@ const formData = ref({
   level: '',
   domainId: 0,
   instance_name: '',
-  idc_id: 1,
+  idc_id: 0,
 })
 
 // 验证规则

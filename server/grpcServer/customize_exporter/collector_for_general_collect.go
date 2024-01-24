@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
-	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/model"
-	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"gorm.io/gorm"
 	"strconv"
 	"strings"
@@ -20,34 +18,35 @@ import (
 /* 设置个告警恢复机制 有告警的实例写到一个通道中，另外的携程去查询通道中是否有未恢复的 */
 /* 添加新的通用的查询 */
 
-func (c *CustomizeCollector) MySQLSelect1() {
-	cfg := config.LoadConfig
-	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
-	// 根据端口 去分别查询数据库
-	localAddr := cfg.MyHostAddrInfo.MyIP
-
-	csaas := c.connSaasdb()
-	var ins mo.Instance
-	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
-
-	for _, v := range portSlice {
-
-		dbInformationSchema := dbConnCfg{
-			//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
-			//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
-			Host: localAddr,
-			Port: v,
-			Db:   informationSchema,
-		}
-
-		go c.dbPingWork(dbInformationSchema, csaas)
-	}
+func (c *CustomizeCollector) MySQLSelect1(dbInformationSchema dbConnCfg, csaas *gorm.DB, localdb *gorm.DB) {
+	//cfg := config.LoadConfig
+	//// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
+	//// 根据端口 去分别查询数据库
+	//localAddr := cfg.MyHostAddrInfo.MyIP
+	//
+	//csaas, _ := c.connSaasdb()
+	//var ins mo.Instance
+	//portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
+	//
+	//for _, v := range portSlice {
+	//
+	//	dbInformationSchema := dbConnCfg{
+	//		//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
+	//		//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
+	//		Host: localAddr,
+	//		Port: v,
+	//		Db:   informationSchema,
+	//	}
+	//	fmt.Println(dbInformationSchema)
+	//	go c.dbPingWork(dbInformationSchema, csaas)
+	//}
+	go c.dbPingWork(dbInformationSchema, csaas, localdb)
 }
 
-func (c *CustomizeCollector) dbPingWork(cfg dbConnCfg, csaas *gorm.DB) {
-	db := c.connLocalMySQL(cfg)
-	defer c.CloseDB(db)
-	defer c.CloseDB(csaas)
+func (c *CustomizeCollector) dbPingWork(cfg dbConnCfg, csaas *gorm.DB, db *gorm.DB) {
+	//db, _ := c.connLocalMySQL(cfg)
+	//defer c.CloseDB(db)
+	//defer c.CloseDB(csaas)
 	if err := db.Debug().Raw("SELECT 1").Error; err != nil {
 		msg := fmt.Sprintf(`
             {"message_topic":"%v",
