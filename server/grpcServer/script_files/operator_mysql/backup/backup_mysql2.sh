@@ -217,9 +217,9 @@ function main() {
   fz=$(echo ${last_line}|awk '{print $1}' )
   fp=$(echo ${last_line}|awk '{print $2}')
 
-  success_flag="completed OK!"
+  success_flag="completed OK"
   backup_status="failed"
-  grep '${success_flag}' ${backup_log}
+  grep "${success_flag}" ${backup_log}
   if [ $? -eq 0 ];then
     backup_status="success"
   else
