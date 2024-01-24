@@ -25,7 +25,7 @@ var tbs []tb
 
 func (c *CustomizeCollector) functionPkTable(cfg dbConnCfg) ([]interface{}, []interface{}, error) {
 
-	db := c.connLocalMySQL(cfg)
+	db, _ := c.connLocalMySQL(cfg)
 	collectorSQL = `SELECT 
   T.TABLE_SCHEMA,
   T.TABLE_NAME,

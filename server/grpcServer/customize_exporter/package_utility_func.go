@@ -25,7 +25,7 @@ type dbConnCfg struct {
 }
 
 // 采用独立的连接
-func (c *CustomizeCollector) connSaasdb() *gorm.DB {
+func (c *CustomizeCollector) connSaasdb() (*gorm.DB, error) {
 	dbCfg := dbConnCfg{
 		User:   config.LoadConfig.SaasDB.SaasDBUser,
 		Passwd: config.LoadConfig.SaasDB.SaasPassword,
@@ -35,7 +35,7 @@ func (c *CustomizeCollector) connSaasdb() *gorm.DB {
 	}
 	return c.newConn(dbCfg)
 }
-func (c *CustomizeCollector) connLocalMySQL(cfg dbConnCfg) *gorm.DB {
+func (c *CustomizeCollector) connLocalMySQL(cfg dbConnCfg) (*gorm.DB, error) {
 	dbCfg := dbConnCfg{
 		User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
 		Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
@@ -46,18 +46,19 @@ func (c *CustomizeCollector) connLocalMySQL(cfg dbConnCfg) *gorm.DB {
 	return c.newConn(dbCfg)
 }
 
-func (c *CustomizeCollector) newConn(cfg dbConnCfg) (db *gorm.DB) {
+func (c *CustomizeCollector) newConn(cfg dbConnCfg) (db *gorm.DB, e error) {
 	// 用户名:密码@tcp(ip:port)/数据库?charset=utf8mb4&parseTime=True&loc=Local
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local&timeout=10s&readTimeout=60s&writeTimeout=10s", cfg.User, cfg.Passwd, cfg.Host, cfg.Port, cfg.Db)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{SkipDefaultTransaction: true})
 	// TODO 错误处理 不panic 统计日志记录格式
 	if err != nil {
 		al.Error(fmt.Sprintf("Conn mysql :%v failed,err:%v\n", dsn, err))
+		return nil, err
 	}
 
 	// 注意要手动关闭db db.DB.close()
 
-	return db
+	return db, nil
 }
 
 func (c *CustomizeCollector) CloseDB(db *gorm.DB) {
@@ -74,7 +75,7 @@ func (c *CustomizeCollector) GetLocalMySQLPorts() []int {
 	// 根据端口 去分别查询数据库
 	localAddr := cfg.MyHostAddrInfo.MyIP
 
-	csaas := c.connSaasdb()
+	csaas, _ := c.connSaasdb()
 	var ins mo.Instance
 	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
 	return portSlice

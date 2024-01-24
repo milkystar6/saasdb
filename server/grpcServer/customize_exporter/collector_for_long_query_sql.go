@@ -3,8 +3,6 @@ package customize_exporter
 import (
 	"fmt"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
-	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
-	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"gorm.io/gorm"
 	"time"
 )
@@ -25,35 +23,41 @@ type Transaction struct {
 	DiffSec            string    `gorm:"column:diff_sec"`
 }
 
-func (c *CustomizeCollector) GetLongQuerySql() {
-	cfg := config.LoadConfig
-	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
-	// 根据端口 去分别查询数据库
-	localAddr := cfg.MyHostAddrInfo.MyIP
-
-	csaas := c.connSaasdb()
-	var ins mo.Instance
-	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
-	for _, v := range portSlice {
-
-		dbInformationSchema := dbConnCfg{
-			//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
-			//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
-			Host: localAddr,
-			Port: v,
-			Db:   informationSchema,
+func (c *CustomizeCollector) GetLongQuerySql(dbInformationSchema dbConnCfg, csaas *gorm.DB, localdb *gorm.DB) {
+	//cfg := config.LoadConfig
+	//// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
+	//// 根据端口 去分别查询数据库
+	//localAddr := cfg.MyHostAddrInfo.MyIP
+	//
+	//csaas, _ := c.connSaasdb()
+	//var ins mo.Instance
+	//portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
+	//for _, v := range portSlice {
+	//
+	//	dbInformationSchema := dbConnCfg{
+	//		//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
+	//		//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
+	//		Host: localAddr,
+	//		Port: v,
+	//		Db:   informationSchema,
+	//	}
+	//	go func() {
+	//		err := c.LongQuerySql(dbInformationSchema, csaas)
+	//		if err != nil {
+	//			al.Error(fmt.Sprintf("分析长事务出错: %v", err))
+	//		}
+	//	}()
+	//}
+	go func() {
+		err := c.LongQuerySql(dbInformationSchema, csaas, localdb)
+		if err != nil {
+			al.Error(fmt.Sprintf("分析长事务出错: %v", err))
 		}
-		go func() {
-			err := c.LongQuerySql(dbInformationSchema, csaas)
-			if err != nil {
-				al.Error(fmt.Sprintf("分析长事务出错: %v", err))
-			}
-		}()
-	}
+	}()
 }
 
-func (c *CustomizeCollector) LongQuerySql(cfg dbConnCfg, csaas *gorm.DB) (e error) {
-	db := c.connLocalMySQL(cfg)
+func (c *CustomizeCollector) LongQuerySql(cfg dbConnCfg, csaas *gorm.DB, db *gorm.DB) (e error) {
+	//db, _ := c.connLocalMySQL(cfg)
 
 	tol := int64(0)
 	yyy := "%S_TIMETASK%"
@@ -136,7 +140,7 @@ inner join PERFORMANCE_SCHEMA .events_statements_current d on
 		SendMsg2WebHook(csaas, msg)
 	}
 
-	c.CloseDB(db)
-	c.CloseDB(csaas)
+	//c.CloseDB(db)
+	//c.CloseDB(csaas)
 	return e
 }

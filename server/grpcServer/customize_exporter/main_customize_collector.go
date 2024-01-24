@@ -1,7 +1,10 @@
 package customize_exporter
 
 import (
+	"fmt"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
+	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
+	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"time"
 )
 
@@ -42,29 +45,53 @@ func (c *CustomizeCollector) Start() {
 	msg := `开启本地自定义采集模块`
 	al.Info(msg)
 
-	// 抽数会话
-	go c.runWithInterval(c.CheckBinlogDumpThreadsCounts, 60*time.Second)
-	// 活跃会话
-	go c.runWithInterval(c.ActiveSessions, 10*time.Second)
-	// meta data lock
-	go c.runWithInterval(c.CheckWaitMetaDL, 1*time.Second)
-	// 长事务
-	go c.runWithInterval(c.GetLongQuerySql, 60*time.Second)
+	// TODO 优化代码 下方的函数需要对数据库频繁对建立和删除连接 把链接定义一次 后面重复使用
 
-	// 全表扫描
+	saasdbConn, _ := c.connSaasdb()
+	cfg := config.LoadConfig
+	localAddr := cfg.MyHostAddrInfo.MyIP
+	var ins mo.Instance
+	portSlice, _ := ins.QueryPortsByIP(saasdbConn, localAddr, keyForMySQL)
 
-	// select 1
-	go c.runWithInterval(c.MySQLSelect1, 1*time.Second) // 可以做到 db.conn里
+	for _, v := range portSlice {
+		dbInformationSchema := dbConnCfg{
+			Host: localAddr,
+			Port: v,
+			Db:   informationSchema,
+		}
+		localdb, err := c.connLocalMySQL(dbInformationSchema)
+		// 如果连接失败，跳过后续过程
+		if err != nil {
+			al.Error(fmt.Sprintf("Failed to connect to MySQL %v. Skipping further processing.", dbInformationSchema))
+			continue
+		}
 
-	// 统计数据空间占用情况
-	go c.runWithInterval(c.SpaceUsage, 12*time.Hour)
+		// 抽数会话
+		go c.runWithInterval(func() { c.CheckBinlogDumpThreadsCounts(dbInformationSchema, saasdbConn, localdb) }, 60*time.Second)
 
-	// 锁
+		// 活跃会话
+		go c.runWithInterval(func() { c.ActiveSessions(dbInformationSchema, saasdbConn, localdb) }, 10*time.Second)
+		// meta data lock
+		go c.runWithInterval(func() { c.CheckWaitMetaDL(dbInformationSchema, saasdbConn, localdb) }, 1*time.Second)
+		// 长事务
+		go c.runWithInterval(func() { c.GetLongQuerySql(dbInformationSchema, saasdbConn, localdb) }, 60*time.Second)
 
-	// log rotate
+		// 全表扫描
 
-	// slow query log
-	go c.SlowQueryLog()
+		// general collect
+		// 1、select 1
+		// 2、锁
+		go c.runWithInterval(func() { c.MySQLSelect1(dbInformationSchema, saasdbConn, localdb) }, 10*time.Second)
+
+		// 统计数据空间占用情况
+		go c.runWithInterval(func() { c.SpaceUsage(dbInformationSchema, saasdbConn, localdb) }, 12*time.Hour)
+
+		// log rotate
+
+		// slow query log
+		go c.SlowQueryLog(dbInformationSchema, saasdbConn, localdb)
+	}
+
 	select {}
 }
 

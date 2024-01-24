@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
-	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/customize_exporter/opsbase"
 	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"github.com/shirou/gopsutil/v3/disk"
@@ -24,32 +23,33 @@ type dirUsage struct {
 	BinlogDirSizeHuman string
 }
 
-func (c *CustomizeCollector) SpaceUsage() {
-	cfg := config.LoadConfig
-	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
-	// 根据端口 去分别查询数据库
-	localAddr := cfg.MyHostAddrInfo.MyIP
-
-	csaas := c.connSaasdb()
-	var ins mo.Instance
-	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
-
-	for _, v := range portSlice {
-
-		dbInformationSchema := dbConnCfg{
-			//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
-			//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
-			Host: localAddr,
-			Port: v,
-			Db:   informationSchema,
-		}
-
-		go c.getSpaceUsage(dbInformationSchema, csaas)
-	}
+func (c *CustomizeCollector) SpaceUsage(dbInformationSchema dbConnCfg, csaas *gorm.DB, localdb *gorm.DB) {
+	//cfg := config.LoadConfig
+	//// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
+	//// 根据端口 去分别查询数据库
+	//localAddr := cfg.MyHostAddrInfo.MyIP
+	//
+	//csaas, _ := c.connSaasdb()
+	//var ins mo.Instance
+	//portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
+	//
+	//for _, v := range portSlice {
+	//
+	//	dbInformationSchema := dbConnCfg{
+	//		//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
+	//		//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
+	//		Host: localAddr,
+	//		Port: v,
+	//		Db:   informationSchema,
+	//	}
+	//
+	//	go c.getSpaceUsage(dbInformationSchema, csaas)
+	//}
+	go c.getSpaceUsage(dbInformationSchema, csaas, localdb)
 }
 
-func (c *CustomizeCollector) getSpaceUsage(dbInformationSchema dbConnCfg, csaasdb *gorm.DB) {
-	db := c.connLocalMySQL(dbInformationSchema)
+func (c *CustomizeCollector) getSpaceUsage(dbInformationSchema dbConnCfg, csaasdb *gorm.DB, db *gorm.DB) {
+	//db, _ := c.connLocalMySQL(dbInformationSchema)
 	dataDir := c.GetVariables(db, "datadir", 0)
 	//dataDir = "/Users/anderalex/Desktop/学习资料"
 
@@ -174,8 +174,8 @@ func (c *CustomizeCollector) getSpaceUsage(dbInformationSchema dbConnCfg, csaasd
 	fmt.Println(formattedJSON)
 
 	SendMsg2WebHookWithApi(csaasdb, msg, "api/reset_email")
-	c.CloseDB(db)
-	c.CloseDB(csaasdb)
+	//c.CloseDB(db)
+	//c.CloseDB(csaasdb)
 }
 
 func formatJSON(inputJSON string) (string, error) {

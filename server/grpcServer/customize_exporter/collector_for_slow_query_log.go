@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	al "github.com/flipped-aurora/gin-vue-admin/server/grpcServer/agent_logger"
-	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
-	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"gorm.io/gorm"
 	"os"
 	"reflect"
@@ -25,32 +23,33 @@ var slowQueryEntry []string
 var slowQueryInfo InsSlowQueryLog
 
 // SlowQueryLog 用于分析和获取slow log
-func (c *CustomizeCollector) SlowQueryLog() {
-	cfg := config.LoadConfig
-	localAddr := cfg.MyHostAddrInfo.MyIP
-
-	csaas := c.connSaasdb()
-	var ins mo.Instance
-	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
-
-	for _, v := range portSlice {
-		dbInformationSchema := dbConnCfg{
-			Host: localAddr,
-			Port: v,
-			Db:   informationSchema,
-		}
-		go c.getSlowQueryLog(dbInformationSchema, csaas)
-	}
+func (c *CustomizeCollector) SlowQueryLog(dbInformationSchema dbConnCfg, csaas *gorm.DB, localdb *gorm.DB) {
+	//cfg := config.LoadConfig
+	//localAddr := cfg.MyHostAddrInfo.MyIP
+	//
+	//csaas, _ := c.connSaasdb()
+	//var ins mo.Instance
+	//portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
+	//
+	//for _, v := range portSlice {
+	//	dbInformationSchema := dbConnCfg{
+	//		Host: localAddr,
+	//		Port: v,
+	//		Db:   informationSchema,
+	//	}
+	//	go c.getSlowQueryLog(dbInformationSchema, csaas)
+	//}
+	go c.getSlowQueryLog(dbInformationSchema, csaas, localdb)
 }
 
-func (c *CustomizeCollector) getSlowQueryLog(dbInformationSchema dbConnCfg, csaasdb *gorm.DB) {
-	db := c.connLocalMySQL(dbInformationSchema)
+func (c *CustomizeCollector) getSlowQueryLog(dbInformationSchema dbConnCfg, csaasdb *gorm.DB, db *gorm.DB) {
+	//db, _ := c.connLocalMySQL(dbInformationSchema)
 	isSwitchOn := c.GetVariables(db, "slow_query_log", 0)
 	slowQueryLogDir := c.GetVariables(db, "slow_query_log_file", 0)
-
+	//slowQueryLogDir = fmt.Sprintf("%v-testfile.log", dbInformationSchema.Port)
 	// 关闭db连接
-	c.CloseDB(db)
-	defer c.CloseDB(csaasdb)
+	//c.CloseDB(db)
+	//defer c.CloseDB(csaasdb)
 	if strings.ToLower(isSwitchOn) == "off" {
 		al.Info("未打开日志，协程结束")
 		// 协程结束

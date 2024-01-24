@@ -2,37 +2,37 @@ package customize_exporter
 
 import (
 	"fmt"
-	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/model"
 	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"gorm.io/gorm"
 )
 
-func (c *CustomizeCollector) CheckWaitMetaDL() {
-	cfg := config.LoadConfig
-	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
-	// 根据端口 去分别查询数据库
-	localAddr := cfg.MyHostAddrInfo.MyIP
-
-	csaas := c.connSaasdb()
-	var ins mo.Instance
-	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
-	for _, v := range portSlice {
-
-		dbInformationSchema := dbConnCfg{
-			//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
-			//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
-			Host: localAddr,
-			Port: v,
-			Db:   informationSchema,
-		}
-		go c.GetMetaDataLock(dbInformationSchema, csaas)
-	}
+func (c *CustomizeCollector) CheckWaitMetaDL(dbInformationSchema dbConnCfg, csaas *gorm.DB, localdb *gorm.DB) {
+	//cfg := config.LoadConfig
+	//// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
+	//// 根据端口 去分别查询数据库
+	//localAddr := cfg.MyHostAddrInfo.MyIP
+	//
+	//csaas, _ := c.connSaasdb()
+	//var ins mo.Instance
+	//portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
+	//for _, v := range portSlice {
+	//
+	//	dbInformationSchema := dbConnCfg{
+	//		//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
+	//		//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
+	//		Host: localAddr,
+	//		Port: v,
+	//		Db:   informationSchema,
+	//	}
+	//	go c.GetMetaDataLock(dbInformationSchema, csaas)
+	//}
+	go c.GetMetaDataLock(dbInformationSchema, csaas, localdb)
 }
 
-func (c *CustomizeCollector) GetMetaDataLock(dbInformationSchema dbConnCfg, csaasdb *gorm.DB) {
+func (c *CustomizeCollector) GetMetaDataLock(dbInformationSchema dbConnCfg, csaasdb *gorm.DB, db *gorm.DB) {
 
-	db := c.connLocalMySQL(dbInformationSchema)
+	//db, _ := c.connLocalMySQL(dbInformationSchema)
 	var pro model.InformationSchemaProcesslist
 
 	processlist, count := pro.GetProcesslistWithState(db, stateOfMetaDataLock)
@@ -92,6 +92,6 @@ func (c *CustomizeCollector) GetMetaDataLock(dbInformationSchema dbConnCfg, csaa
 		AnalyzeHeader(data, url, headers)
 	}
 
-	c.CloseDB(db)
-	c.CloseDB(csaasdb)
+	//c.CloseDB(db)
+	//c.CloseDB(csaasdb)
 }

@@ -2,36 +2,36 @@ package customize_exporter
 
 import (
 	"fmt"
-	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/grpcServer/model"
 	mo "github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
 	"gorm.io/gorm"
 )
 
-func (c *CustomizeCollector) ActiveSessions() {
-	cfg := config.LoadConfig
+func (c *CustomizeCollector) ActiveSessions(dbInformationSchema dbConnCfg, csaas *gorm.DB, localdb *gorm.DB) {
+	//cfg := config.LoadConfig
 	// 访问saasdb ==> get 在saasdb 注册了的数据库的端口
 	// 根据端口 去分别查询数据库
-	localAddr := cfg.MyHostAddrInfo.MyIP
-
-	csaas := c.connSaasdb()
-	var ins mo.Instance
-	portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
-	for _, v := range portSlice {
-
-		dbInformationSchema := dbConnCfg{
-			//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
-			//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
-			Host: localAddr,
-			Port: v,
-			Db:   informationSchema,
-		}
-		go c.CountActiveSessions(dbInformationSchema, csaas)
-	}
+	//localAddr := cfg.MyHostAddrInfo.MyIP
+	//
+	//csaas, _ := c.connSaasdb()
+	//var ins mo.Instance
+	//portSlice, _ := ins.QueryPortsByIP(csaas, localAddr, keyForMySQL)
+	//for _, v := range portSlice {
+	//
+	//	dbInformationSchema := dbConnCfg{
+	//		//User:   config.LoadConfig.MySQLManager.MysqlManagerUser,
+	//		//Passwd: config.LoadConfig.MySQLManager.MysqlManagerPassword,
+	//		Host: localAddr,
+	//		Port: v,
+	//		Db:   informationSchema,
+	//	}
+	//	go c.CountActiveSessions(dbInformationSchema, csaas)
+	//}
+	go c.CountActiveSessions(dbInformationSchema, csaas, localdb)
 }
 
 // CountActiveSessions 统计活跃会话的个数
-func (c *CustomizeCollector) CountActiveSessions(dbInformationSchema dbConnCfg, csaasdb *gorm.DB) {
+func (c *CustomizeCollector) CountActiveSessions(dbInformationSchema dbConnCfg, csaasdb *gorm.DB, db *gorm.DB) {
 	// 定义会话状态常量
 	//var SessionStates = []string{
 	//	"INIT",
@@ -54,7 +54,7 @@ func (c *CustomizeCollector) CountActiveSessions(dbInformationSchema dbConnCfg, 
 	//	"UPDATE BY KEYCACHE",
 	//	"WRITE TO BINLOG",
 	//}
-	db := c.connLocalMySQL(dbInformationSchema)
+	//db, _ := c.connLocalMySQL(dbInformationSchema)
 	var pro model.InformationSchemaProcesslist
 	//count := pro.CountActiveSessions(db, SessionStates)
 
@@ -87,6 +87,6 @@ func (c *CustomizeCollector) CountActiveSessions(dbInformationSchema dbConnCfg, 
 	}
 
 	// 关闭连接
-	c.CloseDB(db)
-	c.CloseDB(csaasdb)
+	//c.CloseDB(db)
+	//c.CloseDB(csaasdb)
 }
