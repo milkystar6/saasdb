@@ -15,6 +15,7 @@ import (
 // 初始化总路由
 
 func Routers() *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
 	Router := gin.Default()
 	saasdbRouter := router.RouterGroupApp.Saasdb
 	systemRouter := router.RouterGroupApp.System
@@ -83,6 +84,11 @@ func Routers() *gin.Engine {
 		saasdbRouter.InitOggInfoRouter(PrivateGroup)
 		saasdbRouter.InitClusterRouter(PrivateGroup)
 		saasdbRouter.InitDBOverViewRouter(PrivateGroup)
+		saasdbRouter.InitSaasOracleInstanceRouter(PrivateGroup)
+		saasdbRouter.InitSaasOracleDbRouter(PrivateGroup)
+		saasdbRouter.InitSaasOracleIpMappingRouter(PrivateGroup)
+		saasdbRouter.InitSaasOracleIpRouter(PrivateGroup)
+		saasdbRouter.InitSaasDictumRouter(PrivateGroup)
 	}
 
 	InstallPlugin(Router) // 安装插件

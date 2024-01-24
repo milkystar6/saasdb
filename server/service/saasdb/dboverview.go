@@ -1,22 +1,24 @@
 package saasdb
 
-import "github.com/flipped-aurora/gin-vue-admin/server/global"
+import (
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+)
 
 type DBOverViewService struct {
 }
 type DBOverView struct {
 	// 用于存储数据库返回数据
-	DBApplication         string `json:"db_application" gorm:"column:db_application"`
-	TotalDomainCount      int    `json:"total_domain_count" gorm:"column:total_domain_count"`
-	TotalInstanceCount    int    `json:"total_instance_count" gorm:"column:total_instance_count"`
-	NormalInstanceCount   int    `json:"normal_instance_count" gorm:"column:normal_instance_count"`
-	AbnormalInstanceCount int    `json:"abnormal_instance_count" gorm:"column:abnormal_instance_count"`
+	DBApplication         string `json:"dbApplication" gorm:"column:db_application"`
+	TotalDomainCount      int    `json:"totalDomainCount" gorm:"column:total_domain_count"`
+	TotalInstanceCount    int    `json:"totalInstanceCount" gorm:"column:total_instance_count"`
+	NormalInstanceCount   int    `json:"normalInstanceCount" gorm:"column:normal_instance_count"`
+	AbnormalInstanceCount int    `json:"abnormalInstanceCount" gorm:"column:abnormal_instance_count"`
 }
 
-func (s *DBOverViewService) GetDBOverView() (DBOverView, error) {
+func (s *DBOverViewService) GetDBOverView() ([]DBOverView, error) {
 	sql := `
 SELECT
-  si.application,
+  si.application AS db_application,
   COUNT(DISTINCT sd.id) AS total_domain_count,
   COUNT(*) AS total_instance_count,
   COUNT(CASE WHEN si.health IN ('available', 'standby') THEN 1 END) AS normal_instance_count,
@@ -29,7 +31,9 @@ GROUP BY
   si.application;
 
 `
-	var d DBOverView
+	var d []DBOverView
 	err := global.GVA_DB.Raw(sql).Scan(&d).Error
+	//a := fmt.Sprintf("%v", d)
+	//global.GVA_LOG.Info(sql + a)
 	return d, err
 }

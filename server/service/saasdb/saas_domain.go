@@ -1,6 +1,7 @@
 package saasdb
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/saasdb"
@@ -76,7 +77,28 @@ func (domainService *DomainService) GetDomainInfoListv2(info saasdbReq.DomainJoi
 		return
 	}
 	//err = db.Limit(limit).Offset(offset).Find(&domains).Error
-	joinsql := "SELECT A.id,A.domain_name, A.proj_id ,B.proj_name ,A.vip ,A.dns FROM saas_domain A , saas_project B WHERE A.proj_id=B.id AND A.deleted_at IS NULL"
-	err = db.Limit(limit).Offset(offset).Raw(joinsql).Scan(&domains).Error
+	//joinsql := "SELECT A.id,A.domain_name, A.proj_id ,B.proj_name ,A.vip ,A.dns FROM saas_domain A , saas_project B WHERE A.proj_id=B.id AND A.deleted_at IS NULL"
+	joinsql := fmt.Sprintf(`
+SELECT DISTINCT
+    A.id,
+    A.domain_name,
+    A.proj_id,
+    B.proj_name,
+    A.vip,
+    A.dns
+FROM 
+    saas_domain A
+JOIN 
+    saas_project B ON A.proj_id = B.id
+JOIN 
+    saas_instance C ON A.proj_id = C.proj_id
+WHERE 
+    A.deleted_at IS NULL 
+    AND C.deleted_at IS NULL
+    AND C.application = 'mysql'
+    LIMIT %v OFFSET %v
+`,
+		limit, offset)
+	err = db.Raw(joinsql).Scan(&domains).Error
 	return domains, total, err
 }
